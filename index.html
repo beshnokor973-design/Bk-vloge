@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="bn">
 <head>
@@ -35,6 +36,38 @@
   margin-top: 30px;
   padding-top: 25px;
   border-top: 1px solid #ddd;
+}
+
+/* Firebase posts */
+.firebase-post {
+  margin-top: 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #ddd;
+}
+
+.firebase-post:last-child {
+  border-bottom: none;
+}
+
+.firebase-post img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.firebase-post h3 {
+  margin: 10px 0;
+  font-size: 22px;
+}
+
+.firebase-post p {
+  line-height: 1.8;
+  margin: 0 0 10px;
+}
+
+.firebase-post small {
+  color: #777;
 }
 </style>
 
@@ -154,6 +187,25 @@ Beshno Kor-এর অফিসিয়াল ওয়েবসাইটে তোম
 </section>
 
 
+<!-- Firebase থেকে পোস্ট -->
+
+<section class="card">
+
+<h2>📝 সর্বশেষ পোস্ট</h2>
+
+<p>
+Beshno Blog-এর সর্বশেষ পোস্টগুলো এখানে দেখুন।
+</p>
+
+<div id="firebase-posts">
+
+<p>পোস্ট লোড হচ্ছে...</p>
+
+</div>
+
+</section>
+
+
 <!-- ভিডিও -->
 
 <section class="card">
@@ -263,5 +315,195 @@ f Facebook
 
 </footer>
 
+
+<!-- ========================= -->
+<!-- Firebase Blog System -->
+<!-- ========================= -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  limit
+}
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
+
+  authDomain: "beshno-blog.firebaseapp.com",
+
+  projectId: "beshno-blog",
+
+  storageBucket: "beshno-blog.firebasestorage.app",
+
+  messagingSenderId: "1070244747427",
+
+  appId: "1:1070244747427:web:0acbf8b3b60cb9121a8716",
+
+  measurementId: "G-VWZZ6YXSPP"
+
+};
+
+
+// Firebase চালু
+const app = initializeApp(firebaseConfig);
+
+
+// Firestore চালু
+const db = getFirestore(app);
+
+
+// পোস্ট লোড করার function
+async function loadLatestPosts() {
+
+  const postContainer =
+    document.getElementById("firebase-posts");
+
+  if (!postContainer) return;
+
+
+  try {
+
+    const postsQuery = query(
+
+      collection(db, "posts"),
+
+      orderBy("createdAt", "desc"),
+
+      limit(5)
+
+    );
+
+
+    const snapshot =
+      await getDocs(postsQuery);
+
+
+    // কোনো পোস্ট না থাকলে
+    if (snapshot.empty) {
+
+      postContainer.innerHTML = `
+        <p>
+          এখনো কোনো নতুন পোস্ট প্রকাশ করা হয়নি।
+        </p>
+      `;
+
+      return;
+    }
+
+
+    postContainer.innerHTML = "";
+
+
+    // প্রতিটি পোস্ট দেখানো
+    snapshot.forEach((doc) => {
+
+      const post = doc.data();
+
+
+      const article =
+        document.createElement("article");
+
+
+      article.className =
+        "firebase-post";
+
+
+      // নিরাপদভাবে HTML তৈরি
+      const title =
+        document.createElement("h3");
+
+      title.textContent =
+        post.title || "Untitled Post";
+
+
+      const content =
+        document.createElement("p");
+
+      content.textContent =
+        post.content || "";
+
+
+      article.appendChild(title);
+
+
+      // ছবি থাকলে
+      if (post.imageUrl) {
+
+        const image =
+          document.createElement("img");
+
+        image.src =
+          post.imageUrl;
+
+        image.alt =
+          post.title || "Blog image";
+
+        image.loading =
+          "lazy";
+
+        article.prepend(image);
+      }
+
+
+      article.appendChild(content);
+
+
+      // তারিখ
+      if (post.createdAt?.toDate) {
+
+        const date =
+          document.createElement("small");
+
+        date.textContent =
+          post.createdAt
+          .toDate()
+          .toLocaleDateString("bn-BD");
+
+        article.appendChild(date);
+      }
+
+
+      postContainer.appendChild(article);
+
+    });
+
+
+  } catch (error) {
+
+    console.error(
+      "Firebase error:",
+      error
+    );
+
+
+    postContainer.innerHTML = `
+      <p>
+        পোস্ট লোড করা যাচ্ছে না।
+      </p>
+    `;
+
+  }
+
+}
+
+
+// Firebase থেকে পোস্ট চালু
+loadLatestPosts();
+
+</script>
+
+
 </body>
 </html>
+```

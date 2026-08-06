@@ -1,211 +1,598 @@
+```html
 <!doctype html>
 <html lang="bn">
+
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Beshno Blog | Admin Panel</title>
+<title>Beshno Blog | Admin</title>
 
 <style>
-*{
-  box-sizing:border-box;
+
+* {
+  box-sizing: border-box;
 }
 
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f1f3f6;
-  color:#222;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
 }
 
-header{
-  background:#111827;
-  color:white;
-  padding:20px;
-  text-align:center;
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
 }
 
-header h1{
-  margin:0;
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+  margin-bottom: 20px;
 }
 
-.container{
-  max-width:700px;
-  margin:25px auto;
-  padding:15px;
-}
-
-.card{
-  background:white;
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 3px 15px rgba(0,0,0,.10);
-}
-
-h2{
-  margin-top:0;
-}
-
-label{
-  display:block;
-  margin-top:18px;
-  margin-bottom:7px;
-  font-weight:bold;
+h1,
+h2 {
+  margin-top: 0;
 }
 
 input,
-textarea{
-  width:100%;
-  padding:13px;
-  border:1px solid #ddd;
-  border-radius:8px;
-  font-size:16px;
+textarea {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
 }
 
-textarea{
-  min-height:120px;
-  resize:vertical;
+textarea {
+  min-height: 180px;
+  resize: vertical;
 }
 
-button{
-  width:100%;
-  margin-top:22px;
-  padding:14px;
-  border:0;
-  border-radius:8px;
-  background:#1677ff;
-  color:white;
-  font-size:17px;
-  cursor:pointer;
+button {
+  width: 100%;
+  padding: 13px;
+  border: 0;
+  border-radius: 8px;
+  background: #111;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-button:hover{
-  opacity:.9;
+button:hover {
+  opacity: .9;
 }
 
-.note{
-  margin-top:20px;
-  padding:12px;
-  background:#f3f4f6;
-  border-radius:8px;
-  color:#555;
-  line-height:1.6;
+.logout {
+  background: #d00;
+  margin-top: 10px;
 }
 
-footer{
-  text-align:center;
-  padding:25px;
-  color:#777;
+.message {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  display: none;
 }
+
+.success {
+  background: #e8f7e8;
+  color: #176b17;
+}
+
+.error {
+  background: #ffe8e8;
+  color: #a00000;
+}
+
+#adminPanel {
+  display: none;
+}
+
+small {
+  color: #777;
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<header>
-  <h1>Beshno Blog</h1>
-  <p>Admin Panel</p>
-</header>
 
-<main class="container">
+<div class="container">
 
-<section class="card">
 
-<h2>🎬 নতুন ভিডিও পোস্ট</h2>
+<!-- LOGIN -->
 
-<label>ভিডিওর Title</label>
+<section class="card" id="loginBox">
+
+<h1>🔐 Beshno Blog Admin</h1>
+
+<p>
+Admin account দিয়ে Login করুন।
+</p>
+
 
 <input
-type="text"
-id="title"
-placeholder="ভিডিওর নাম লিখুন">
+  type="email"
+  id="email"
+  placeholder="Admin Email"
+  autocomplete="email"
+>
 
-
-<label>ভিডিওর URL</label>
 
 <input
-type="url"
-id="video"
-placeholder="https://www.youtube.com/watch?v=...">
+  type="password"
+  id="password"
+  placeholder="Password"
+  autocomplete="current-password"
+>
 
 
-<label>Description</label>
-
-<textarea
-id="description"
-placeholder="ভিডিও সম্পর্কে লিখুন"></textarea>
-
-
-<button onclick="publishPost()">
-📤 Publish Video
+<button id="loginBtn">
+Login
 </button>
 
 
-<div class="note">
-⚠️ এই Panel-এর Publish button এখন demo হিসেবে কাজ করবে।
-সবার ওয়েবসাইটে স্থায়ীভাবে পোস্ট প্রকাশ করতে Firebase/backend
-সংযোগ করতে হবে।
+<div
+  id="loginMessage"
+  class="message">
 </div>
 
 </section>
 
-</main>
-
-<footer>
-© 2026 Beshno Blog
-</footer>
 
 
-<script>
+<!-- ADMIN PANEL -->
 
-function publishPost(){
+<section
+  class="card"
+  id="adminPanel">
 
-const title =
-document.getElementById("title").value.trim();
+<h1>📝 Admin Panel</h1>
 
-const video =
-document.getElementById("video").value.trim();
-
-const description =
-document.getElementById("description").value.trim();
+<p>
+এখান থেকে নতুন Blog Post প্রকাশ করতে পারবে।
+</p>
 
 
-if(!title || !video){
+<label>
+<strong>পোস্টের শিরোনাম</strong>
+</label>
 
-alert("Title এবং Video URL দিন।");
+<input
+  type="text"
+  id="title"
+  placeholder="যেমন: আমার নতুন পোস্ট"
+>
 
-return;
+
+<label>
+<strong>পোস্টের লেখা</strong>
+</label>
+
+<textarea
+  id="content"
+  placeholder="তোমার পোস্ট এখানে লিখো..."
+></textarea>
+
+
+<label>
+<strong>ছবির URL</strong>
+</label>
+
+<input
+  type="url"
+  id="imageUrl"
+  placeholder="https://example.com/image.jpg"
+>
+
+
+<button id="publishBtn">
+🚀 Publish Post
+</button>
+
+
+<div
+  id="publishMessage"
+  class="message">
+</div>
+
+
+<button
+  class="logout"
+  id="logoutBtn">
+Logout
+</button>
+
+</section>
+
+
+</div>
+
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+
+import {
+  initializeApp
 }
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
 
-const post = {
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+}
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-title:title,
 
-video:video,
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-description:description,
 
-date:new Date().toLocaleDateString("bn-BD")
+
+/* =========================
+   Firebase Configuration
+========================= */
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
+
+  authDomain:
+    "beshno-blog.firebaseapp.com",
+
+  projectId:
+    "beshno-blog",
+
+  storageBucket:
+    "beshno-blog.firebasestorage.app",
+
+  messagingSenderId:
+    "1070244747427",
+
+  appId:
+    "1:1070244747427:web:0acbf8b3b60cb9121a8716",
+
+  measurementId:
+    "G-VWZZ6YXSPP"
 
 };
 
 
-localStorage.setItem(
-"beshno_latest_post",
-JSON.stringify(post)
-);
+
+/* =========================
+   Firebase Start
+========================= */
 
 
-alert("ভিডিও পোস্ট তৈরি হয়েছে।");
+const app =
+  initializeApp(firebaseConfig);
 
-document.getElementById("title").value="";
-document.getElementById("video").value="";
-document.getElementById("description").value="";
+
+const auth =
+  getAuth(app);
+
+
+const db =
+  getFirestore(app);
+
+
+
+/* =========================
+   Elements
+========================= */
+
+
+const loginBox =
+  document.getElementById("loginBox");
+
+const adminPanel =
+  document.getElementById("adminPanel");
+
+const email =
+  document.getElementById("email");
+
+const password =
+  document.getElementById("password");
+
+const loginBtn =
+  document.getElementById("loginBtn");
+
+const logoutBtn =
+  document.getElementById("logoutBtn");
+
+const publishBtn =
+  document.getElementById("publishBtn");
+
+const title =
+  document.getElementById("title");
+
+const content =
+  document.getElementById("content");
+
+const imageUrl =
+  document.getElementById("imageUrl");
+
+const loginMessage =
+  document.getElementById("loginMessage");
+
+const publishMessage =
+  document.getElementById("publishMessage");
+
+
+
+/* =========================
+   Message Function
+========================= */
+
+
+function showMessage(element, text, type) {
+
+  element.textContent = text;
+
+  element.className =
+    "message " + type;
+
+  element.style.display =
+    "block";
 
 }
 
+
+
+/* =========================
+   Login
+========================= */
+
+
+loginBtn.addEventListener(
+  "click",
+  async () => {
+
+    const userEmail =
+      email.value.trim();
+
+    const userPassword =
+      password.value;
+
+
+    if (!userEmail || !userPassword) {
+
+      showMessage(
+        loginMessage,
+        "Email এবং Password দিন।",
+        "error"
+      );
+
+      return;
+    }
+
+
+    loginBtn.disabled = true;
+
+    loginBtn.textContent =
+      "Login হচ্ছে...";
+
+
+    try {
+
+      await signInWithEmailAndPassword(
+        auth,
+        userEmail,
+        userPassword
+      );
+
+
+      showMessage(
+        loginMessage,
+        "Login সফল হয়েছে!",
+        "success"
+      );
+
+
+    } catch (error) {
+
+      console.error(error);
+
+
+      showMessage(
+        loginMessage,
+        "Login ব্যর্থ হয়েছে। Email অথবা Password ঠিক আছে কিনা দেখুন।",
+        "error"
+      );
+
+    }
+
+
+    loginBtn.disabled = false;
+
+    loginBtn.textContent =
+      "Login";
+
+  }
+);
+
+
+
+/* =========================
+   Authentication Check
+========================= */
+
+
+onAuthStateChanged(
+  auth,
+  (user) => {
+
+    if (user) {
+
+      loginBox.style.display =
+        "none";
+
+      adminPanel.style.display =
+        "block";
+
+    } else {
+
+      loginBox.style.display =
+        "block";
+
+      adminPanel.style.display =
+        "none";
+
+    }
+
+  }
+);
+
+
+
+/* =========================
+   Publish Post
+========================= */
+
+
+publishBtn.addEventListener(
+  "click",
+  async () => {
+
+    const postTitle =
+      title.value.trim();
+
+    const postContent =
+      content.value.trim();
+
+    const postImage =
+      imageUrl.value.trim();
+
+
+    if (!postTitle || !postContent) {
+
+      showMessage(
+        publishMessage,
+        "শিরোনাম এবং পোস্টের লেখা দিতে হবে।",
+        "error"
+      );
+
+      return;
+    }
+
+
+    publishBtn.disabled =
+      true;
+
+    publishBtn.textContent =
+      "Publishing...";
+
+
+    try {
+
+      await addDoc(
+        collection(db, "posts"),
+        {
+
+          title:
+            postTitle,
+
+          content:
+            postContent,
+
+          imageUrl:
+            postImage,
+
+          createdAt:
+            serverTimestamp(),
+
+          author:
+            auth.currentUser.email
+
+        }
+      );
+
+
+      showMessage(
+        publishMessage,
+        "🎉 পোস্ট সফলভাবে প্রকাশ হয়েছে!",
+        "success"
+      );
+
+
+      title.value = "";
+
+      content.value = "";
+
+      imageUrl.value = "";
+
+
+    } catch (error) {
+
+      console.error(error);
+
+
+      showMessage(
+        publishMessage,
+        "পোস্ট প্রকাশ করা যায়নি। Firebase Rules পরীক্ষা করো।",
+        "error"
+      );
+
+    }
+
+
+    publishBtn.disabled =
+      false;
+
+    publishBtn.textContent =
+      "🚀 Publish Post";
+
+  }
+);
+
+
+
+/* =========================
+   Logout
+========================= */
+
+
+logoutBtn.addEventListener(
+  "click",
+  async () => {
+
+    await signOut(auth);
+
+  }
+);
+
+
 </script>
+
 
 </body>
 </html>
+```

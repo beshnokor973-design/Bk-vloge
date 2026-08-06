@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Beshno Blog | Admin Panel</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f3f6;
+  color:#222;
+}
+
+header{
+  background:#111827;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+
+header h1{
+  margin:0;
+}
+
+.container{
+  max-width:700px;
+  margin:25px auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 3px 15px rgba(0,0,0,.10);
+}
+
+h2{
+  margin-top:0;
+}
+
+label{
+  display:block;
+  margin-top:18px;
+  margin-bottom:7px;
+  font-weight:bold;
+}
+
+input,
+textarea{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:16px;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+button{
+  width:100%;
+  margin-top:22px;
+  padding:14px;
+  border:0;
+  border-radius:8px;
+  background:#1677ff;
+  color:white;
+  font-size:17px;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+.note{
+  margin-top:20px;
+  padding:12px;
+  background:#f3f4f6;
+  border-radius:8px;
+  color:#555;
+  line-height:1.6;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Beshno Blog</h1>
+  <p>Admin Panel</p>
+</header>
+
+<main class="container">
+
+<section class="card">
+
+<h2>🎬 নতুন ভিডিও পোস্ট</h2>
+
+<label>ভিডিওর Title</label>
+
+<input
+type="text"
+id="title"
+placeholder="ভিডিওর নাম লিখুন">
+
+
+<label>ভিডিওর URL</label>
+
+<input
+type="url"
+id="video"
+placeholder="https://www.youtube.com/watch?v=...">
+
+
+<label>Description</label>
+
+<textarea
+id="description"
+placeholder="ভিডিও সম্পর্কে লিখুন"></textarea>
+
+
+<button onclick="publishPost()">
+📤 Publish Video
+</button>
+
+
+<div class="note">
+⚠️ এই Panel-এর Publish button এখন demo হিসেবে কাজ করবে।
+সবার ওয়েবসাইটে স্থায়ীভাবে পোস্ট প্রকাশ করতে Firebase/backend
+সংযোগ করতে হবে।
+</div>
+
+</section>
+
+</main>
+
+<footer>
+© 2026 Beshno Blog
+</footer>
+
+
+<script>
+
+function publishPost(){
+
+const title =
+document.getElementById("title").value.trim();
+
+const video =
+document.getElementById("video").value.trim();
+
+const description =
+document.getElementById("description").value.trim();
+
+
+if(!title || !video){
+
+alert("Title এবং Video URL দিন।");
+
+return;
+}
+
+
+const post = {
+
+title:title,
+
+video:video,
+
+description:description,
+
+date:new Date().toLocaleDateString("bn-BD")
+
+};
+
+
+localStorage.setItem(
+"beshno_latest_post",
+JSON.stringify(post)
+);
+
+
+alert("ভিডিও পোস্ট তৈরি হয়েছে।");
+
+document.getElementById("title").value="";
+document.getElementById("video").value="";
+document.getElementById("description").value="";
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,25 +1,16 @@
-```html
 <!doctype html>
 <html lang="bn">
-
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Beshno Blog | Admin</title>
 
 <style>
-
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #f5f5f5;
-  color: #222;
 }
 
 .container {
@@ -33,12 +24,6 @@ body {
   padding: 25px;
   border-radius: 15px;
   box-shadow: 0 5px 20px rgba(0,0,0,.08);
-  margin-bottom: 20px;
-}
-
-h1,
-h2 {
-  margin-top: 0;
 }
 
 input,
@@ -49,11 +34,11 @@ textarea {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 textarea {
   min-height: 180px;
-  resize: vertical;
 }
 
 button {
@@ -64,16 +49,15 @@ button {
   background: #111;
   color: white;
   font-size: 16px;
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: .9;
 }
 
 .logout {
   background: #d00;
   margin-top: 10px;
+}
+
+#adminPanel {
+  display: none;
 }
 
 .message {
@@ -92,104 +76,62 @@ button:hover {
   background: #ffe8e8;
   color: #a00000;
 }
-
-#adminPanel {
-  display: none;
-}
-
-small {
-  color: #777;
-}
-
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="container">
-
-
-<!-- LOGIN -->
 
 <section class="card" id="loginBox">
 
 <h1>🔐 Beshno Blog Admin</h1>
 
-<p>
-Admin account দিয়ে Login করুন।
-</p>
-
+<p>Admin account দিয়ে Login করুন।</p>
 
 <input
   type="email"
   id="email"
   placeholder="Admin Email"
-  autocomplete="email"
 >
-
 
 <input
   type="password"
   id="password"
   placeholder="Password"
-  autocomplete="current-password"
 >
-
 
 <button id="loginBtn">
 Login
 </button>
 
-
-<div
-  id="loginMessage"
-  class="message">
-</div>
+<div id="loginMessage" class="message"></div>
 
 </section>
 
 
-
-<!-- ADMIN PANEL -->
-
-<section
-  class="card"
-  id="adminPanel">
+<section class="card" id="adminPanel">
 
 <h1>📝 Admin Panel</h1>
 
-<p>
-এখান থেকে নতুন Blog Post প্রকাশ করতে পারবে।
-</p>
+<p>নতুন Blog Post প্রকাশ করুন।</p>
 
-
-<label>
-<strong>পোস্টের শিরোনাম</strong>
-</label>
+<label>পোস্টের শিরোনাম</label>
 
 <input
   type="text"
   id="title"
-  placeholder="যেমন: আমার নতুন পোস্ট"
+  placeholder="আমার নতুন পোস্ট"
 >
 
-
-<label>
-<strong>পোস্টের লেখা</strong>
-</label>
+<label>পোস্টের লেখা</label>
 
 <textarea
   id="content"
   placeholder="তোমার পোস্ট এখানে লিখো..."
 ></textarea>
 
-
-<label>
-<strong>ছবির URL</strong>
-</label>
+<label>ছবির URL</label>
 
 <input
   type="url"
@@ -197,117 +139,78 @@ Login
   placeholder="https://example.com/image.jpg"
 >
 
-
 <button id="publishBtn">
 🚀 Publish Post
 </button>
 
+<div id="publishMessage" class="message"></div>
 
-<div
-  id="publishMessage"
-  class="message">
-</div>
-
-
-<button
-  class="logout"
-  id="logoutBtn">
+<button class="logout" id="logoutBtn">
 Logout
 </button>
 
 </section>
 
-
 </div>
 
 
-
-<!-- FIREBASE -->
-
 <script type="module">
-
 
 import {
   initializeApp
-}
-from
+} from
 "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-
 
 import {
   getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut
-}
-from
+} from
 "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
 
 import {
   getFirestore,
   collection,
   addDoc,
   serverTimestamp
-}
-from
+} from
 "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-
-
-/* =========================
-   Firebase Configuration
-========================= */
 
 
 const firebaseConfig = {
 
   apiKey:
-    "AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
+  "AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
 
   authDomain:
-    "beshno-blog.firebaseapp.com",
+  "beshno-blog.firebaseapp.com",
 
   projectId:
-    "beshno-blog",
+  "beshno-blog",
 
   storageBucket:
-    "beshno-blog.firebasestorage.app",
+  "beshno-blog.firebasestorage.app",
 
   messagingSenderId:
-    "1070244747427",
+  "1070244747427",
 
   appId:
-    "1:1070244747427:web:0acbf8b3b60cb9121a8716",
+  "1:1070244747427:web:0acbf8b3b60cb9121a8716",
 
   measurementId:
-    "G-VWZZ6YXSPP"
-
+  "G-VWZZ6YXSPP"
 };
-
-
-
-/* =========================
-   Firebase Start
-========================= */
 
 
 const app =
   initializeApp(firebaseConfig);
 
-
 const auth =
   getAuth(app);
 
-
 const db =
   getFirestore(app);
-
-
-
-/* =========================
-   Elements
-========================= */
 
 
 const loginBox =
@@ -347,12 +250,6 @@ const publishMessage =
   document.getElementById("publishMessage");
 
 
-
-/* =========================
-   Message Function
-========================= */
-
-
 function showMessage(element, text, type) {
 
   element.textContent = text;
@@ -362,237 +259,173 @@ function showMessage(element, text, type) {
 
   element.style.display =
     "block";
-
 }
 
 
+/* LOGIN */
 
-/* =========================
-   Login
-========================= */
+loginBtn.addEventListener("click", async () => {
 
+  const userEmail =
+    email.value.trim();
 
-loginBtn.addEventListener(
-  "click",
-  async () => {
+  const userPassword =
+    password.value;
 
-    const userEmail =
-      email.value.trim();
+  if (!userEmail || !userPassword) {
 
-    const userPassword =
-      password.value;
+    showMessage(
+      loginMessage,
+      "Email এবং Password দিন।",
+      "error"
+    );
 
+    return;
+  }
 
-    if (!userEmail || !userPassword) {
+  try {
 
-      showMessage(
-        loginMessage,
-        "Email এবং Password দিন।",
-        "error"
-      );
+    await signInWithEmailAndPassword(
+      auth,
+      userEmail,
+      userPassword
+    );
 
-      return;
-    }
+  } catch (error) {
 
-
-    loginBtn.disabled = true;
-
-    loginBtn.textContent =
-      "Login হচ্ছে...";
-
-
-    try {
-
-      await signInWithEmailAndPassword(
-        auth,
-        userEmail,
-        userPassword
-      );
-
-
-      showMessage(
-        loginMessage,
-        "Login সফল হয়েছে!",
-        "success"
-      );
-
-
-    } catch (error) {
-
-      console.error(error);
-
-
-      showMessage(
-        loginMessage,
-        "Login ব্যর্থ হয়েছে। Email অথবা Password ঠিক আছে কিনা দেখুন।",
-        "error"
-      );
-
-    }
-
-
-    loginBtn.disabled = false;
-
-    loginBtn.textContent =
-      "Login";
+    showMessage(
+      loginMessage,
+      "Login ব্যর্থ হয়েছে। Email অথবা Password পরীক্ষা করুন।",
+      "error"
+    );
 
   }
-);
+
+});
 
 
+/* LOGIN CHECK */
 
-/* =========================
-   Authentication Check
-========================= */
+onAuthStateChanged(auth, (user) => {
 
+  if (user) {
 
-onAuthStateChanged(
-  auth,
-  (user) => {
+    loginBox.style.display =
+      "none";
 
-    if (user) {
+    adminPanel.style.display =
+      "block";
 
-      loginBox.style.display =
-        "none";
+  } else {
 
-      adminPanel.style.display =
-        "block";
+    loginBox.style.display =
+      "block";
 
-    } else {
-
-      loginBox.style.display =
-        "block";
-
-      adminPanel.style.display =
-        "none";
-
-    }
+    adminPanel.style.display =
+      "none";
 
   }
-);
+
+});
 
 
+/* PUBLISH */
 
-/* =========================
-   Publish Post
-========================= */
+publishBtn.addEventListener("click", async () => {
 
+  const postTitle =
+    title.value.trim();
 
-publishBtn.addEventListener(
-  "click",
-  async () => {
+  const postContent =
+    content.value.trim();
 
-    const postTitle =
-      title.value.trim();
-
-    const postContent =
-      content.value.trim();
-
-    const postImage =
-      imageUrl.value.trim();
+  const postImage =
+    imageUrl.value.trim();
 
 
-    if (!postTitle || !postContent) {
+  if (!postTitle || !postContent) {
 
-      showMessage(
-        publishMessage,
-        "শিরোনাম এবং পোস্টের লেখা দিতে হবে।",
-        "error"
-      );
+    showMessage(
+      publishMessage,
+      "শিরোনাম এবং পোস্টের লেখা দিতে হবে।",
+      "error"
+    );
 
-      return;
-    }
-
-
-    publishBtn.disabled =
-      true;
-
-    publishBtn.textContent =
-      "Publishing...";
+    return;
+  }
 
 
-    try {
+  publishBtn.disabled = true;
 
-      await addDoc(
-        collection(db, "posts"),
-        {
-
-          title:
-            postTitle,
-
-          content:
-            postContent,
-
-          imageUrl:
-            postImage,
-
-          createdAt:
-            serverTimestamp(),
-
-          author:
-            auth.currentUser.email
-
-        }
-      );
+  publishBtn.textContent =
+    "Publishing...";
 
 
-      showMessage(
-        publishMessage,
-        "🎉 পোস্ট সফলভাবে প্রকাশ হয়েছে!",
-        "success"
-      );
+  try {
+
+    await addDoc(
+      collection(db, "posts"),
+      {
+
+        title: postTitle,
+
+        content: postContent,
+
+        imageUrl: postImage,
+
+        createdAt: serverTimestamp(),
+
+        author:
+          auth.currentUser.email
+
+      }
+    );
 
 
-      title.value = "";
-
-      content.value = "";
-
-      imageUrl.value = "";
-
-
-    } catch (error) {
-
-      console.error(error);
+    showMessage(
+      publishMessage,
+      "🎉 পোস্ট সফলভাবে প্রকাশ হয়েছে!",
+      "success"
+    );
 
 
-      showMessage(
-        publishMessage,
-        "পোস্ট প্রকাশ করা যায়নি। Firebase Rules পরীক্ষা করো।",
-        "error"
-      );
+    title.value = "";
 
-    }
+    content.value = "";
+
+    imageUrl.value = "";
 
 
-    publishBtn.disabled =
-      false;
+  } catch (error) {
 
-    publishBtn.textContent =
-      "🚀 Publish Post";
+    console.error(error);
+
+    showMessage(
+      publishMessage,
+      "পোস্ট প্রকাশ করা যায়নি।",
+      "error"
+    );
 
   }
-);
 
 
+  publishBtn.disabled = false;
 
-/* =========================
-   Logout
-========================= */
+  publishBtn.textContent =
+    "🚀 Publish Post";
+
+});
 
 
-logoutBtn.addEventListener(
-  "click",
-  async () => {
+/* LOGOUT */
 
-    await signOut(auth);
+logoutBtn.addEventListener("click", async () => {
 
-  }
-);
+  await signOut(auth);
 
+});
 
 </script>
 
-
 </body>
 </html>
-```

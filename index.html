@@ -1,10 +1,102 @@
-!DOCTYPE html>
-<html>
+DOCTYPE html>
+<html lang="bn">
 <head>
-    <title>My First Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমার ব্যক্তিগত ব্লগ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        /* ছবির জন্য স্পেশাল ডিজাইন */
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 4px solid white;
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+        }
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .blog-post {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .blog-post h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .date {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        .blog-post p {
+            line-height: 1.6;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
-    <h1>হ্যালো ওয়ার্ল্ড!</h1>
-    <p>এটি গিটহাব দিয়ে তৈরি আমার প্রথম ওয়েবসাইট।</p>
+
+    <header>
+        <!-- ছবি বসানোর মূল লাইনটি নিচে দেওয়া হলো -->
+        <img src="profile.jpg" alt="আমার প্রোফাইল ছবি" class="profile-img">
+        
+        <h1>আমার ডায়েরি</h1>
+        <p>স্বাগতম! এখানে আমি আমার চিন্তাভাবনা এবং অভিজ্ঞতা শেয়ার করি।</p>
+    </header>
+
+    <div class="container">
+        <article class="blog-post">
+            <h2>আমার প্রথম ব্লগ পোস্ট</h2>
+            <div class="date">আগস্ট ৬, ২০২৬</div>
+            <p>আজ আমি গিটহাব পেজেস ব্যবহার করে আমার প্রথম ব্যক্তিগত ব্লগ ওয়েবসাইট তৈরি করলাম! প্রক্রিয়াটি আসলেই অনেক সহজ এবং মজার ছিল। এখন থেকে আমি এখানে নিয়মিত আমার নতুন নতুন অভিজ্ঞতা লিখে রাখব।</p>
+        </article>
+
+        <article class="blog-post">
+            <h2>ভবিষ্যতের পরিকল্পনা</h2>
+            <div class="date">আগস্ট ৫, ২০২৬</div>
+            <p>এই ব্লগে আমি মূলত প্রযুক্তি, বই পড়া এবং আমার ভ্রমণ কাহিনী নিয়ে লিখব। আশা করি ডিজাইনটি আরও সুন্দর করতে পারব এবং নতুন নতুন ফিচার যোগ করতে পারব।</p>
+        </article>
+    </div>
+
+    <footer>
+        <p>&copy; ২০২৬ আমার ব্লগ। সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
 </body>
 </html>

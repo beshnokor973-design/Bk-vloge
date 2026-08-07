@@ -64,6 +64,7 @@
 .firebase-post p {
   line-height: 1.8;
   margin: 0 0 10px;
+  white-space: pre-wrap;
 }
 
 .firebase-post small {
@@ -89,6 +90,9 @@ Beshnobloge
 <a href="about.html">আমার সম্পর্কে</a>
 <a href="blog.html">ব্লগ</a>
 <a href="contact.html">যোগাযোগ</a>
+
+<!-- Admin -->
+<a href="admin.html">🔐 Admin</a>
 
 </div>
 
@@ -323,7 +327,7 @@ f Facebook
 <script type="module">
 
 import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
   getFirestore,
@@ -333,7 +337,7 @@ import {
   orderBy,
   limit
 }
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -419,7 +423,7 @@ async function loadLatestPosts() {
         "firebase-post";
 
 
-      // নিরাপদভাবে HTML তৈরি
+      // Title
       const title =
         document.createElement("h3");
 
@@ -427,24 +431,15 @@ async function loadLatestPosts() {
         post.title || "Untitled Post";
 
 
-      const content =
-        document.createElement("p");
-
-      content.textContent =
-        post.content || "";
-
-
-      article.appendChild(title);
-
-
-      // ছবি থাকলে
-      if (post.imageUrl) {
+      // ছবি
+      // Admin Panel থেকে "image" নামে save হচ্ছে
+      if (post.image) {
 
         const image =
           document.createElement("img");
 
         image.src =
-          post.imageUrl;
+          post.image;
 
         image.alt =
           post.title || "Blog image";
@@ -452,8 +447,19 @@ async function loadLatestPosts() {
         image.loading =
           "lazy";
 
-        article.prepend(image);
+        article.appendChild(image);
       }
+
+
+      article.appendChild(title);
+
+
+      // Content
+      const content =
+        document.createElement("p");
+
+      content.textContent =
+        post.content || "";
 
 
       article.appendChild(content);
@@ -466,6 +472,7 @@ async function loadLatestPosts() {
           document.createElement("small");
 
         date.textContent =
+          "প্রকাশিত: " +
           post.createdAt
           .toDate()
           .toLocaleDateString("bn-BD");

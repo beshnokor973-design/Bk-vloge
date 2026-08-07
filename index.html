@@ -1,516 +1,416 @@
-```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="bn">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Beshno Kor | Official</title>
+<meta charset="UTF-8">
 
-<link rel="stylesheet" href="style.css">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Beshno Blog</title>
 
 <style>
-.video-post {
-  margin-top: 25px;
-  padding-bottom: 25px;
+
+* {
+  box-sizing: border-box;
 }
 
-.video-post video {
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #111;
+}
+
+header {
+  background: #111;
+  color: white;
+  padding: 25px 15px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+header p {
+  margin: 8px 0 0;
+  opacity: .8;
+}
+
+.container {
+  width: 92%;
+  max-width: 750px;
+  margin: 25px auto;
+}
+
+.post {
+  background: white;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.07);
+}
+
+.post h2 {
+  margin-top: 0;
+  font-size: 25px;
+}
+
+.post-text {
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.post-image {
   width: 100%;
-  display: block;
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+.post-video {
+  width: 100%;
+  margin-top: 15px;
   border-radius: 12px;
   background: #000;
 }
 
-.video-post h3 {
-  margin: 15px 0 8px;
-  font-size: 22px;
-}
-
-.video-post p {
-  margin: 0;
-  line-height: 1.7;
-}
-
-.video-post + .video-post {
-  margin-top: 30px;
-  padding-top: 25px;
-  border-top: 1px solid #ddd;
-}
-
-/* Firebase posts */
-.firebase-post {
-  margin-top: 25px;
-  padding-bottom: 25px;
-  border-bottom: 1px solid #ddd;
-}
-
-.firebase-post:last-child {
-  border-bottom: none;
-}
-
-.firebase-post img {
+.youtube {
   width: 100%;
-  display: block;
+  aspect-ratio: 16 / 9;
+  margin-top: 15px;
+  border: 0;
   border-radius: 12px;
-  margin-bottom: 15px;
 }
 
-.firebase-post h3 {
-  margin: 10px 0;
-  font-size: 22px;
-}
-
-.firebase-post p {
-  line-height: 1.8;
-  margin: 0 0 10px;
-  white-space: pre-wrap;
-}
-
-.firebase-post small {
+.date {
   color: #777;
+  font-size: 14px;
+  margin-top: 15px;
 }
+
+.loading {
+  text-align: center;
+  padding: 40px;
+}
+
+.empty {
+  text-align: center;
+  background: white;
+  padding: 35px;
+  border-radius: 15px;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<header class="top">
 
-<nav class="nav">
+<header>
 
-<a class="logo" href="index.html">
-Beshnobloge
-</a>
+<h1>📰 Beshno Blog</h1>
 
-<div class="links">
-
-<a href="index.html">হোম</a>
-<a href="about.html">আমার সম্পর্কে</a>
-<a href="blog.html">ব্লগ</a>
-<a href="contact.html">যোগাযোগ</a>
-
-<!-- Admin -->
-<a href="admin.html">🔐 Admin</a>
-
-</div>
-
-</nav>
+<p>Latest Posts & Videos</p>
 
 </header>
 
 
-<section class="hero">
+<div class="container">
 
-<img
-class="avatar"
-src="profile.jpg"
-alt="Beshno Kor">
-
-<h1>Beshno Kor</h1>
-
-<p>
-Official Website • Creator • Blogger
-</p>
-
-<div class="buttons">
-
-<a
-class="btn red"
-href="https://www.youtube.com/@beshnobloge"
-target="_blank"
-rel="noopener">
-▶ YouTube
-</a>
-
-<a
-class="btn"
-href="https://www.facebook.com/profile.php?id=61593040285317"
-target="_blank"
-rel="noopener">
-f Facebook
-</a>
+<div
+  id="posts"
+  class="loading"
+>
+  পোস্ট লোড হচ্ছে...
+</div>
 
 </div>
 
-</section>
-
-
-<main class="container">
-
-
-<section class="adbox">
-বিজ্ঞাপনের স্থান
-</section>
-
-
-<section class="card">
-
-<h2>👋 স্বাগতম</h2>
-
-<p>
-Beshno Kor-এর অফিসিয়াল ওয়েবসাইটে তোমাকে স্বাগতম।
-এখানে আমার সম্পর্কে তথ্য, কাজ, ব্লগ এবং
-সোশ্যাল মিডিয়ার লিংক পাওয়া যাবে।
-</p>
-
-</section>
-
-
-<section class="card">
-
-<h2>👤 আমার সম্পর্কে</h2>
-
-<p>
-আমি Beshno Kor। এই ওয়েবসাইটের মাধ্যমে আমার
-বিভিন্ন কাজ, আপডেট, অভিজ্ঞতা এবং নতুন কনটেন্ট
-শেয়ার করি।
-</p>
-
-<a href="about.html">
-আরও জানুন →
-</a>
-
-</section>
-
-
-<section class="card">
-
-<h2>📝 আমার ব্লগ</h2>
-
-<p>
-নতুন লেখা, ভ্রমণ, লাইফস্টাইল এবং বিভিন্ন
-বিষয় নিয়ে আমার পোস্ট এখানে পাওয়া যাবে।
-</p>
-
-<a href="blog.html">
-ব্লগ দেখুন →
-</a>
-
-</section>
-
-
-<!-- Firebase থেকে পোস্ট -->
-
-<section class="card">
-
-<h2>📝 সর্বশেষ পোস্ট</h2>
-
-<p>
-Beshno Blog-এর সর্বশেষ পোস্টগুলো এখানে দেখুন।
-</p>
-
-<div id="firebase-posts">
-
-<p>পোস্ট লোড হচ্ছে...</p>
-
-</div>
-
-</section>
-
-
-<!-- ভিডিও -->
-
-<section class="card">
-
-<h2>🎬 আমার ভিডিও</h2>
-
-<p>
-Beshno Blog-এর নতুন ভিডিওগুলো এখানে দেখুন।
-</p>
-
-
-<article class="video-post">
-
-<video controls preload="metadata">
-
-<source src="video-1.mp4" type="video/mp4">
-
-তোমার ব্রাউজার ভিডিও চালাতে পারছে না।
-
-</video>
-
-<h3>🎬 নতুন ভিডিও ১</h3>
-
-<p>
-Beshno Blog-এর নতুন ভিডিও।
-</p>
-
-</article>
-
-
-<article class="video-post">
-
-<video controls preload="metadata">
-
-<source src="video-2.mp4" type="video/mp4">
-
-তোমার ব্রাউজার ভিডিও চালাতে পারছে না।
-
-</video>
-
-<h3>🎬 নতুন ভিডিও ২</h3>
-
-<p>
-Beshno Blog-এর নতুন ভিডিও।
-</p>
-
-</article>
-
-</section>
-
-
-<section class="adbox">
-বিজ্ঞাপনের স্থান
-</section>
-
-
-<section class="card">
-
-<h2>🌐 যোগাযোগ</h2>
-
-<p>
-আমার সাথে যোগাযোগ ও নতুন আপডেট পেতে
-YouTube এবং Facebook-এ যুক্ত হতে পারো।
-</p>
-
-<div class="buttons">
-
-<a
-class="btn red"
-href="https://www.youtube.com/@beshnobloge"
-target="_blank"
-rel="noopener">
-▶ YouTube
-</a>
-
-<a
-class="btn"
-href="https://www.facebook.com/profile.php?id=61593040285317"
-target="_blank"
-rel="noopener">
-f Facebook
-</a>
-
-</div>
-
-</section>
-
-
-</main>
-
-
-<footer>
-
-<div class="links">
-
-<a href="about.html">আমার সম্পর্কে</a>
-<a href="blog.html">ব্লগ</a>
-<a href="contact.html">যোগাযোগ</a>
-<a href="privacy.html">Privacy Policy</a>
-<a href="terms.html">Terms</a>
-
-</div>
-
-<p>
-© 2026 Beshno Kor • Beshnobloge
-</p>
-
-</footer>
-
-
-<!-- ========================= -->
-<!-- Firebase Blog System -->
-<!-- ========================= -->
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+/* FIREBASE */
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
   getFirestore,
   collection,
   getDocs,
   query,
-  orderBy,
-  limit
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+  orderBy
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+
+/* CONFIG */
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
+  apiKey:
+    "AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
 
-  authDomain: "beshno-blog.firebaseapp.com",
+  authDomain:
+    "beshno-blog.firebaseapp.com",
 
-  projectId: "beshno-blog",
+  projectId:
+    "beshno-blog",
 
-  storageBucket: "beshno-blog.firebasestorage.app",
+  storageBucket:
+    "beshno-blog.firebasestorage.app",
 
-  messagingSenderId: "1070244747427",
+  messagingSenderId:
+    "1070244747427",
 
-  appId: "1:1070244747427:web:0acbf8b3b60cb9121a8716",
+  appId:
+    "1:1070244747427:web:0acbf8b3b60cb9121a8716",
 
-  measurementId: "G-VWZZ6YXSPP"
+  measurementId:
+    "G-VWZZ6YXSPP"
 
 };
 
 
-// Firebase চালু
-const app = initializeApp(firebaseConfig);
+/* INITIALIZE */
+
+const app =
+  initializeApp(firebaseConfig);
+
+const db =
+  getFirestore(app);
+
+const postsBox =
+  document.getElementById("posts");
 
 
-// Firestore চালু
-const db = getFirestore(app);
+/* YOUTUBE ID */
 
+function getYouTubeId(url) {
 
-// পোস্ট লোড করার function
-async function loadLatestPosts() {
-
-  const postContainer =
-    document.getElementById("firebase-posts");
-
-  if (!postContainer) return;
-
+  if (!url) return null;
 
   try {
 
-    const postsQuery = query(
+    const parsed =
+      new URL(url);
 
-      collection(db, "posts"),
+    if (
+      parsed.hostname.includes(
+        "youtu.be"
+      )
+    ) {
 
-      orderBy("createdAt", "desc"),
+      return parsed.pathname
+        .replace("/", "");
 
-      limit(5)
+    }
 
-    );
+    if (
+      parsed.hostname.includes(
+        "youtube.com"
+      )
+    ) {
 
+      return parsed.searchParams
+        .get("v");
+    }
+
+  } catch (error) {
+
+    return null;
+
+  }
+
+  return null;
+}
+
+
+/* LOAD POSTS */
+
+async function loadPosts() {
+
+  try {
+
+    const postsQuery =
+      query(
+        collection(db, "posts"),
+        orderBy(
+          "createdAt",
+          "desc"
+        )
+      );
 
     const snapshot =
-      await getDocs(postsQuery);
+      await getDocs(
+        postsQuery
+      );
 
 
-    // কোনো পোস্ট না থাকলে
     if (snapshot.empty) {
 
-      postContainer.innerHTML = `
-        <p>
-          এখনো কোনো নতুন পোস্ট প্রকাশ করা হয়নি।
-        </p>
-      `;
+      postsBox.className =
+        "empty";
+
+      postsBox.innerHTML =
+        "এখনও কোনো পোস্ট প্রকাশ করা হয়নি।";
 
       return;
     }
 
 
-    postContainer.innerHTML = "";
+    postsBox.className = "";
 
 
-    // প্রতিটি পোস্ট দেখানো
-    snapshot.forEach((doc) => {
-
-      const post = doc.data();
+    let html = "";
 
 
-      const article =
-        document.createElement("article");
+    snapshot.forEach(
+      doc => {
+
+        const post =
+          doc.data();
 
 
-      article.className =
-        "firebase-post";
+        html += `
+          <article class="post">
+
+            <h2>
+              ${escapeHTML(
+                post.title || ""
+              )}
+            </h2>
 
 
-      // Title
-      const title =
-        document.createElement("h3");
+            ${
+              post.imageUrl
+              ? `
+                <img
+                  class="post-image"
+                  src="${post.imageUrl}"
+                  alt="Post Image"
+                >
+              `
+              : ""
+            }
 
-      title.textContent =
-        post.title || "Untitled Post";
+
+            <div class="post-text">
+              ${escapeHTML(
+                post.content || ""
+              )}
+            </div>
 
 
-      // ছবি
-      // Admin Panel থেকে "image" নামে save হচ্ছে
-      if (post.image) {
+            ${
+              post.videoUrl
+              ? `
+                <video
+                  class="post-video"
+                  controls
+                  playsinline
+                  preload="metadata"
+                >
 
-        const image =
-          document.createElement("img");
+                  <source
+                    src="${post.videoUrl}"
+                  >
 
-        image.src =
-          post.image;
+                  আপনার ব্রাউজার ভিডিও চালাতে পারে না।
 
-        image.alt =
-          post.title || "Blog image";
+                </video>
+              `
+              : ""
+            }
 
-        image.loading =
-          "lazy";
 
-        article.appendChild(image);
+            ${
+              post.youtubeUrl
+              ? getYouTubeId(
+                  post.youtubeUrl
+                )
+                ? `
+                  <iframe
+                    class="youtube"
+                    src="https://www.youtube.com/embed/${getYouTubeId(post.youtubeUrl)}"
+                    title="YouTube video"
+                    allowfullscreen
+                  ></iframe>
+                `
+                : `
+                  <p>
+                    ▶️
+                    <a
+                      href="${post.youtubeUrl}"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      YouTube Video দেখুন
+                    </a>
+                  </p>
+                `
+              : ""
+            }
+
+
+            <div class="date">
+              Beshno Blog
+            </div>
+
+          </article>
+        `;
+
       }
+    );
 
 
-      article.appendChild(title);
-
-
-      // Content
-      const content =
-        document.createElement("p");
-
-      content.textContent =
-        post.content || "";
-
-
-      article.appendChild(content);
-
-
-      // তারিখ
-      if (post.createdAt?.toDate) {
-
-        const date =
-          document.createElement("small");
-
-        date.textContent =
-          "প্রকাশিত: " +
-          post.createdAt
-          .toDate()
-          .toLocaleDateString("bn-BD");
-
-        article.appendChild(date);
-      }
-
-
-      postContainer.appendChild(article);
-
-    });
+    postsBox.innerHTML =
+      html;
 
 
   } catch (error) {
 
-    console.error(
-      "Firebase error:",
-      error
-    );
+    console.error(error);
 
+    postsBox.className =
+      "empty";
 
-    postContainer.innerHTML = `
-      <p>
-        পোস্ট লোড করা যাচ্ছে না।
-      </p>
-    `;
+    postsBox.innerHTML =
+      "❌ পোস্ট লোড করা যায়নি।<br><br>" +
+      error.message;
 
   }
 
 }
 
 
-// Firebase থেকে পোস্ট চালু
-loadLatestPosts();
+/* HTML SAFE */
+
+function escapeHTML(text) {
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+  div.textContent =
+    text;
+
+  return div.innerHTML;
+}
+
+
+/* START */
+
+loadPosts();
 
 </script>
 
-
 </body>
 </html>
-```

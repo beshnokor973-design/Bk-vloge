@@ -7,92 +7,127 @@
 <title>Beshno Blog | Admin</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f0f2f5;
 }
 
-.container {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 20px;
+.container{
+  max-width:650px;
+  margin:30px auto;
+  padding:15px;
 }
 
-.card {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+.card{
+  background:#fff;
+  border-radius:15px;
+  padding:20px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+  margin-bottom:20px;
 }
 
-h1 {
-  margin-top: 0;
+h1{margin-top:0}
+
+input,textarea{
+  width:100%;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:13px;
+  font-size:16px;
+  margin:7px 0 14px;
 }
 
-input,
-textarea {
-  width: 100%;
-  padding: 13px;
-  margin: 8px 0 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box;
+textarea{
+  min-height:160px;
+  resize:vertical;
 }
 
-textarea {
-  min-height: 180px;
+button{
+  width:100%;
+  border:0;
+  border-radius:10px;
+  padding:14px;
+  font-size:16px;
+  cursor:pointer;
+  background:#111;
+  color:#fff;
 }
 
-button {
-  width: 100%;
-  padding: 14px;
-  border: 0;
-  border-radius: 8px;
-  background: #111;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
+button:disabled{
+  opacity:.6;
 }
 
-button:disabled {
-  opacity: .6;
+.logout{
+  background:#d00;
+  margin-top:10px;
 }
 
-.logout {
-  background: #d00;
-  margin-top: 10px;
+.option{
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:13px;
+  margin:10px 0;
+  cursor:pointer;
 }
 
-#adminPanel {
-  display: none;
+.option:hover{
+  background:#f5f5f5;
 }
 
-.message {
-  margin-top: 15px;
-  padding: 10px;
-  border-radius: 8px;
-  display: none;
+.preview{
+  width:100%;
+  max-height:350px;
+  object-fit:cover;
+  border-radius:10px;
+  margin:10px 0;
+  display:none;
 }
 
-.success {
-  background: #e8f7e8;
-  color: #176b17;
+.videoPreview{
+  width:100%;
+  border-radius:10px;
+  margin-top:10px;
+  display:none;
 }
 
-.error {
-  background: #ffe8e8;
-  color: #a00000;
+.message{
+  padding:12px;
+  border-radius:10px;
+  margin-top:15px;
+  display:none;
 }
 
-.preview {
-  width: 100%;
-  max-height: 300px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin: 10px 0 15px;
-  display: none;
+.success{
+  background:#e7f7e7;
+  color:#176b17;
+}
+
+.error{
+  background:#ffe7e7;
+  color:#a00000;
+}
+
+#adminPanel{
+  display:none;
+}
+
+.progress{
+  width:100%;
+  height:8px;
+  background:#ddd;
+  border-radius:10px;
+  overflow:hidden;
+  display:none;
+  margin:10px 0;
+}
+
+.progressBar{
+  width:0%;
+  height:100%;
+  background:#111;
 }
 </style>
 </head>
@@ -102,6 +137,7 @@ button:disabled {
 <div class="container">
 
 <!-- LOGIN -->
+
 <section class="card" id="loginBox">
 
 <h1>🔐 Beshno Blog Admin</h1>
@@ -109,15 +145,15 @@ button:disabled {
 <p>Admin account দিয়ে Login করুন।</p>
 
 <input
-  type="email"
-  id="email"
-  placeholder="Admin Email"
+type="email"
+id="email"
+placeholder="Admin Email"
 >
 
 <input
-  type="password"
-  id="password"
-  placeholder="Password"
+type="password"
+id="password"
+placeholder="Password"
 >
 
 <button id="loginBtn">
@@ -129,51 +165,121 @@ Login
 </section>
 
 
-<!-- ADMIN PANEL -->
+<!-- ADMIN -->
+
 <section class="card" id="adminPanel">
 
-<h1>📝 Create New Post</h1>
+<h1>📝 Create Post</h1>
 
-<label>Post Title</label>
+<p style="color:#666">
+আজ কী পোস্ট করবেন?
+</p>
+
+<!-- TITLE -->
 
 <input
-  type="text"
-  id="title"
-  placeholder="পোস্টের শিরোনাম লিখুন"
+type="text"
+id="title"
+placeholder="Post Title"
 >
 
 
-<label>Post Content</label>
+<!-- CONTENT -->
 
 <textarea
-  id="content"
-  placeholder="পোস্টের লেখা লিখুন..."
+id="content"
+placeholder="আপনার পোস্ট লিখুন..."
 ></textarea>
 
 
-<label>📸 Post Image</label>
+<!-- PHOTO -->
+
+<div class="option">
+
+<b>📷 Photo</b>
+
+<br><br>
 
 <input
-  type="file"
-  id="imageFile"
-  accept="image/*"
+type="file"
+id="imageFile"
+accept="image/*"
 >
 
 <img
-  id="imagePreview"
-  class="preview"
-  alt="Image Preview"
+id="imagePreview"
+class="preview"
+alt="Image Preview"
 >
 
+</div>
+
+
+<!-- VIDEO -->
+
+<div class="option">
+
+<b>🎬 Video</b>
+
+<br><br>
+
+<input
+type="file"
+id="videoFile"
+accept="video/*"
+>
+
+<video
+id="videoPreview"
+class="videoPreview"
+controls
+></video>
+
+</div>
+
+
+<!-- YOUTUBE -->
+
+<div class="option">
+
+<b>▶️ YouTube Video</b>
+
+<input
+type="url"
+id="youtubeUrl"
+placeholder="YouTube video URL"
+>
+
+</div>
+
+
+<!-- PROGRESS -->
+
+<div id="progress" class="progress">
+
+<div
+id="progressBar"
+class="progressBar">
+</div>
+
+</div>
+
+
+<!-- PUBLISH -->
 
 <button id="publishBtn">
 🚀 Publish Post
 </button>
 
-<div id="publishMessage" class="message"></div>
+<div
+id="publishMessage"
+class="message">
+</div>
 
 
-<button id="logoutBtn" class="logout">
+<button
+id="logoutBtn"
+class="logout">
 Logout
 </button>
 
@@ -184,413 +290,494 @@ Logout
 
 <script type="module">
 
-/* =========================
-   FIREBASE IMPORT
-========================= */
+import {
+initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 
 import {
-  getFirestore,
-  collection,
-  addDoc,
-  serverTimestamp
+getFirestore,
+collection,
+addDoc,
+serverTimestamp
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 
 import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL
+getStorage,
+ref,
+uploadBytes,
+getDownloadURL
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 
-/* =========================
-   FIREBASE CONFIG
-========================= */
+/* FIREBASE */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
-  authDomain: "beshno-blog.firebaseapp.com",
-  projectId: "beshno-blog",
-  storageBucket: "beshno-blog.firebasestorage.app",
-  messagingSenderId: "1070244747427",
-  appId: "1:1070244747427:web:0acbf8b3b60cb9121a8716",
-  measurementId: "G-VWZZ6YXSPP"
+
+apiKey:
+"AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
+
+authDomain:
+"beshno-blog.firebaseapp.com",
+
+projectId:
+"beshno-blog",
+
+storageBucket:
+"beshno-blog.firebasestorage.app",
+
+messagingSenderId:
+"1070244747427",
+
+appId:
+"1:1070244747427:web:0acbf8b3b60cb9121a8716",
+
+measurementId:
+"G-VWZZ6YXSPP"
+
 };
 
 
-/* =========================
-   INITIALIZE FIREBASE
-========================= */
+const app =
+initializeApp(firebaseConfig);
 
-const app = initializeApp(firebaseConfig);
+const auth =
+getAuth(app);
 
-const auth = getAuth(app);
+const db =
+getFirestore(app);
 
-const db = getFirestore(app);
+const storage =
+getStorage(app);
 
-const storage = getStorage(app);
 
-
-/* =========================
-   ELEMENTS
-========================= */
+/* ELEMENTS */
 
 const loginBox =
-  document.getElementById("loginBox");
+document.getElementById("loginBox");
 
 const adminPanel =
-  document.getElementById("adminPanel");
-
-const email =
-  document.getElementById("email");
-
-const password =
-  document.getElementById("password");
+document.getElementById("adminPanel");
 
 const loginBtn =
-  document.getElementById("loginBtn");
-
-const loginMessage =
-  document.getElementById("loginMessage");
-
-const title =
-  document.getElementById("title");
-
-const content =
-  document.getElementById("content");
-
-const imageFile =
-  document.getElementById("imageFile");
-
-const imagePreview =
-  document.getElementById("imagePreview");
-
-const publishBtn =
-  document.getElementById("publishBtn");
-
-const publishMessage =
-  document.getElementById("publishMessage");
+document.getElementById("loginBtn");
 
 const logoutBtn =
-  document.getElementById("logoutBtn");
+document.getElementById("logoutBtn");
+
+const email =
+document.getElementById("email");
+
+const password =
+document.getElementById("password");
+
+const title =
+document.getElementById("title");
+
+const content =
+document.getElementById("content");
+
+const imageFile =
+document.getElementById("imageFile");
+
+const videoFile =
+document.getElementById("videoFile");
+
+const youtubeUrl =
+document.getElementById("youtubeUrl");
+
+const imagePreview =
+document.getElementById("imagePreview");
+
+const videoPreview =
+document.getElementById("videoPreview");
+
+const publishBtn =
+document.getElementById("publishBtn");
+
+const loginMessage =
+document.getElementById("loginMessage");
+
+const publishMessage =
+document.getElementById("publishMessage");
+
+const progress =
+document.getElementById("progress");
+
+const progressBar =
+document.getElementById("progressBar");
 
 
-/* =========================
-   MESSAGE FUNCTION
-========================= */
+/* MESSAGE */
 
-function showMessage(element, text, type) {
+function message(element,text,type){
 
-  element.textContent = text;
+element.textContent=text;
 
-  element.className =
-    "message " + type;
+element.className=
+"message "+type;
 
-  element.style.display = "block";
+element.style.display="block";
+
 }
 
 
-/* =========================
-   IMAGE PREVIEW
-========================= */
+/* IMAGE PREVIEW */
 
-imageFile.addEventListener("change", function() {
+imageFile.addEventListener(
+"change",
+()=>{
 
-  const file = imageFile.files[0];
+const file=
+imageFile.files[0];
 
-  if (!file) {
+if(!file){
 
-    imagePreview.style.display = "none";
+imagePreview.style.display="none";
 
-    return;
-  }
+return;
+}
 
-  const imageURL =
-    URL.createObjectURL(file);
+imagePreview.src=
+URL.createObjectURL(file);
 
-  imagePreview.src = imageURL;
-
-  imagePreview.style.display = "block";
-
-});
-
-
-/* =========================
-   LOGIN
-========================= */
-
-loginBtn.addEventListener("click", async function() {
-
-  const userEmail =
-    email.value.trim();
-
-  const userPassword =
-    password.value;
-
-  if (!userEmail || !userPassword) {
-
-    showMessage(
-      loginMessage,
-      "Email এবং Password দিন।",
-      "error"
-    );
-
-    return;
-  }
-
-  loginBtn.disabled = true;
-
-  loginBtn.textContent =
-    "Login হচ্ছে...";
-
-  try {
-
-    await signInWithEmailAndPassword(
-      auth,
-      userEmail,
-      userPassword
-    );
-
-    showMessage(
-      loginMessage,
-      "Login সফল হয়েছে।",
-      "success"
-    );
-
-  } catch (error) {
-
-    console.error(error);
-
-    showMessage(
-      loginMessage,
-      "Login হয়নি। Email অথবা Password পরীক্ষা করুন।",
-      "error"
-    );
-
-  }
-
-  loginBtn.disabled = false;
-
-  loginBtn.textContent =
-    "Login";
+imagePreview.style.display="block";
 
 });
 
 
-/* =========================
-   AUTH STATE
-========================= */
+/* VIDEO PREVIEW */
 
-onAuthStateChanged(auth, function(user) {
+videoFile.addEventListener(
+"change",
+()=>{
 
-  if (user) {
+const file=
+videoFile.files[0];
 
-    loginBox.style.display =
-      "none";
+if(!file){
 
-    adminPanel.style.display =
-      "block";
+videoPreview.style.display="none";
 
-  } else {
+return;
+}
 
-    loginBox.style.display =
-      "block";
+videoPreview.src=
+URL.createObjectURL(file);
 
-    adminPanel.style.display =
-      "none";
-
-  }
+videoPreview.style.display="block";
 
 });
 
 
-/* =========================
-   PUBLISH POST
-========================= */
+/* LOGIN */
 
-publishBtn.addEventListener("click", async function() {
+loginBtn.addEventListener(
+"click",
+async()=>{
 
-  const postTitle =
-    title.value.trim();
+const userEmail=
+email.value.trim();
 
-  const postContent =
-    content.value.trim();
+const userPassword=
+password.value;
 
-  const file =
-    imageFile.files[0];
+if(!userEmail ||
+!userPassword){
 
+message(
+loginMessage,
+"Email এবং Password দিন।",
+"error"
+);
 
-  if (!postTitle) {
+return;
+}
 
-    showMessage(
-      publishMessage,
-      "Post Title লিখুন।",
-      "error"
-    );
+try{
 
-    return;
-  }
+loginBtn.disabled=true;
 
+loginBtn.textContent=
+"Login হচ্ছে...";
 
-  if (!postContent) {
+await signInWithEmailAndPassword(
+auth,
+userEmail,
+userPassword
+);
 
-    showMessage(
-      publishMessage,
-      "Post Content লিখুন।",
-      "error"
-    );
+}catch(error){
 
-    return;
-  }
+console.error(error);
 
+message(
+loginMessage,
+"Login হয়নি। Email অথবা Password পরীক্ষা করুন।",
+"error"
+);
 
-  if (!file) {
+}
 
-    showMessage(
-      publishMessage,
-      "একটি ছবি নির্বাচন করুন।",
-      "error"
-    );
+loginBtn.disabled=false;
 
-    return;
-  }
-
-
-  publishBtn.disabled = true;
-
-  publishBtn.textContent =
-    "⏳ Upload হচ্ছে...";
-
-
-  try {
-
-    /* =========================
-       UNIQUE IMAGE NAME
-    ========================= */
-
-    const fileName =
-      Date.now() + "_" + file.name;
-
-    const storageRef =
-      ref(
-        storage,
-        "posts/" + fileName
-      );
-
-
-    /* =========================
-       UPLOAD IMAGE
-    ========================= */
-
-    await uploadBytes(
-      storageRef,
-      file
-    );
-
-
-    /* =========================
-       GET IMAGE URL
-    ========================= */
-
-    const imageURL =
-      await getDownloadURL(
-        storageRef
-      );
-
-
-    publishBtn.textContent =
-      "⏳ Post Save হচ্ছে...";
-
-
-    /* =========================
-       SAVE POST TO FIRESTORE
-    ========================= */
-
-    await addDoc(
-      collection(db, "posts"),
-      {
-        title: postTitle,
-
-        content: postContent,
-
-        imageUrl: imageURL,
-
-        createdAt:
-          serverTimestamp()
-      }
-    );
-
-
-    /* =========================
-       SUCCESS
-    ========================= */
-
-    showMessage(
-      publishMessage,
-      "✅ Post সফলভাবে প্রকাশ হয়েছে!",
-      "success"
-    );
-
-
-    /* CLEAR FORM */
-
-    title.value = "";
-
-    content.value = "";
-
-    imageFile.value = "";
-
-    imagePreview.src = "";
-
-    imagePreview.style.display =
-      "none";
-
-
-  } catch (error) {
-
-    console.error(error);
-
-    showMessage(
-      publishMessage,
-      "❌ Post প্রকাশ করা যায়নি: " +
-      error.message,
-      "error"
-    );
-
-  }
-
-
-  publishBtn.disabled = false;
-
-  publishBtn.textContent =
-    "🚀 Publish Post";
+loginBtn.textContent="Login";
 
 });
 
 
-/* =========================
-   LOGOUT
-========================= */
+/* LOGIN STATE */
 
-logoutBtn.addEventListener("click", async function() {
+onAuthStateChanged(
+auth,
+(user)=>{
 
-  await signOut(auth);
+if(user){
+
+loginBox.style.display="none";
+
+adminPanel.style.display="block";
+
+}else{
+
+loginBox.style.display="block";
+
+adminPanel.style.display="none";
+
+}
 
 });
 
+
+/* UPLOAD FILE */
+
+async function uploadFile(file,folder){
+
+if(!file)return null;
+
+const fileName=
+Date.now()+"_"+file.name;
+
+const storageRef=
+ref(
+storage,
+folder+"/"+fileName
+);
+
+await uploadBytes(
+storageRef,
+file
+);
+
+return await getDownloadURL(
+storageRef
+);
+
+}
+
+
+/* PUBLISH */
+
+publishBtn.addEventListener(
+"click",
+async()=>{
+
+const postTitle=
+title.value.trim();
+
+const postContent=
+content.value.trim();
+
+const image=
+imageFile.files[0];
+
+const video=
+videoFile.files[0];
+
+const youtube=
+youtubeUrl.value.trim();
+
+
+/* VALIDATION */
+
+if(
+!postTitle &&
+!postContent &&
+!image &&
+!video &&
+!youtube
+){
+
+message(
+publishMessage,
+"কিছু একটা Post করুন।",
+"error"
+);
+
+return;
+
+}
+
+
+/* START */
+
+try{
+
+publishBtn.disabled=true;
+
+publishBtn.textContent=
+"⏳ Publishing...";
+
+progress.style.display="block";
+
+progressBar.style.width="20%";
+
+
+/* IMAGE */
+
+let imageUrl=null;
+
+if(image){
+
+imageUrl=
+await uploadFile(
+image,
+"posts/images"
+);
+
+}
+
+progressBar.style.width="50%";
+
+
+/* VIDEO */
+
+let videoUrl=null;
+
+if(video){
+
+videoUrl=
+await uploadFile(
+video,
+"posts/videos"
+);
+
+}
+
+progressBar.style.width="75%";
+
+
+/* FIRESTORE */
+
+await addDoc(
+collection(db,"posts"),
+{
+
+title:postTitle,
+
+content:postContent,
+
+imageUrl:imageUrl,
+
+videoUrl:videoUrl,
+
+youtubeUrl:youtube || null,
+
+createdAt:
+serverTimestamp()
+
+});
+
+
+progressBar.style.width="100%";
+
+
+/* SUCCESS */
+
+message(
+publishMessage,
+"✅ Post সফলভাবে Publish হয়েছে!",
+"success"
+);
+
+
+/* CLEAR */
+
+title.value="";
+
+content.value="";
+
+imageFile.value="";
+
+videoFile.value="";
+
+youtubeUrl.value="";
+
+imagePreview.src="";
+
+imagePreview.style.display="none";
+
+videoPreview.src="";
+
+videoPreview.style.display="none";
+
+
+}catch(error){
+
+console.error(error);
+
+message(
+publishMessage,
+"❌ Post করা যায়নি: "+
+error.message,
+"error"
+);
+
+}
+
+
+publishBtn.disabled=false;
+
+publishBtn.textContent=
+"🚀 Publish Post";
+
+setTimeout(
+()=>{
+progress.style.display="none";
+progressBar.style.width="0%";
+},
+1000
+);
+
+});
+
+
+/* LOGOUT */
+
+logoutBtn.addEventListener(
+"click",
+async()=>{
+
+await signOut(auth);
+
+});
 
 </script>
 

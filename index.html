@@ -22,13 +22,12 @@
       color: #1c1e21;
     }
 
-    /* HEADER */
     .header {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: white;
       height: 60px;
+      background: white;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -37,36 +36,31 @@
     }
 
     .logo {
+      color: #1877f2;
       font-size: 24px;
       font-weight: bold;
-      color: #1877f2;
     }
 
     .menu {
       font-size: 25px;
-      cursor: pointer;
     }
 
-    /* MAIN */
     .container {
-      width: 100%;
       max-width: 680px;
       margin: 20px auto;
       padding: 0 10px;
     }
 
-    /* INTRO */
     .intro {
       background: white;
-      border-radius: 12px;
       padding: 20px;
+      border-radius: 12px;
       margin-bottom: 15px;
       box-shadow: 0 1px 3px rgba(0,0,0,.12);
     }
 
     .intro h1 {
       margin: 0 0 8px;
-      font-size: 26px;
     }
 
     .intro p {
@@ -75,7 +69,6 @@
       line-height: 1.6;
     }
 
-    /* POST */
     .post {
       background: white;
       border-radius: 12px;
@@ -100,7 +93,6 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      font-size: 18px;
       margin-right: 10px;
     }
 
@@ -109,8 +101,8 @@
     }
 
     .post-date {
-      color: #65676b;
       font-size: 13px;
+      color: #65676b;
       margin-top: 3px;
     }
 
@@ -119,7 +111,7 @@
     }
 
     .post-title {
-      font-size: 22px;
+      font-size: 21px;
       font-weight: bold;
       margin-bottom: 8px;
     }
@@ -147,15 +139,15 @@
       position: relative;
       width: 100%;
       padding-top: 56.25%;
-      background: #000;
+      background: black;
     }
 
     .youtube iframe {
       position: absolute;
-      width: 100%;
-      height: 100%;
       left: 0;
       top: 0;
+      width: 100%;
+      height: 100%;
       border: 0;
     }
 
@@ -172,31 +164,28 @@
       padding: 10px;
       font-size: 15px;
       color: #65676b;
-      cursor: pointer;
     }
 
-    .post-actions button:hover {
-      background: #f0f2f5;
-    }
-
-    /* EMPTY */
-    .empty {
+    .loading,
+    .empty,
+    .error {
       background: white;
-      padding: 30px;
+      padding: 25px;
       text-align: center;
       border-radius: 12px;
-      color: #65676b;
+      margin-bottom: 15px;
     }
 
-    /* FOOTER */
+    .error {
+      color: #b00020;
+    }
+
     footer {
       text-align: center;
       padding: 30px 10px;
       color: #65676b;
-      font-size: 14px;
     }
 
-    /* MOBILE */
     @media (max-width: 600px) {
 
       .header {
@@ -212,20 +201,9 @@
         padding: 0 5px;
       }
 
+      .post,
       .intro {
         border-radius: 8px;
-      }
-
-      .post {
-        border-radius: 8px;
-      }
-
-      .post-title {
-        font-size: 19px;
-      }
-
-      .post-text {
-        font-size: 15px;
       }
     }
   </style>
@@ -233,64 +211,414 @@
 
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="logo">Beshno Blog</div>
-    <div class="menu">☰</div>
-  </header>
+<header class="header">
+  <div class="logo">Beshno Blog</div>
+  <div class="menu">☰</div>
+</header>
 
-  <!-- MAIN -->
-  <main class="container">
 
-    <section class="intro">
-      <h1>📰 Beshno Blog</h1>
-      <p>
-        নতুন খবর, লেখা, ছবি ও ভিডিও দেখতে আমাদের Blog-এর সাথে থাকুন।
-      </p>
-    </section>
+<main class="container">
 
-    <!-- POSTS WILL APPEAR HERE -->
-    <div id="posts">
+  <section class="intro">
+    <h1>📰 Beshno Blog</h1>
+    <p>
+      নতুন খবর, লেখা, ছবি ও ভিডিও দেখতে আমাদের Blog-এর সাথে থাকুন।
+    </p>
+  </section>
 
-      <!-- DEMO POST -->
-      <article class="post">
 
-        <div class="post-header">
-          <div class="avatar">B</div>
+  <div id="posts">
 
-          <div>
-            <div class="post-user">Beshno Blog</div>
-            <div class="post-date">আজ</div>
-          </div>
-        </div>
-
-        <div class="post-content">
-
-          <div class="post-title">
-            Beshno Blog-এ আপনাকে স্বাগতম
-          </div>
-
-          <div class="post-text">
-এখানে আপনার নতুন পোস্ট, ছবি এবং ভিডিও দেখা যাবে।
-          </div>
-
-        </div>
-
-        <div class="post-actions">
-          <button>👍 Like</button>
-          <button>💬 Comment</button>
-          <button>↗ Share</button>
-        </div>
-
-      </article>
-
+    <div class="loading">
+      পোস্ট লোড হচ্ছে...
     </div>
 
-  </main>
+  </div>
 
-  <footer>
-    © 2026 Beshno Blog — All Rights Reserved
-  </footer>
+</main>
+
+
+<footer>
+  © 2026 Beshno Blog — All Rights Reserved
+</footer>
+
+
+<script type="module">
+
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+  import {
+    getFirestore,
+    collection,
+    query,
+    orderBy,
+    onSnapshot
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+  /* =========================
+     FIREBASE CONFIG
+  ========================= */
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
+    authDomain: "beshno-blog.firebaseapp.com",
+    projectId: "beshno-blog",
+    storageBucket: "beshno-blog.firebasestorage.app",
+    messagingSenderId: "1070244747427",
+    appId: "1:1070244747427:web:0acbf8b3b60cb9121a8716",
+    measurementId: "G-VWZZ6YXSPP"
+  };
+
+
+  const app = initializeApp(firebaseConfig);
+
+  const db = getFirestore(app);
+
+  const postsBox =
+    document.getElementById("posts");
+
+
+  /* =========================
+     YOUTUBE ID
+  ========================= */
+
+  function getYouTubeId(url) {
+
+    if (!url) return "";
+
+    try {
+
+      const parsed =
+        new URL(url);
+
+      if (
+        parsed.hostname.includes("youtube.com")
+      ) {
+
+        return parsed.searchParams.get("v") || "";
+
+      }
+
+      if (
+        parsed.hostname === "youtu.be"
+      ) {
+
+        return parsed.pathname.substring(1);
+
+      }
+
+    } catch (error) {
+
+      return "";
+
+    }
+
+    return "";
+
+  }
+
+
+  /* =========================
+     DATE
+  ========================= */
+
+  function formatDate(timestamp) {
+
+    if (!timestamp) {
+      return "এইমাত্র";
+    }
+
+    const date =
+      timestamp.toDate();
+
+    return date.toLocaleString(
+      "bn-BD",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      }
+    );
+
+  }
+
+
+  /* =========================
+     LOAD POSTS
+  ========================= */
+
+  const postsQuery = query(
+    collection(db, "posts"),
+    orderBy("createdAt", "desc")
+  );
+
+
+  onSnapshot(
+    postsQuery,
+
+    (snapshot) => {
+
+      postsBox.innerHTML = "";
+
+
+      if (snapshot.empty) {
+
+        postsBox.innerHTML = `
+          <div class="empty">
+            এখনো কোনো পোস্ট প্রকাশ করা হয়নি।
+          </div>
+        `;
+
+        return;
+      }
+
+
+      snapshot.forEach((doc) => {
+
+        const post =
+          doc.data();
+
+
+        const article =
+          document.createElement("article");
+
+        article.className = "post";
+
+
+        /* HEADER */
+
+        const header =
+          document.createElement("div");
+
+        header.className =
+          "post-header";
+
+
+        header.innerHTML = `
+
+          <div class="avatar">
+            B
+          </div>
+
+          <div>
+
+            <div class="post-user">
+              ${escapeHTML(
+                post.author || "Beshno Blog"
+              )}
+            </div>
+
+            <div class="post-date">
+              ${formatDate(post.createdAt)}
+            </div>
+
+          </div>
+
+        `;
+
+
+        article.appendChild(header);
+
+
+        /* CONTENT */
+
+        const content =
+          document.createElement("div");
+
+        content.className =
+          "post-content";
+
+
+        if (post.title) {
+
+          const title =
+            document.createElement("div");
+
+          title.className =
+            "post-title";
+
+          title.textContent =
+            post.title;
+
+          content.appendChild(title);
+
+        }
+
+
+        if (post.text) {
+
+          const text =
+            document.createElement("div");
+
+          text.className =
+            "post-text";
+
+          text.textContent =
+            post.text;
+
+          content.appendChild(text);
+
+        }
+
+
+        article.appendChild(content);
+
+
+        /* IMAGE */
+
+        if (post.imageUrl) {
+
+          const image =
+            document.createElement("img");
+
+          image.src =
+            post.imageUrl;
+
+          image.alt =
+            post.title || "Beshno Blog";
+
+          image.loading =
+            "lazy";
+
+          article.appendChild(image);
+
+        }
+
+
+        /* VIDEO */
+
+        if (post.videoUrl) {
+
+          const video =
+            document.createElement("video");
+
+          video.src =
+            post.videoUrl;
+
+          video.controls =
+            true;
+
+          video.playsInline =
+            true;
+
+          article.appendChild(video);
+
+        }
+
+
+        /* YOUTUBE */
+
+        if (post.youtubeUrl) {
+
+          const youtubeId =
+            getYouTubeId(
+              post.youtubeUrl
+            );
+
+
+          if (youtubeId) {
+
+            const youtube =
+              document.createElement("div");
+
+            youtube.className =
+              "youtube";
+
+
+            youtube.innerHTML = `
+
+              <iframe
+                src="https://www.youtube.com/embed/${youtubeId}"
+                title="YouTube video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+
+            `;
+
+
+            article.appendChild(youtube);
+
+          }
+
+        }
+
+
+        /* ACTIONS */
+
+        const actions =
+          document.createElement("div");
+
+        actions.className =
+          "post-actions";
+
+
+        actions.innerHTML = `
+
+          <button>
+            👍 Like
+          </button>
+
+          <button>
+            💬 Comment
+          </button>
+
+          <button>
+            ↗ Share
+          </button>
+
+        `;
+
+
+        article.appendChild(actions);
+
+
+        postsBox.appendChild(article);
+
+      });
+
+    },
+
+    (error) => {
+
+      console.error(error);
+
+      postsBox.innerHTML = `
+
+        <div class="error">
+          পোস্ট লোড করা যাচ্ছে না।<br><br>
+          ${escapeHTML(error.message)}
+        </div>
+
+      `;
+
+    }
+
+  );
+
+
+  /* =========================
+     SECURITY
+  ========================= */
+
+  function escapeHTML(value) {
+
+    const div =
+      document.createElement("div");
+
+    div.textContent =
+      value || "";
+
+    return div.innerHTML;
+
+  }
+
+</script>
 
 </body>
 </html>

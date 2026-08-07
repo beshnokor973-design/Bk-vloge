@@ -15,7 +15,7 @@ body {
 
 .container {
   max-width: 600px;
-  margin: 40px auto;
+  margin: 30px auto;
   padding: 20px;
 }
 
@@ -24,6 +24,10 @@ body {
   padding: 25px;
   border-radius: 15px;
   box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+h1 {
+  margin-top: 0;
 }
 
 input,
@@ -43,12 +47,17 @@ textarea {
 
 button {
   width: 100%;
-  padding: 13px;
+  padding: 14px;
   border: 0;
   border-radius: 8px;
   background: #111;
   color: white;
   font-size: 16px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: .6;
 }
 
 .logout {
@@ -76,6 +85,15 @@ button {
   background: #ffe8e8;
   color: #a00000;
 }
+
+.preview {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 10px 0 15px;
+  display: none;
+}
 </style>
 </head>
 
@@ -83,6 +101,7 @@ button {
 
 <div class="container">
 
+<!-- LOGIN -->
 <section class="card" id="loginBox">
 
 <h1>🔐 Beshno Blog Admin</h1>
@@ -110,34 +129,42 @@ Login
 </section>
 
 
+<!-- ADMIN PANEL -->
 <section class="card" id="adminPanel">
 
-<h1>📝 Admin Panel</h1>
+<h1>📝 Create New Post</h1>
 
-<p>নতুন Blog Post প্রকাশ করুন।</p>
-
-<label>পোস্টের শিরোনাম</label>
+<label>Post Title</label>
 
 <input
   type="text"
   id="title"
-  placeholder="আমার নতুন পোস্ট"
+  placeholder="পোস্টের শিরোনাম লিখুন"
 >
 
-<label>পোস্টের লেখা</label>
+
+<label>Post Content</label>
 
 <textarea
   id="content"
-  placeholder="তোমার পোস্ট এখানে লিখো..."
+  placeholder="পোস্টের লেখা লিখুন..."
 ></textarea>
 
-<label>ছবির URL</label>
+
+<label>📸 Post Image</label>
 
 <input
-  type="url"
-  id="imageUrl"
-  placeholder="https://example.com/image.jpg"
+  type="file"
+  id="imageFile"
+  accept="image/*"
 >
+
+<img
+  id="imagePreview"
+  class="preview"
+  alt="Image Preview"
+>
+
 
 <button id="publishBtn">
 🚀 Publish Post
@@ -145,7 +172,8 @@ Login
 
 <div id="publishMessage" class="message"></div>
 
-<button class="logout" id="logoutBtn">
+
+<button id="logoutBtn" class="logout">
 Logout
 </button>
 
@@ -156,62 +184,69 @@ Logout
 
 <script type="module">
 
-import {
-  initializeApp
-} from
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+/* =========================
+   FIREBASE IMPORT
+========================= */
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
   getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut
-} from
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
   getFirestore,
   collection,
   addDoc,
   serverTimestamp
-} from
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
 
 const firebaseConfig = {
-
-  apiKey:
-  "AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
-
-  authDomain:
-  "beshno-blog.firebaseapp.com",
-
-  projectId:
-  "beshno-blog",
-
-  storageBucket:
-  "beshno-blog.firebasestorage.app",
-
-  messagingSenderId:
-  "1070244747427",
-
-  appId:
-  "1:1070244747427:web:0acbf8b3b60cb9121a8716",
-
-  measurementId:
-  "G-VWZZ6YXSPP"
+  apiKey: "AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
+  authDomain: "beshno-blog.firebaseapp.com",
+  projectId: "beshno-blog",
+  storageBucket: "beshno-blog.firebasestorage.app",
+  messagingSenderId: "1070244747427",
+  appId: "1:1070244747427:web:0acbf8b3b60cb9121a8716",
+  measurementId: "G-VWZZ6YXSPP"
 };
 
 
-const app =
-  initializeApp(firebaseConfig);
+/* =========================
+   INITIALIZE FIREBASE
+========================= */
 
-const auth =
-  getAuth(app);
+const app = initializeApp(firebaseConfig);
 
-const db =
-  getFirestore(app);
+const auth = getAuth(app);
 
+const db = getFirestore(app);
+
+const storage = getStorage(app);
+
+
+/* =========================
+   ELEMENTS
+========================= */
 
 const loginBox =
   document.getElementById("loginBox");
@@ -228,11 +263,8 @@ const password =
 const loginBtn =
   document.getElementById("loginBtn");
 
-const logoutBtn =
-  document.getElementById("logoutBtn");
-
-const publishBtn =
-  document.getElementById("publishBtn");
+const loginMessage =
+  document.getElementById("loginMessage");
 
 const title =
   document.getElementById("title");
@@ -240,15 +272,25 @@ const title =
 const content =
   document.getElementById("content");
 
-const imageUrl =
-  document.getElementById("imageUrl");
+const imageFile =
+  document.getElementById("imageFile");
 
-const loginMessage =
-  document.getElementById("loginMessage");
+const imagePreview =
+  document.getElementById("imagePreview");
+
+const publishBtn =
+  document.getElementById("publishBtn");
 
 const publishMessage =
   document.getElementById("publishMessage");
 
+const logoutBtn =
+  document.getElementById("logoutBtn");
+
+
+/* =========================
+   MESSAGE FUNCTION
+========================= */
 
 function showMessage(element, text, type) {
 
@@ -257,14 +299,40 @@ function showMessage(element, text, type) {
   element.className =
     "message " + type;
 
-  element.style.display =
-    "block";
+  element.style.display = "block";
 }
 
 
-/* LOGIN */
+/* =========================
+   IMAGE PREVIEW
+========================= */
 
-loginBtn.addEventListener("click", async () => {
+imageFile.addEventListener("change", function() {
+
+  const file = imageFile.files[0];
+
+  if (!file) {
+
+    imagePreview.style.display = "none";
+
+    return;
+  }
+
+  const imageURL =
+    URL.createObjectURL(file);
+
+  imagePreview.src = imageURL;
+
+  imagePreview.style.display = "block";
+
+});
+
+
+/* =========================
+   LOGIN
+========================= */
+
+loginBtn.addEventListener("click", async function() {
 
   const userEmail =
     email.value.trim();
@@ -283,6 +351,11 @@ loginBtn.addEventListener("click", async () => {
     return;
   }
 
+  loginBtn.disabled = true;
+
+  loginBtn.textContent =
+    "Login হচ্ছে...";
+
   try {
 
     await signInWithEmailAndPassword(
@@ -291,22 +364,37 @@ loginBtn.addEventListener("click", async () => {
       userPassword
     );
 
+    showMessage(
+      loginMessage,
+      "Login সফল হয়েছে।",
+      "success"
+    );
+
   } catch (error) {
+
+    console.error(error);
 
     showMessage(
       loginMessage,
-      "Login ব্যর্থ হয়েছে। Email অথবা Password পরীক্ষা করুন।",
+      "Login হয়নি। Email অথবা Password পরীক্ষা করুন।",
       "error"
     );
 
   }
 
+  loginBtn.disabled = false;
+
+  loginBtn.textContent =
+    "Login";
+
 });
 
 
-/* LOGIN CHECK */
+/* =========================
+   AUTH STATE
+========================= */
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, function(user) {
 
   if (user) {
 
@@ -329,9 +417,11 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-/* PUBLISH */
+/* =========================
+   PUBLISH POST
+========================= */
 
-publishBtn.addEventListener("click", async () => {
+publishBtn.addEventListener("click", async function() {
 
   const postTitle =
     title.value.trim();
@@ -339,15 +429,39 @@ publishBtn.addEventListener("click", async () => {
   const postContent =
     content.value.trim();
 
-  const postImage =
-    imageUrl.value.trim();
+  const file =
+    imageFile.files[0];
 
 
-  if (!postTitle || !postContent) {
+  if (!postTitle) {
 
     showMessage(
       publishMessage,
-      "শিরোনাম এবং পোস্টের লেখা দিতে হবে।",
+      "Post Title লিখুন।",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if (!postContent) {
+
+    showMessage(
+      publishMessage,
+      "Post Content লিখুন।",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if (!file) {
+
+    showMessage(
+      publishMessage,
+      "একটি ছবি নির্বাচন করুন।",
       "error"
     );
 
@@ -358,42 +472,91 @@ publishBtn.addEventListener("click", async () => {
   publishBtn.disabled = true;
 
   publishBtn.textContent =
-    "Publishing...";
+    "⏳ Upload হচ্ছে...";
 
 
   try {
 
+    /* =========================
+       UNIQUE IMAGE NAME
+    ========================= */
+
+    const fileName =
+      Date.now() + "_" + file.name;
+
+    const storageRef =
+      ref(
+        storage,
+        "posts/" + fileName
+      );
+
+
+    /* =========================
+       UPLOAD IMAGE
+    ========================= */
+
+    await uploadBytes(
+      storageRef,
+      file
+    );
+
+
+    /* =========================
+       GET IMAGE URL
+    ========================= */
+
+    const imageURL =
+      await getDownloadURL(
+        storageRef
+      );
+
+
+    publishBtn.textContent =
+      "⏳ Post Save হচ্ছে...";
+
+
+    /* =========================
+       SAVE POST TO FIRESTORE
+    ========================= */
+
     await addDoc(
       collection(db, "posts"),
       {
-
         title: postTitle,
 
         content: postContent,
 
-        imageUrl: postImage,
+        imageUrl: imageURL,
 
-        createdAt: serverTimestamp(),
-
-        author:
-          auth.currentUser.email
-
+        createdAt:
+          serverTimestamp()
       }
     );
 
 
+    /* =========================
+       SUCCESS
+    ========================= */
+
     showMessage(
       publishMessage,
-      "🎉 পোস্ট সফলভাবে প্রকাশ হয়েছে!",
+      "✅ Post সফলভাবে প্রকাশ হয়েছে!",
       "success"
     );
 
+
+    /* CLEAR FORM */
 
     title.value = "";
 
     content.value = "";
 
-    imageUrl.value = "";
+    imageFile.value = "";
+
+    imagePreview.src = "";
+
+    imagePreview.style.display =
+      "none";
 
 
   } catch (error) {
@@ -402,7 +565,8 @@ publishBtn.addEventListener("click", async () => {
 
     showMessage(
       publishMessage,
-      "পোস্ট প্রকাশ করা যায়নি।",
+      "❌ Post প্রকাশ করা যায়নি: " +
+      error.message,
       "error"
     );
 
@@ -417,13 +581,16 @@ publishBtn.addEventListener("click", async () => {
 });
 
 
-/* LOGOUT */
+/* =========================
+   LOGOUT
+========================= */
 
-logoutBtn.addEventListener("click", async () => {
+logoutBtn.addEventListener("click", async function() {
 
   await signOut(auth);
 
 });
+
 
 </script>
 

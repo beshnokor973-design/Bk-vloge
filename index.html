@@ -1,252 +1,371 @@
-```html
 <!DOCTYPE html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Beshno Blog</title>
+<title>Beshno Blog | Official</title>
 
 <style>
 *{box-sizing:border-box}
 
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f0f2f5;
-  color:#1c1e21;
+margin:0;
+font-family:Arial,"Noto Sans Bengali",sans-serif;
+background:#f0f2f5;
+color:#1c1e21;
 }
 
 .header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  height:60px;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 18px;
-  box-shadow:0 1px 4px rgba(0,0,0,.15);
+position:sticky;
+top:0;
+z-index:1000;
+height:60px;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 18px;
+box-shadow:0 1px 5px rgba(0,0,0,.15);
 }
 
 .logo{
-  color:#1877f2;
-  font-size:24px;
-  font-weight:bold;
+color:#1877f2;
+font-size:25px;
+font-weight:bold;
+}
+
+.menu{
+font-size:25px;
+color:#1877f2;
 }
 
 .container{
-  max-width:680px;
-  margin:20px auto;
-  padding:0 10px;
-}
-
-.intro,.post{
-  background:#fff;
-  border-radius:12px;
-  margin-bottom:18px;
-  box-shadow:0 1px 3px rgba(0,0,0,.12);
+max-width:700px;
+margin:18px auto;
+padding:0 10px;
 }
 
 .intro{
-  padding:20px;
+background:#fff;
+border-radius:14px;
+margin-bottom:18px;
+overflow:hidden;
+box-shadow:0 1px 4px rgba(0,0,0,.12);
 }
 
-.intro h1{
-  margin:0 0 8px;
+.cover{
+height:140px;
+background:linear-gradient(135deg,#1877f2,#0d5dcc);
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+font-size:34px;
+font-weight:bold;
 }
 
-.intro p{
-  margin:0;
-  color:#65676b;
+.intro-content{
+padding:20px;
+text-align:center;
 }
 
-.post{
-  overflow:hidden;
+.intro-content h1{
+margin:0 0 8px;
+font-size:26px;
 }
 
-.post-header{
-  display:flex;
-  align-items:center;
-  padding:15px;
+.intro-content p{
+margin:0;
+color:#65676b;
+line-height:1.7;
+font-size:16px;
 }
 
-.avatar{
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  background:#1877f2;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  margin-right:10px;
+.social-links{
+display:flex;
+gap:10px;
+justify-content:center;
+flex-wrap:wrap;
+padding:0 20px 20px;
 }
 
-.post-user{
-  font-weight:bold;
+.social-links a{
+text-decoration:none;
+padding:10px 18px;
+border-radius:22px;
+color:#fff;
+font-weight:bold;
+font-size:14px;
 }
 
-.post-date{
-  color:#65676b;
-  font-size:13px;
-  margin-top:3px;
-}
-
-.post-content{
-  padding:0 15px 15px;
-}
-
-.post-title{
-  font-size:21px;
-  font-weight:bold;
-  margin-bottom:8px;
-}
-
-.post-text{
-  line-height:1.7;
-  white-space:pre-wrap;
-}
-
-.post img{
-  width:100%;
-  display:block;
-  max-height:600px;
-  object-fit:cover;
-}
-
-.post video{
-  width:100%;
-  display:block;
-  background:#000;
-  max-height:600px;
+.facebook{
+background:#1877f2;
 }
 
 .youtube{
-  position:relative;
-  width:100%;
-  padding-top:56.25%;
-  background:#000;
+background:#ff0000;
 }
 
-.youtube iframe{
-  position:absolute;
-  left:0;
-  top:0;
-  width:100%;
-  height:100%;
-  border:0;
+.post{
+background:#fff;
+border-radius:14px;
+margin-bottom:18px;
+box-shadow:0 1px 4px rgba(0,0,0,.12);
+overflow:hidden;
 }
 
-/* ACTIONS */
+.post-header{
+display:flex;
+align-items:center;
+padding:15px;
+}
+
+.avatar{
+width:46px;
+height:46px;
+border-radius:50%;
+background:#1877f2;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:20px;
+margin-right:10px;
+}
+
+.post-user{
+font-weight:bold;
+font-size:16px;
+}
+
+.post-date{
+color:#65676b;
+font-size:12px;
+margin-top:4px;
+}
+
+.post-content{
+padding:0 15px 15px;
+}
+
+.post-title{
+font-size:21px;
+font-weight:bold;
+margin-bottom:8px;
+}
+
+.post-text{
+line-height:1.7;
+white-space:pre-wrap;
+}
+
+.post img{
+width:100%;
+display:block;
+max-height:650px;
+object-fit:cover;
+}
+
+.post video{
+width:100%;
+display:block;
+background:#000;
+max-height:650px;
+}
+
+.youtube-box{
+position:relative;
+width:100%;
+padding-top:56.25%;
+background:#000;
+}
+
+.youtube-box iframe{
+position:absolute;
+left:0;
+top:0;
+width:100%;
+height:100%;
+border:0;
+}
 
 .post-actions{
-  display:flex;
-  border-top:1px solid #ddd;
-  padding:5px 10px;
+display:flex;
+border-top:1px solid #ddd;
+border-bottom:1px solid #ddd;
+padding:4px 7px;
 }
 
 .post-actions button{
-  flex:1;
-  border:0;
-  background:#fff;
-  padding:11px 5px;
-  font-size:15px;
-  color:#65676b;
-  cursor:pointer;
+flex:1;
+border:0;
+background:#fff;
+padding:12px 3px;
+font-size:14px;
+color:#65676b;
+cursor:pointer;
+border-radius:7px;
 }
 
 .post-actions button:hover{
-  background:#f0f2f5;
+background:#f0f2f5;
 }
 
 .like-btn.liked{
-  color:#1877f2;
-  font-weight:bold;
+color:#1877f2;
+font-weight:bold;
 }
 
-/* COMMENTS */
-
 .comments{
-  border-top:1px solid #ddd;
-  padding:12px;
-  display:none;
+padding:12px;
+display:none;
 }
 
 .comments.show{
-  display:block;
+display:block;
 }
 
 .comment-form{
-  display:flex;
-  gap:8px;
-  margin-bottom:12px;
+display:flex;
+gap:8px;
+margin-bottom:12px;
 }
 
 .comment-form input{
-  flex:1;
-  padding:11px;
-  border:1px solid #ddd;
-  border-radius:20px;
-  outline:none;
+flex:1;
+padding:11px 14px;
+border:1px solid #ddd;
+border-radius:22px;
+outline:none;
+font-size:14px;
 }
 
 .comment-form button{
-  border:0;
-  border-radius:20px;
-  padding:0 16px;
-  background:#1877f2;
-  color:white;
-  cursor:pointer;
+border:0;
+border-radius:22px;
+padding:0 16px;
+background:#1877f2;
+color:#fff;
+cursor:pointer;
 }
 
 .comment{
-  background:#f0f2f5;
-  border-radius:12px;
-  padding:9px 12px;
-  margin-bottom:8px;
+background:#f0f2f5;
+border-radius:13px;
+padding:9px 12px;
+margin-bottom:8px;
 }
 
 .comment-name{
-  font-weight:bold;
-  font-size:14px;
+font-weight:bold;
+font-size:14px;
 }
 
 .comment-text{
-  margin-top:4px;
-  line-height:1.5;
+margin-top:4px;
+line-height:1.5;
 }
 
-.loading,.empty,.error{
-  background:#fff;
-  padding:25px;
-  text-align:center;
-  border-radius:12px;
-  margin-bottom:15px;
+.section-card{
+background:#fff;
+border-radius:14px;
+padding:20px;
+margin-bottom:18px;
+box-shadow:0 1px 4px rgba(0,0,0,.12);
+}
+
+.section-card h2{
+margin-top:0;
+color:#1877f2;
+}
+
+.section-card p{
+line-height:1.7;
+color:#555;
+}
+
+.youtube-section{
+background:#fff;
+border-radius:14px;
+padding:20px;
+margin-bottom:18px;
+box-shadow:0 1px 4px rgba(0,0,0,.12);
+}
+
+.youtube-section h2{
+margin-top:0;
+}
+
+.youtube-button{
+display:block;
+text-align:center;
+text-decoration:none;
+background:#ff0000;
+color:#fff;
+padding:13px;
+border-radius:8px;
+font-weight:bold;
+}
+
+.loading,
+.empty,
+.error{
+background:#fff;
+padding:25px;
+text-align:center;
+border-radius:14px;
+margin-bottom:15px;
 }
 
 .error{
-  color:#b00020;
+color:#b00020;
 }
 
 footer{
-  text-align:center;
-  padding:30px 10px;
-  color:#65676b;
+text-align:center;
+padding:30px 10px;
+color:#65676b;
+font-size:14px;
 }
 
 @media(max-width:600px){
-  .header{height:55px}
-  .logo{font-size:21px}
-  .container{
-    margin-top:10px;
-    padding:0 5px;
-  }
-  .post,.intro{
-    border-radius:8px;
-  }
+
+.header{
+height:56px;
+padding:0 13px;
+}
+
+.logo{
+font-size:21px;
+}
+
+.container{
+margin-top:10px;
+padding:0 5px;
+}
+
+.post,
+.intro,
+.section-card,
+.youtube-section{
+border-radius:9px;
+}
+
+.cover{
+height:120px;
+font-size:28px;
+}
+
+.post-title{
+font-size:19px;
+}
+
+.post-actions button{
+font-size:13px;
+}
+
 }
 </style>
 </head>
@@ -254,22 +373,126 @@ footer{
 <body>
 
 <header class="header">
-  <div class="logo">Beshno Blog</div>
-  <div>☰</div>
+
+<div class="logo">
+Beshno Blog
+</div>
+
+<div class="menu">
+☰
+</div>
+
 </header>
 
 <main class="container">
 
 <section class="intro">
-  <h1>📰 Beshno Blog</h1>
-  <p>
-    নতুন খবর, লেখা, ছবি ও ভিডিও দেখতে আমাদের Blog-এর সাথে থাকুন।
-  </p>
+
+<div class="cover">
+BESHNO BLOG
+</div>
+
+<div class="intro-content">
+
+<h1>📰 Beshno Blog</h1>
+
+<p>
+নতুন খবর, লেখা, ছবি ও ভিডিও দেখতে
+আমাদের Blog-এর সাথে থাকুন।
+</p>
+
+</div>
+
+<div class="social-links">
+
+<a
+class="facebook"
+href="https://www.facebook.com/profile.php?id=61593040285317"
+target="_blank"
+rel="noopener">
+🔵 Facebook
+</a>
+
+<a
+class="youtube"
+href="https://www.youtube.com/@beshnobloge"
+target="_blank"
+rel="noopener">
+▶ YouTube
+</a>
+
+</div>
+
 </section>
 
 <div id="posts">
-  <div class="loading">পোস্ট লোড হচ্ছে...</div>
+
+<div class="loading">
+পোস্ট লোড হচ্ছে...
 </div>
+
+</div>
+
+<section class="youtube-section">
+
+<h2>▶ আমাদের YouTube Channel</h2>
+
+<p>
+Beshno Blog-এর ভিডিও দেখতে আমাদের YouTube Channel-এ যান।
+</p>
+
+<a
+class="youtube-button"
+href="https://www.youtube.com/@beshnobloge"
+target="_blank"
+rel="noopener">
+YouTube Channel দেখুন
+</a>
+
+</section>
+
+<section class="section-card">
+
+<h2>ℹ️ About Beshno Blog</h2>
+
+<p>
+Beshno Blog-এ বিভিন্ন ধরনের লেখা, খবর,
+ছবি এবং ভিডিও প্রকাশ করা হয়।
+নিয়মিত নতুন পোস্ট পেতে আমাদের সাথে থাকুন।
+</p>
+
+</section>
+
+<section class="section-card">
+
+<h2>📞 যোগাযোগ</h2>
+
+<p>
+আমাদের সাথে যোগাযোগ ও আপডেট পেতে
+Facebook এবং YouTube Channel অনুসরণ করুন।
+</p>
+
+<div class="social-links" style="padding:0;">
+
+<a
+class="facebook"
+href="https://www.facebook.com/profile.php?id=61593040285317"
+target="_blank"
+rel="noopener">
+Facebook
+</a>
+
+<a
+class="youtube"
+href="https://www.youtube.com/@beshnobloge"
+target="_blank"
+rel="noopener">
+YouTube
+</a>
+
+</div>
+
+</section>
 
 </main>
 
@@ -277,494 +500,544 @@ footer{
 © 2026 Beshno Blog — All Rights Reserved
 </footer>
 
-
 <script type="module">
 
 import {
-  initializeApp
+initializeApp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
-  getFirestore,
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-  addDoc,
-  serverTimestamp
+getFirestore,
+collection,
+query,
+orderBy,
+onSnapshot,
+addDoc,
+serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-/* FIREBASE */
+const firebaseConfig={
 
-const firebaseConfig = {
-  apiKey:"AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
-  authDomain:"beshno-blog.firebaseapp.com",
-  projectId:"beshno-blog",
-  storageBucket:"beshno-blog.firebasestorage.app",
-  messagingSenderId:"1070244747427",
-  appId:"1:1070244747427:web:0acbf8b3b60cb9121a8716",
-  measurementId:"G-VWZZ6YXSPP"
+apiKey:"AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
+
+authDomain:"beshno-blog.firebaseapp.com",
+
+projectId:"beshno-blog",
+
+storageBucket:"beshno-blog.firebasestorage.app",
+
+messagingSenderId:"1070244747427",
+
+appId:"1:1070244747427:web:0acbf8b3b60cb9121a8716",
+
+measurementId:"G-VWZZ6YXSPP"
+
 };
 
+
 const app=initializeApp(firebaseConfig);
+
 const db=getFirestore(app);
+
 const postsBox=document.getElementById("posts");
 
 
-/* YOUTUBE */
-
 function getYouTubeId(url){
 
-  if(!url) return "";
+if(!url)return "";
 
-  try{
+try{
 
-    const u=new URL(url);
+const u=new URL(url);
 
-    if(u.hostname.includes("youtube.com")){
-      return u.searchParams.get("v") || "";
-    }
+if(u.hostname.includes("youtube.com")){
 
-    if(u.hostname==="youtu.be"){
-      return u.pathname.substring(1);
-    }
+return u.searchParams.get("v")||"";
 
-  }catch(e){}
-
-  return "";
 }
 
+if(u.hostname==="youtu.be"){
 
-/* DATE */
+return u.pathname.substring(1);
+
+}
+
+}catch(e){}
+
+return "";
+
+}
+
 
 function formatDate(timestamp){
 
-  if(!timestamp) return "এইমাত্র";
+if(!timestamp)return "এইমাত্র";
 
-  return timestamp.toDate().toLocaleString(
-    "bn-BD",
-    {
-      year:"numeric",
-      month:"long",
-      day:"numeric",
-      hour:"numeric",
-      minute:"2-digit"
-    }
-  );
+try{
+
+return timestamp.toDate().toLocaleString(
+"bn-BD",
+{
+year:"numeric",
+month:"long",
+day:"numeric",
+hour:"numeric",
+minute:"2-digit"
+}
+);
+
+}catch(e){
+
+return "এইমাত্র";
+
+}
+
 }
 
 
-/* LOAD POSTS */
-
 const postsQuery=query(
-  collection(db,"posts"),
-  orderBy("createdAt","desc")
+collection(db,"posts"),
+orderBy("createdAt","desc")
 );
+
 
 onSnapshot(
-  postsQuery,
-  snapshot=>{
 
-    postsBox.innerHTML="";
+postsQuery,
 
-    if(snapshot.empty){
+snapshot=>{
 
-      postsBox.innerHTML=`
-        <div class="empty">
-          এখনো কোনো পোস্ট প্রকাশ করা হয়নি।
-        </div>
-      `;
+postsBox.innerHTML="";
 
-      return;
-    }
+if(snapshot.empty){
 
+postsBox.innerHTML=`
 
-    snapshot.forEach(doc=>{
+<div class="empty">
+এখনো কোনো পোস্ট প্রকাশ করা হয়নি।
+</div>
 
-      const post=doc.data();
-      const postId=doc.id;
+`;
 
-      const article=document.createElement("article");
-      article.className="post";
+return;
 
+}
 
-      /* HEADER */
 
-      article.innerHTML=`
+snapshot.forEach(doc=>{
 
-        <div class="post-header">
+const post=doc.data();
 
-          <div class="avatar">B</div>
+const postId=doc.id;
 
-          <div>
+const article=document.createElement("article");
 
-            <div class="post-user">
-              ${escapeHTML(post.author || "Beshno Blog")}
-            </div>
+article.className="post";
 
-            <div class="post-date">
-              ${formatDate(post.createdAt)}
-            </div>
 
-          </div>
+article.innerHTML=`
 
-        </div>
+<div class="post-header">
 
-      `;
+<div class="avatar">
+B
+</div>
 
+<div>
 
-      /* CONTENT */
+<div class="post-user">
+${escapeHTML(post.author||"Beshno Blog")}
+</div>
 
-      const content=document.createElement("div");
-      content.className="post-content";
+<div class="post-date">
+${formatDate(post.createdAt)}
+</div>
 
+</div>
 
-      if(post.title){
+</div>
 
-        const title=document.createElement("div");
+`;
 
-        title.className="post-title";
-        title.textContent=post.title;
 
-        content.appendChild(title);
-      }
+const content=document.createElement("div");
 
+content.className="post-content";
 
-      if(post.text){
 
-        const text=document.createElement("div");
+if(post.title){
 
-        text.className="post-text";
-        text.textContent=post.text;
+const title=document.createElement("div");
 
-        content.appendChild(text);
-      }
+title.className="post-title";
 
+title.textContent=post.title;
 
-      article.appendChild(content);
+content.appendChild(title);
 
+}
 
-      /* IMAGE */
 
-      if(post.imageUrl){
+if(post.text){
 
-        const image=document.createElement("img");
+const text=document.createElement("div");
 
-        image.src=post.imageUrl;
-        image.alt=post.title || "Beshno Blog";
-        image.loading="lazy";
+text.className="post-text";
 
-        article.appendChild(image);
-      }
+text.textContent=post.text;
 
+content.appendChild(text);
 
-      /* VIDEO */
+}
 
-      if(post.videoUrl){
 
-        const video=document.createElement("video");
+article.appendChild(content);
 
-        video.src=post.videoUrl;
-        video.controls=true;
-        video.playsInline=true;
 
-        article.appendChild(video);
-      }
+if(post.imageUrl){
 
+const image=document.createElement("img");
 
-      /* YOUTUBE */
+image.src=post.imageUrl;
 
-      if(post.youtubeUrl){
+image.alt=post.title||"Beshno Blog";
 
-        const id=getYouTubeId(post.youtubeUrl);
+image.loading="lazy";
 
-        if(id){
+article.appendChild(image);
 
-          const youtube=document.createElement("div");
+}
 
-          youtube.className="youtube";
 
-          youtube.innerHTML=`
-            <iframe
-              src="https://www.youtube.com/embed/${id}"
-              title="YouTube video"
-              allowfullscreen>
-            </iframe>
-          `;
+if(post.videoUrl){
 
-          article.appendChild(youtube);
-        }
-      }
+const video=document.createElement("video");
 
+video.src=post.videoUrl;
 
-      /* ACTIONS */
+video.controls=true;
 
-      const actions=document.createElement("div");
+video.playsInline=true;
 
-      actions.className="post-actions";
+video.preload="metadata";
 
-      actions.innerHTML=`
+article.appendChild(video);
 
-        <button class="like-btn">
-          👍 Like
-        </button>
+}
 
-        <button class="comment-btn">
-          💬 Comment
-        </button>
 
-        <button class="share-btn">
-          ↗ Share
-        </button>
+if(post.youtubeUrl){
 
-      `;
+const id=getYouTubeId(post.youtubeUrl);
 
-      article.appendChild(actions);
+if(id){
 
+const youtube=document.createElement("div");
 
-      /* COMMENTS */
+youtube.className="youtube-box";
 
-      const comments=document.createElement("div");
+const iframe=document.createElement("iframe");
 
-      comments.className="comments";
+iframe.src="https://www.youtube.com/embed/"+id;
 
-      comments.innerHTML=`
+iframe.title="YouTube video";
 
-        <div class="comment-form">
+iframe.allowFullscreen=true;
 
-          <input
-            type="text"
-            placeholder="আপনার মন্তব্য লিখুন..."
-          >
+iframe.loading="lazy";
 
-          <button>
-            Post
-          </button>
+youtube.appendChild(iframe);
 
-        </div>
+article.appendChild(youtube);
 
-        <div class="comment-list">
-          মন্তব্য লোড হচ্ছে...
-        </div>
+}
 
-      `;
+}
 
-      article.appendChild(comments);
 
+const actions=document.createElement("div");
 
-      /* LIKE */
+actions.className="post-actions";
 
-      const likeBtn=
-        actions.querySelector(".like-btn");
+actions.innerHTML=`
 
-      likeBtn.addEventListener("click",()=>{
+<button class="like-btn">
+👍 Like
+</button>
 
-        likeBtn.classList.toggle("liked");
+<button class="comment-btn">
+💬 Comment
+</button>
 
-        likeBtn.textContent=
-          likeBtn.classList.contains("liked")
-          ? "👍 Liked"
-          : "👍 Like";
+<button class="share-btn">
+🔗 Share
+</button>
 
-      });
+<button class="view-btn">
+👁️ View
+</button>
 
+`;
 
-      /* COMMENT SHOW */
+article.appendChild(actions);
 
-      const commentBtn=
-        actions.querySelector(".comment-btn");
 
-      commentBtn.addEventListener("click",()=>{
+const comments=document.createElement("div");
 
-        comments.classList.toggle("show");
+comments.className="comments";
 
-      });
+comments.innerHTML=`
 
+<div class="comment-form">
 
-      /* SHARE */
+<input
+type="text"
+placeholder="আপনার মন্তব্য লিখুন..."
+>
 
-      const shareBtn=
-        actions.querySelector(".share-btn");
+<button>
+Post
+</button>
 
-      shareBtn.addEventListener("click",async()=>{
+</div>
 
-        const url=
-          window.location.origin +
-          window.location.pathname +
-          "#post-" +
-          postId;
+<div class="comment-list">
+মন্তব্য লোড হচ্ছে...
+</div>
 
-        try{
+`;
 
-          if(navigator.share){
+article.appendChild(comments);
 
-            await navigator.share({
-              title:post.title || "Beshno Blog",
-              text:"Beshno Blog-এর একটি পোস্ট",
-              url:url
-            });
 
-          }else{
+const likeBtn=actions.querySelector(".like-btn");
 
-            await navigator.clipboard.writeText(url);
+likeBtn.addEventListener("click",()=>{
 
-            alert("পোস্টের লিংক কপি হয়েছে!");
+likeBtn.classList.toggle("liked");
 
-          }
+likeBtn.textContent=
+likeBtn.classList.contains("liked")
+?"👍 Liked"
+:"👍 Like";
 
-        }catch(e){}
+});
 
-      });
 
+const commentBtn=actions.querySelector(".comment-btn");
 
-      /* COMMENT FORM */
+commentBtn.addEventListener("click",()=>{
 
-      const input=
-        comments.querySelector("input");
+comments.classList.toggle("show");
 
-      const submit=
-        comments.querySelector("button");
+});
 
-      const list=
-        comments.querySelector(".comment-list");
 
+const shareBtn=actions.querySelector(".share-btn");
 
-      submit.addEventListener("click",async()=>{
+shareBtn.addEventListener("click",async()=>{
 
-        const comment=input.value.trim();
+const url=
+window.location.origin+
+window.location.pathname+
+"#post-"+postId;
 
-        if(!comment){
-          return;
-        }
+try{
 
-        submit.disabled=true;
-        submit.textContent="Posting...";
+if(navigator.share){
 
-        try{
+await navigator.share({
 
-          await addDoc(
-            collection(
-              db,
-              "posts",
-              postId,
-              "comments"
-            ),
-            {
-              name:"Visitor",
-              text:comment,
-              createdAt:serverTimestamp()
-            }
-          );
+title:post.title||"Beshno Blog",
 
-          input.value="";
+text:"Beshno Blog-এর একটি পোস্ট",
 
-        }catch(error){
+url:url
 
-          alert(
-            "Comment করা যায়নি: " +
-            error.message
-          );
+});
 
-        }
+}else{
 
-        submit.disabled=false;
-        submit.textContent="Post";
+await navigator.clipboard.writeText(url);
 
-      });
+alert("পোস্টের লিংক কপি হয়েছে!");
 
+}
 
-      /* LOAD COMMENTS */
+}catch(e){}
 
-      const commentsQuery=query(
-        collection(
-          db,
-          "posts",
-          postId,
-          "comments"
-        ),
-        orderBy("createdAt","asc")
-      );
+});
 
 
-      onSnapshot(
-        commentsQuery,
-        commentSnapshot=>{
+const viewBtn=actions.querySelector(".view-btn");
 
-          list.innerHTML="";
+viewBtn.addEventListener("click",()=>{
 
-          commentSnapshot.forEach(commentDoc=>{
+article.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
 
-            const c=commentDoc.data();
+});
 
-            const div=
-              document.createElement("div");
 
-            div.className="comment";
+const input=comments.querySelector("input");
 
-            div.innerHTML=`
+const submit=comments.querySelector("button");
 
-              <div class="comment-name">
-                ${escapeHTML(c.name || "Visitor")}
-              </div>
+const list=comments.querySelector(".comment-list");
 
-              <div class="comment-text">
-                ${escapeHTML(c.text || "")}
-              </div>
 
-            `;
+submit.addEventListener("click",async()=>{
 
-            list.appendChild(div);
+const comment=input.value.trim();
 
-          });
+if(!comment)return;
 
-          if(commentSnapshot.empty){
+submit.disabled=true;
 
-            list.innerHTML=
-              "<small>এখনো কোনো মন্তব্য নেই।</small>";
+submit.textContent="Posting...";
 
-          }
+try{
 
-        }
-      );
+await addDoc(
 
+collection(
+db,
+"posts",
+postId,
+"comments"
+),
 
-      postsBox.appendChild(article);
+{
+name:"Visitor",
+text:comment,
+createdAt:serverTimestamp()
+}
 
-    });
+);
 
-  },
+input.value="";
 
-  error=>{
+}catch(error){
 
-    console.error(error);
+alert(
+"Comment করা যায়নি: "+
+error.message
+);
 
-    postsBox.innerHTML=`
+}
 
-      <div class="error">
-        পোস্ট লোড করা যাচ্ছে না।<br><br>
-        ${escapeHTML(error.message)}
-      </div>
+submit.disabled=false;
 
-    `;
+submit.textContent="Post";
 
-  }
+});
+
+
+const commentsQuery=query(
+
+collection(
+db,
+"posts",
+postId,
+"comments"
+),
+
+orderBy(
+"createdAt",
+"asc"
+)
+
 );
 
 
-/* SECURITY */
+onSnapshot(
+
+commentsQuery,
+
+commentSnapshot=>{
+
+list.innerHTML="";
+
+commentSnapshot.forEach(commentDoc=>{
+
+const c=commentDoc.data();
+
+const div=document.createElement("div");
+
+div.className="comment";
+
+div.innerHTML=`
+
+<div class="comment-name">
+${escapeHTML(c.name||"Visitor")}
+</div>
+
+<div class="comment-text">
+${escapeHTML(c.text||"")}
+</div>
+
+`;
+
+list.appendChild(div);
+
+});
+
+
+if(commentSnapshot.empty){
+
+list.innerHTML=
+"<small>এখনো কোনো মন্তব্য নেই।</small>";
+
+}
+
+}
+
+);
+
+
+postsBox.appendChild(article);
+
+});
+
+},
+
+error=>{
+
+console.error(error);
+
+postsBox.innerHTML=`
+
+<div class="error">
+
+পোস্ট লোড করা যাচ্ছে না।
+
+<br><br>
+
+${escapeHTML(error.message)}
+
+</div>
+
+`;
+
+}
+
+);
+
 
 function escapeHTML(value){
 
-  const div=document.createElement("div");
+const div=document.createElement("div");
 
-  div.textContent=value || "";
+div.textContent=value||"";
 
-  return div.innerHTML;
+return div.innerHTML;
+
 }
 
 </script>
 
 </body>
 </html>
-```

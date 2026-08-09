@@ -8,9 +8,20 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
+<meta name="description"
+content="Beshno Blog - বাংলা লেখা, খবর, ছবি ও ভিডিও প্রকাশের অনলাইন প্ল্যাটফর্ম।">
+
+<meta name="robots"
+content="index, follow">
+
 <title>Beshno Blog | Official</title>
 
+
 <style>
+
+/* =========================
+   BASIC
+========================= */
 
 *{
 box-sizing:border-box;
@@ -23,7 +34,10 @@ background:#f0f2f5;
 color:#1c1e21;
 }
 
-/* HEADER */
+
+/* =========================
+   HEADER
+========================= */
 
 .header{
 position:sticky;
@@ -50,7 +64,10 @@ color:#1877f2;
 line-height:1;
 }
 
-/* MAIN */
+
+/* =========================
+   MAIN
+========================= */
 
 .container{
 max-width:720px;
@@ -58,7 +75,10 @@ margin:18px auto;
 padding:0 10px;
 }
 
-/* CARD */
+
+/* =========================
+   CARD
+========================= */
 
 .card{
 background:#fff;
@@ -68,7 +88,10 @@ margin-bottom:18px;
 box-shadow:0 2px 7px rgba(0,0,0,.12);
 }
 
-/* YOUTUBE */
+
+/* =========================
+   YOUTUBE BUTTON
+========================= */
 
 .youtube-card{
 padding:38px 35px;
@@ -78,60 +101,24 @@ padding:38px 35px;
 display:block;
 width:100%;
 background:#ff0000;
-color:white;
+color:#fff;
 text-align:center;
 text-decoration:none;
 font-size:27px;
 font-weight:bold;
 padding:23px 10px;
 border-radius:15px;
+transition:.2s;
 }
 
-/* ABOUT */
-
-.card-title{
-color:#1877f2;
-font-size:38px;
-font-weight:bold;
-margin:0 0 25px 0;
+.youtube-btn:hover{
+opacity:.9;
 }
 
-.card-text{
-font-size:27px;
-line-height:1.75;
-color:#555;
-margin:0;
-}
 
-/* CONTACT */
-
-.contact-buttons{
-display:flex;
-justify-content:center;
-gap:18px;
-margin-top:25px;
-flex-wrap:wrap;
-}
-
-.contact-btn{
-display:inline-block;
-padding:16px 32px;
-border-radius:35px;
-color:white;
-text-decoration:none;
-font-size:21px;
-font-weight:bold;
-}
-
-.facebook{
-background:#1877f2;
-}
-
-.youtube{
-background:#ff0000;
-}
-
-/* POSTS */
+/* =========================
+   POSTS
+========================= */
 
 .post{
 background:#fff;
@@ -144,7 +131,7 @@ box-shadow:0 2px 7px rgba(0,0,0,.12);
 .post h2{
 color:#1877f2;
 font-size:27px;
-margin-top:0;
+margin:0 0 15px 0;
 }
 
 .post p{
@@ -152,6 +139,7 @@ font-size:20px;
 line-height:1.7;
 color:#444;
 white-space:pre-wrap;
+margin:0;
 }
 
 .post img{
@@ -159,6 +147,7 @@ width:100%;
 display:block;
 border-radius:12px;
 margin-top:15px;
+height:auto;
 }
 
 .post video{
@@ -168,6 +157,11 @@ border-radius:12px;
 margin-top:15px;
 background:#000;
 }
+
+
+/* =========================
+   YOUTUBE VIDEO
+========================= */
 
 .youtube-video{
 position:relative;
@@ -188,7 +182,73 @@ height:100%;
 border:0;
 }
 
-/* LOADING */
+
+/* =========================
+   ABOUT
+========================= */
+
+.card-title{
+color:#1877f2;
+font-size:38px;
+font-weight:bold;
+margin:0 0 25px 0;
+}
+
+.card-text{
+font-size:27px;
+line-height:1.75;
+color:#555;
+margin:0;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-buttons{
+display:flex;
+justify-content:center;
+gap:18px;
+margin-top:25px;
+flex-wrap:wrap;
+}
+
+.contact-btn{
+display:inline-block;
+padding:16px 32px;
+border-radius:35px;
+color:#fff;
+text-decoration:none;
+font-size:21px;
+font-weight:bold;
+}
+
+.facebook{
+background:#1877f2;
+}
+
+.youtube{
+background:#ff0000;
+}
+
+
+/* =========================
+   EXTRA INFORMATION
+========================= */
+
+.info-list{
+margin-top:20px;
+padding-left:25px;
+font-size:20px;
+line-height:1.9;
+color:#555;
+}
+
+
+/* =========================
+   LOADING
+========================= */
 
 .loading{
 text-align:center;
@@ -197,7 +257,10 @@ color:#777;
 padding:20px;
 }
 
-/* FOOTER */
+
+/* =========================
+   FOOTER
+========================= */
 
 .footer{
 text-align:center;
@@ -220,12 +283,19 @@ font-size:18px;
 margin:0 5px;
 }
 
+.footer a:hover{
+text-decoration:underline;
+}
+
 .footer-copy{
 margin:0;
 font-size:18px;
 }
 
-/* MOBILE */
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px){
 
@@ -263,6 +333,14 @@ font-size:20px;
 padding:15px 28px;
 }
 
+.post h2{
+font-size:25px;
+}
+
+.post p{
+font-size:19px;
+}
+
 }
 
 </style>
@@ -273,7 +351,9 @@ padding:15px 28px;
 <body>
 
 
-<!-- HEADER -->
+<!-- =========================
+     HEADER
+========================= -->
 
 <header class="header">
 
@@ -288,10 +368,13 @@ Beshno Blog
 </header>
 
 
+
 <main class="container">
 
 
-<!-- YOUTUBE -->
+<!-- =========================
+     YOUTUBE CHANNEL
+========================= -->
 
 <section class="card youtube-card">
 
@@ -299,14 +382,19 @@ Beshno Blog
 class="youtube-btn"
 href="https://www.youtube.com/@beshnobloge"
 target="_blank"
-rel="noopener">
+rel="noopener noreferrer">
+
 YouTube Channel দেখুন
+
 </a>
 
 </section>
 
 
-<!-- POSTS -->
+
+<!-- =========================
+     FIREBASE POSTS
+========================= -->
 
 <div id="posts">
 
@@ -317,7 +405,10 @@ YouTube Channel দেখুন
 </div>
 
 
-<!-- ABOUT -->
+
+<!-- =========================
+     ABOUT
+========================= -->
 
 <section class="card">
 
@@ -326,15 +417,36 @@ YouTube Channel দেখুন
 </h1>
 
 <p class="card-text">
+
 Beshno Blog-এ বিভিন্ন ধরনের লেখা, খবর,
 ছবি এবং ভিডিও প্রকাশ করা হয়। নিয়মিত নতুন
 পোস্ট পেতে আমাদের সাথে থাকুন।
+
 </p>
+
+<ul class="info-list">
+
+<li>
+নিয়মিত নতুন কনটেন্ট প্রকাশ
+</li>
+
+<li>
+বাংলা লেখা, ছবি ও ভিডিও
+</li>
+
+<li>
+তথ্যভিত্তিক ও বিনোদনমূলক কনটেন্ট
+</li>
+
+</ul>
 
 </section>
 
 
-<!-- CONTACT -->
+
+<!-- =========================
+     CONTACT
+========================= -->
 
 <section class="card">
 
@@ -343,19 +455,24 @@ Beshno Blog-এ বিভিন্ন ধরনের লেখা, খবর,
 </h1>
 
 <p class="card-text">
-আমাদের সাথে যোগাযোগ ও আপডেট পেতে Facebook
-এবং YouTube Channel অনুসরণ করুন।
+
+আমাদের সাথে যোগাযোগ ও আপডেট পেতে
+Facebook এবং YouTube Channel অনুসরণ করুন।
+
 </p>
 
 
 <div class="contact-buttons">
 
+
 <a
 class="contact-btn facebook"
 href="https://www.facebook.com/profile.php?id=61593040285317"
 target="_blank"
-rel="noopener">
+rel="noopener noreferrer">
+
 Facebook
+
 </a>
 
 
@@ -363,9 +480,12 @@ Facebook
 class="contact-btn youtube"
 href="https://www.youtube.com/@beshnobloge"
 target="_blank"
-rel="noopener">
+rel="noopener noreferrer">
+
 YouTube
+
 </a>
+
 
 </div>
 
@@ -375,7 +495,10 @@ YouTube
 </main>
 
 
-<!-- FOOTER -->
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer class="footer">
 
@@ -407,19 +530,24 @@ Terms &amp; Conditions
 
 
 <p class="footer-copy">
+
 © 2026 Beshno Blog. All Rights Reserved.
+
 </p>
 
 </footer>
 
 
 
-<!-- FIREBASE -->
+<!-- =========================
+     FIREBASE
+========================= -->
 
 <script type="module">
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 
 import {
 getFirestore,
@@ -431,7 +559,10 @@ getDocs
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-/* FIREBASE CONFIG */
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
 
 const firebaseConfig = {
 
@@ -459,41 +590,108 @@ measurementId:
 };
 
 
-const app = initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
+const app =
+initializeApp(firebaseConfig);
 
 
-/* POSTS */
+const db =
+getFirestore(app);
+
+
+
+/* =========================
+   POSTS BOX
+========================= */
 
 const postsBox =
 document.getElementById("posts");
 
 
+
+/* =========================
+   YOUTUBE ID
+========================= */
+
 function youtubeId(url){
 
-if(!url) return null;
+if(!url){
+return null;
+}
+
 
 let match =
 url.match(
 /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/
 );
 
+
 return match ? match[1] : null;
 
 }
 
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value){
+
+return String(value)
+
+.replace(/&/g,"&amp;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/'/g,"&#039;");
+
+}
+
+
+
+/* =========================
+   ESCAPE ATTRIBUTE
+========================= */
+
+function escapeAttribute(value){
+
+return String(value)
+
+.replace(/&/g,"&amp;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;");
+
+}
+
+
+
+/* =========================
+   SHOW POST
+========================= */
 
 function showPost(data){
 
 const post =
 document.createElement("article");
 
+
 post.className="post";
 
 
 let html="";
 
+
+
+/* TITLE */
 
 if(data.title){
 
@@ -503,12 +701,16 @@ html +=
 }
 
 
+
+/* TEXT */
+
 if(data.text){
 
 html +=
 `<p>${escapeHTML(data.text)}</p>`;
 
 }
+
 
 
 /* IMAGE */
@@ -524,6 +726,7 @@ loading="lazy">`;
 }
 
 
+
 /* VIDEO */
 
 if(data.videoUrl){
@@ -532,13 +735,17 @@ html +=
 `<video
 controls
 preload="metadata">
+
 <source
 src="${escapeAttribute(data.videoUrl)}"
 type="video/mp4">
+
 আপনার ব্রাউজার ভিডিওটি চালাতে পারছে না।
+
 </video>`;
 
 }
+
 
 
 /* YOUTUBE */
@@ -548,95 +755,108 @@ if(data.youtubeUrl){
 const id =
 youtubeId(data.youtubeUrl);
 
+
 if(id){
 
 html +=
-`<div class="youtube-video">
+`
+<div class="youtube-video">
 
 <iframe
+
 src="https://www.youtube.com/embed/${id}"
-title="YouTube video"
+
+title="Beshno Blog YouTube Video"
+
+loading="lazy"
+
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+
 allowfullscreen>
+
 </iframe>
 
-</div>`;
+</div>
+`;
 
 }
 
 }
+
 
 
 post.innerHTML=html;
+
 
 postsBox.appendChild(post);
 
 }
 
 
-/* SECURITY */
 
-function escapeHTML(value){
-
-return String(value)
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-
-}
-
-
-function escapeAttribute(value){
-
-return String(value)
-.replace(/"/g,"&quot;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;");
-
-}
-
-
-/* LOAD FIRESTORE POSTS */
+/* =========================
+   LOAD POSTS
+========================= */
 
 async function loadPosts(){
 
 try{
 
+
 const postsQuery =
+
 query(
+
 collection(db,"posts"),
+
 orderBy("createdAt","desc")
+
 );
+
+
 
 const snapshot =
 await getDocs(postsQuery);
 
 
+
 postsBox.innerHTML="";
 
+
+
+/* NO POSTS */
 
 if(snapshot.empty){
 
 postsBox.innerHTML=
 `
+
 <div class="card">
 
 <h2 style="color:#1877f2;">
+
 এখনও কোনো পোস্ট নেই
+
 </h2>
 
+
 <p class="card-text">
+
 নতুন পোস্ট খুব শীঘ্রই প্রকাশ করা হবে।
+
 </p>
 
 </div>
+
 `;
 
 return;
 
 }
 
+
+
+/* POSTS */
 
 snapshot.forEach((doc)=>{
 
@@ -645,29 +865,49 @@ showPost(doc.data());
 });
 
 
+
 }catch(error){
 
-console.error(error);
+
+console.error(
+"Firebase posts error:",
+error
+);
+
+
 
 postsBox.innerHTML=
 `
+
 <div class="card">
 
 <h2 style="color:#1877f2;">
+
 পোস্ট লোড করা যাচ্ছে না
+
 </h2>
 
-<p style="font-size:18px;color:#777;">
+
+<p style="
+font-size:18px;
+color:#777;
+">
+
 অনুগ্রহ করে কিছুক্ষণ পরে আবার চেষ্টা করুন।
+
 </p>
 
 </div>
+
 `;
 
 }
 
 }
 
+
+
+/* START */
 
 loadPosts();
 

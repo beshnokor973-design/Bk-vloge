@@ -1,45 +1,144 @@
-<!doctype html>
+```html
+<!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>আমার সম্পর্কে | Beshnobloge</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About Us | Beshno Blog</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial,"Noto Sans Bengali",sans-serif;
+background:#f0f2f5;
+color:#1c1e21;
+}
+
+.header{
+position:sticky;
+top:0;
+z-index:1000;
+height:60px;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 18px;
+box-shadow:0 1px 5px rgba(0,0,0,.15);
+}
+
+.logo{
+color:#1877f2;
+font-size:25px;
+font-weight:bold;
+}
+
+.menu{
+font-size:25px;
+color:#1877f2;
+}
+
+.container{
+max-width:700px;
+margin:18px auto;
+padding:0 10px;
+}
+
+.card{
+background:#fff;
+border-radius:14px;
+padding:20px;
+margin-bottom:15px;
+box-shadow:0 1px 4px rgba(0,0,0,.12);
+}
+
+h1,h2{
+margin-top:0;
+color:#1877f2;
+}
+
+p{
+line-height:1.8;
+}
+
+.back{
+display:inline-block;
+margin-top:15px;
+background:#1877f2;
+color:#fff;
+padding:10px 18px;
+border-radius:8px;
+text-decoration:none;
+}
+
+.footer{
+text-align:center;
+padding:25px 10px;
+color:#65676b;
+}
+
+.footer a{
+color:#1877f2;
+text-decoration:none;
+margin:0 5px;
+}
+</style>
 </head>
+
 <body>
 
-<header class="top">
-  <nav class="nav">
-    <a class="logo" href="index.html">Beshnobloge</a>
-    <div class="links">
-      <a href="index.html">হোম</a>
-      <a href="blog.html">ব্লগ</a>
-      <a href="contact.html">যোগাযোগ</a>
-    </div>
-  </nav>
+<header class="header">
+<div class="logo">Beshno Blog</div>
+<div class="menu">☰</div>
 </header>
 
 <main class="container">
-  <section class="card">
-    <h2>আমার সম্পর্কে</h2>
-    <p>
-      আমি Beshno Kor। Beshnobloge-এ আমি নিজের লেখা, অভিজ্ঞতা,
-      ভ্লগ ও বিভিন্ন অনলাইন কনটেন্ট শেয়ার করি।
-    </p>
-    <p>
-      এই সাইটের উদ্দেশ্য হলো সহজভাবে তথ্য ও নতুন কনটেন্ট পাঠকদের কাছে
-      পৌঁছে দেওয়া।
-    </p>
-  </section>
+
+<div class="card">
+
+<h1>About Us</h1>
+
+<p>
+Beshno Blog একটি বাংলা অনলাইন ব্লগ ও তথ্যভিত্তিক ওয়েবসাইট।
+আমাদের উদ্দেশ্য হলো পাঠকদের জন্য সহজ ভাষায় দরকারি ও
+আকর্ষণীয় তথ্য এবং বিভিন্ন ধরনের কনটেন্ট প্রকাশ করা।
+</p>
+
+<p>
+আমরা নিয়মিত নতুন পোস্ট, ছবি, ভিডিও এবং অন্যান্য তথ্য প্রকাশ
+করার চেষ্টা করি।
+</p>
+
+<p>
+আমাদের লক্ষ্য হলো পাঠকদের জন্য একটি সহজ, পরিষ্কার ও
+ব্যবহারবান্ধব অনলাইন প্ল্যাটফর্ম তৈরি করা।
+</p>
+
+<p>
+Beshno Blog সম্পর্কে কোনো প্রশ্ন বা পরামর্শ থাকলে আমাদের
+সাথে যোগাযোগ করতে পারেন।
+</p>
+
+<a class="back" href="index.html">← Home</a>
+
+</div>
+
 </main>
 
-<footer>
-  <div class="links">
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms</a>
-  </div>
-  © 2026 Beshno Kor
+<footer class="footer">
+
+<a href="about.html">About</a> |
+<a href="contact.html">Contact</a> |
+<a href="privacy.html">Privacy</a> |
+<a href="terms.html">Terms</a>
+
+<p>© 2026 Beshno Blog</p>
+
 </footer>
 
 </body>
 </html>
+```

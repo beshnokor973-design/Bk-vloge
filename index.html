@@ -1,7 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="bn">
-<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6095712715510341"
-     crossorigin="anonymous"></script>
+<head>
+
+<script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6095712715510341"
+crossorigin="anonymous"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -119,6 +123,46 @@ body{
   background:#ff0000;
 }
 
+/* FOLLOW */
+
+.follow-btn{
+  display:inline-block;
+  margin-top:16px;
+  border:0;
+  background:#1877f2;
+  color:#fff;
+  padding:11px 28px;
+  border-radius:25px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.follow-btn.following{
+  background:#e4e6eb;
+  color:#1c1e21;
+}
+
+.follow-btn:disabled{
+  opacity:.6;
+}
+
+/* PROFILE STATS */
+
+.profile-stats{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-top:15px;
+  color:#65676b;
+  font-size:16px;
+}
+
+.profile-stat{
+  font-weight:bold;
+}
+
 /* SECTION TITLE */
 
 .section-title{
@@ -143,6 +187,7 @@ body{
   padding:20px;
   margin-bottom:18px;
   box-shadow:0 2px 8px rgba(0,0,0,.12);
+  cursor:pointer;
 }
 
 .post h2{
@@ -194,6 +239,90 @@ body{
   width:100%;
   height:100%;
   border:0;
+}
+
+/* POST STATS */
+
+.post-stats{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:14px;
+  padding-top:10px;
+  color:#65676b;
+  font-size:14px;
+  border-top:1px solid #eee;
+}
+
+.post-actions{
+  display:flex;
+  gap:6px;
+  margin-top:8px;
+  padding-top:8px;
+  border-top:1px solid #ddd;
+}
+
+.post-action{
+  flex:1;
+  border:0;
+  background:transparent;
+  color:#65676b;
+  padding:10px 5px;
+  border-radius:8px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.post-action:hover{
+  background:#f0f2f5;
+}
+
+.post-action.liked{
+  color:#1877f2;
+}
+
+.post-action:disabled{
+  opacity:.6;
+}
+
+/* COMMENTS */
+
+.comment-box{
+  display:none;
+  margin-top:10px;
+  gap:7px;
+}
+
+.comment-box input{
+  flex:1;
+  min-width:0;
+  border:1px solid #ccd0d5;
+  border-radius:20px;
+  padding:10px 14px;
+  font-size:15px;
+  outline:none;
+}
+
+.comment-box button{
+  border:0;
+  background:#1877f2;
+  color:#fff;
+  border-radius:20px;
+  padding:9px 15px;
+  cursor:pointer;
+}
+
+.comments-list{
+  margin-top:8px;
+}
+
+.comment-item{
+  background:#f0f2f5;
+  border-radius:12px;
+  padding:8px 12px;
+  margin-top:6px;
+  font-size:15px;
 }
 
 /* LOADING */
@@ -253,6 +382,55 @@ body{
   color:#666;
   font-size:16px;
   margin:15px 0 0;
+}
+
+/* FULL POST VIEW */
+
+.post-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  background:rgba(0,0,0,.72);
+  overflow-y:auto;
+  padding:20px 10px;
+}
+
+.post-modal.show{
+  display:block;
+}
+
+.post-modal-card{
+  position:relative;
+  width:min(720px,100%);
+  margin:20px auto;
+  background:#fff;
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 8px 30px rgba(0,0,0,.35);
+}
+
+.post-modal-close{
+  position:absolute;
+  top:10px;
+  right:12px;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:#f0f2f5;
+  color:#333;
+  font-size:25px;
+  cursor:pointer;
+}
+
+.post-modal-content h2{
+  padding-right:45px;
+}
+
+.post-modal-content img,
+.post-modal-content video{
+  max-height:none;
 }
 
 /* MOBILE */
@@ -322,142 +500,29 @@ body{
     font-size:18px;
   }
 
-}
+  .post-action{
+    font-size:14px;
+    padding:9px 2px;
+  }
 
+  .follow-btn{
+    font-size:16px;
+  }
 
-/* FOLLOW + POST ACTIONS */
-.follow-btn{
-  display:inline-block;
-  margin-top:16px;
-  border:0;
-  background:#1877f2;
-  color:#fff;
-  padding:11px 28px;
-  border-radius:25px;
-  font-size:17px;
-  font-weight:bold;
-  cursor:pointer;
-}
-.follow-btn.following{
-  background:#e4e6eb;
-  color:#1c1e21;
-}
-.post-actions{
-  display:flex;
-  gap:6px;
-  margin-top:16px;
-  padding-top:10px;
-  border-top:1px solid #ddd;
-}
-.post-action{
-  flex:1;
-  border:0;
-  background:transparent;
-  color:#65676b;
-  padding:10px 5px;
-  border-radius:8px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
-.post-action:hover{background:#f0f2f5}
-.post-action.liked{color:#1877f2}
-.comment-box{
-  display:none;
-  margin-top:10px;
-  gap:7px;
-}
-.comment-box input{
-  flex:1;
-  min-width:0;
-  border:1px solid #ccd0d5;
-  border-radius:20px;
-  padding:10px 14px;
-  font-size:15px;
-  outline:none;
-}
-.comment-box button{
-  border:0;
-  background:#1877f2;
-  color:#fff;
-  border-radius:20px;
-  padding:9px 15px;
-  cursor:pointer;
-}
-.comments-list{margin-top:8px}
-.comment-item{
-  background:#f0f2f5;
-  border-radius:12px;
-  padding:8px 12px;
-  margin-top:6px;
-  font-size:15px;
-}
-.action-count{font-weight:normal;margin-left:3px}
-@media(max-width:600px){
-  .post-action{font-size:14px;padding:9px 2px}
-  .follow-btn{font-size:16px}
-}
+  .post-stats{
+    font-size:12px;
+  }
 
-
-/* FULL POST VIEW */
-.post{
-  cursor:pointer;
-}
-.post-actions,
-.comment-box,
-.comments-list{
-  cursor:default;
-}
-.post-modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:3000;
-  background:rgba(0,0,0,.72);
-  overflow-y:auto;
-  padding:20px 10px;
-}
-.post-modal.show{
-  display:block;
-}
-.post-modal-card{
-  position:relative;
-  width:min(720px,100%);
-  margin:20px auto;
-  background:#fff;
-  border-radius:16px;
-  padding:20px;
-  box-shadow:0 8px 30px rgba(0,0,0,.35);
-}
-.post-modal-close{
-  position:absolute;
-  top:10px;
-  right:12px;
-  width:38px;
-  height:38px;
-  border:0;
-  border-radius:50%;
-  background:#f0f2f5;
-  color:#333;
-  font-size:25px;
-  cursor:pointer;
-}
-.post-modal-content h2{
-  padding-right:45px;
-}
-.post-modal-content img,
-.post-modal-content video{
-  max-height:none;
-}
-@media(max-width:600px){
   .post-modal{
     padding:8px;
   }
+
   .post-modal-card{
     margin:5px auto;
     padding:16px;
     border-radius:14px;
   }
+
 }
 
 </style>
@@ -524,7 +589,22 @@ body{
 
   </div>
 
-  <button class="follow-btn" id="followBtn" type="button">➕ Follow</button>
+  <button
+    class="follow-btn"
+    id="followBtn"
+    type="button">
+
+    ➕ Follow
+
+  </button>
+
+  <div class="profile-stats">
+
+    <span class="profile-stat">
+      👤 <span id="followerCount">0</span> Followers
+    </span>
+
+  </div>
 
 </section>
 
@@ -623,14 +703,30 @@ body{
 </footer>
 
 
-
 <!-- FULL POST MODAL -->
+
 <div class="post-modal" id="postModal">
-  <div class="post-modal-card" id="postModalCard">
-    <button class="post-modal-close" id="postModalClose" type="button">×</button>
-    <div class="post-modal-content" id="postModalContent"></div>
+
+  <div class="post-modal-card">
+
+    <button
+      class="post-modal-close"
+      id="postModalClose"
+      type="button">
+
+      ×
+
+    </button>
+
+    <div
+      class="post-modal-content"
+      id="postModalContent">
+    </div>
+
   </div>
+
 </div>
+
 
 <!-- FIREBASE -->
 
@@ -644,15 +740,21 @@ import {
   collection,
   query,
   orderBy,
-  getDocs
+  getDocs,
+  doc,
+  getDoc,
+  setDoc,
+  runTransaction
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
+/* FIREBASE CONFIG */
+
 const firebaseConfig = {
 
   apiKey:
-  "AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
+  "AIzaSyBVOlLubebOhWgYOHW8gYOHwSt7bNkUbqTS_QFu4",
 
   authDomain:
   "beshno-blog.firebaseapp.com",
@@ -675,12 +777,23 @@ const firebaseConfig = {
 };
 
 
-const app = initializeApp(firebaseConfig);
+/* START FIREBASE */
 
-const db = getFirestore(app);
+const app =
+  initializeApp(firebaseConfig);
+
+const db =
+  getFirestore(app);
+
 
 const postsBox =
-document.getElementById("posts");
+  document.getElementById("posts");
+
+const followBtn =
+  document.getElementById("followBtn");
+
+const followerCount =
+  document.getElementById("followerCount");
 
 
 /* YOUTUBE ID */
@@ -691,11 +804,14 @@ function youtubeId(url){
     return null;
   }
 
-  const match = url.match(
-    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/
-  );
+  const match =
+    url.match(
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/
+    );
 
-  return match ? match[1] : null;
+  return match
+    ? match[1]
+    : null;
 
 }
 
@@ -725,44 +841,278 @@ function escapeAttribute(value){
 }
 
 
+/* ========================= */
+/* FOLLOWER */
+/* ========================= */
+
+async function loadFollowers(){
+
+  try{
+
+    const statsRef =
+      doc(
+        db,
+        "siteStats",
+        "main"
+      );
+
+    const snap =
+      await getDoc(statsRef);
+
+
+    if(snap.exists()){
+
+      followerCount.textContent =
+        Number(
+          snap.data().followers || 0
+        );
+
+    }else{
+
+      await setDoc(
+        statsRef,
+        {
+          followers:0
+        }
+      );
+
+      followerCount.textContent = "0";
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Follower error:",
+      error
+    );
+
+  }
+
+}
+
+
+function updateFollowButton(){
+
+  const following =
+    localStorage.getItem(
+      "beshno_following"
+    ) === "1";
+
+
+  followBtn.textContent =
+    following
+      ? "✓ Following"
+      : "➕ Follow";
+
+
+  followBtn.classList.toggle(
+    "following",
+    following
+  );
+
+}
+
+
+followBtn.addEventListener(
+  "click",
+  async ()=>{
+
+    const following =
+      localStorage.getItem(
+        "beshno_following"
+      ) === "1";
+
+
+    const statsRef =
+      doc(
+        db,
+        "siteStats",
+        "main"
+      );
+
+
+    followBtn.disabled = true;
+
+
+    try{
+
+      await runTransaction(
+        db,
+        async(transaction)=>{
+
+          const snap =
+            await transaction.get(
+              statsRef
+            );
+
+
+          let followers =
+            snap.exists()
+              ? Number(
+                  snap.data().followers || 0
+                )
+              : 0;
+
+
+          if(following){
+
+            followers =
+              Math.max(
+                0,
+                followers - 1
+              );
+
+          }else{
+
+            followers += 1;
+
+          }
+
+
+          transaction.set(
+            statsRef,
+            {
+              followers:followers
+            },
+            {
+              merge:true
+            }
+          );
+
+        }
+      );
+
+
+      if(following){
+
+        localStorage.removeItem(
+          "beshno_following"
+        );
+
+      }else{
+
+        localStorage.setItem(
+          "beshno_following",
+          "1"
+        );
+
+      }
+
+
+      await loadFollowers();
+
+      updateFollowButton();
+
+
+    }catch(error){
+
+      console.error(
+        "Follow error:",
+        error
+      );
+
+      alert(
+        "Follow করা যায়নি। আবার চেষ্টা করুন।"
+      );
+
+    }
+
+
+    followBtn.disabled = false;
+
+  }
+);
+
+
+updateFollowButton();
+
+loadFollowers();
+
+
+/* ========================= */
 /* SHOW POST */
+/* ========================= */
 
-function showPost(data){
+function showPost(data,postId){
 
-  const post = document.createElement("article");
+  const post =
+    document.createElement(
+      "article"
+    );
+
   post.className = "post";
+
 
   let html = "";
 
+
   if(data.title){
-    html += `<h2>${escapeHTML(data.title)}</h2>`;
+
+    html += `
+      <h2>
+        ${escapeHTML(data.title)}
+      </h2>
+    `;
+
   }
+
 
   if(data.text){
-    html += `<p>${escapeHTML(data.text)}</p>`;
+
+    html += `
+      <p>
+        ${escapeHTML(data.text)}
+      </p>
+    `;
+
   }
+
 
   if(data.imageUrl){
+
     html += `
-      <img src="${escapeAttribute(data.imageUrl)}"
-           alt="Beshno Blog" loading="lazy">
+      <img
+        src="${escapeAttribute(data.imageUrl)}"
+        alt="Beshno Blog"
+        loading="lazy">
     `;
+
   }
+
 
   if(data.videoUrl){
+
     html += `
-      <video controls preload="metadata">
-        <source src="${escapeAttribute(data.videoUrl)}" type="video/mp4">
+      <video
+        controls
+        preload="metadata">
+
+        <source
+          src="${escapeAttribute(data.videoUrl)}"
+          type="video/mp4">
+
         আপনার ব্রাউজার ভিডিওটি চালাতে পারছে না।
+
       </video>
     `;
+
   }
 
+
   if(data.youtubeUrl){
-    const id = youtubeId(data.youtubeUrl);
+
+    const id =
+      youtubeId(
+        data.youtubeUrl
+      );
+
+
     if(id){
+
       html += `
         <div class="youtube-video">
+
           <iframe
             src="https://www.youtube.com/embed/${id}"
             title="Beshno Blog YouTube Video"
@@ -770,196 +1120,738 @@ function showPost(data){
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen>
           </iframe>
+
         </div>
       `;
+
     }
+
   }
+
 
   html += `
-    <div class="post-actions">
-      <button class="post-action like-btn" type="button">
-        👍 Like <span class="action-count like-count">0</span>
-      </button>
-      <button class="post-action comment-btn" type="button">
-        💬 Comment
-      </button>
-      <button class="post-action share-btn" type="button">
-        ↗️ Share
-      </button>
+
+    <div class="post-stats">
+
+      <span>
+        👍 <span class="like-count">0</span> Likes
+      </span>
+
+      <span>
+        💬 <span class="comment-count">0</span> Comments
+      </span>
+
+      <span>
+        ↗️ <span class="share-count">0</span> Shares
+      </span>
+
     </div>
+
+
+    <div class="post-actions">
+
+      <button
+        class="post-action like-btn"
+        type="button">
+
+        👍 Like
+
+      </button>
+
+      <button
+        class="post-action comment-btn"
+        type="button">
+
+        💬 Comment
+
+      </button>
+
+      <button
+        class="post-action share-btn"
+        type="button">
+
+        ↗️ Share
+
+      </button>
+
+    </div>
+
 
     <div class="comment-box">
-      <input type="text" class="comment-input" maxlength="300"
-             placeholder="আপনার মন্তব্য লিখুন...">
-      <button class="comment-submit" type="button">Post</button>
+
+      <input
+        type="text"
+        class="comment-input"
+        maxlength="300"
+        placeholder="আপনার মন্তব্য লিখুন...">
+
+      <button
+        class="comment-submit"
+        type="button">
+
+        Post
+
+      </button>
+
     </div>
 
+
     <div class="comments-list"></div>
+
   `;
 
+
   post.innerHTML = html;
+
   postsBox.appendChild(post);
 
-  /* CLICK POST TO VIEW FULL */
-  post.addEventListener("click", ()=>{
-    openFullPost(post);
-  });
 
-  /* These controls should work normally without opening the modal */
-  post.querySelector(".post-actions").addEventListener("click", (e)=>{
-    e.stopPropagation();
-  });
+  /* OPEN FULL POST */
 
-  post.querySelector(".comment-box").addEventListener("click", (e)=>{
-    e.stopPropagation();
-  });
+  post.addEventListener(
+    "click",
+    ()=>{
+      openFullPost(post);
+    }
+  );
 
-  post.querySelector(".comments-list").addEventListener("click", (e)=>{
-    e.stopPropagation();
-  });
 
-  post.querySelectorAll("video, iframe").forEach(media=>{
-    media.addEventListener("click", (e)=>{
+  /* STOP BUTTON CLICK */
+
+  post.querySelector(
+    ".post-actions"
+  ).addEventListener(
+    "click",
+    e=>{
       e.stopPropagation();
-    });
-  });
-
-  const keyBase = "beshno_" + (
-    data.id ||
-    data.createdAt?.seconds ||
-    (data.title || "post")
+    }
   );
 
-  const likeBtn = post.querySelector(".like-btn");
-  const commentBtn = post.querySelector(".comment-btn");
-  const commentBox = post.querySelector(".comment-box");
-  const commentInput = post.querySelector(".comment-input");
-  const commentSubmit = post.querySelector(".comment-submit");
-  const commentsList = post.querySelector(".comments-list");
-  const shareBtn = post.querySelector(".share-btn");
 
-  let liked = localStorage.getItem(keyBase + "_liked") === "1";
-  let likes = Number(localStorage.getItem(keyBase + "_likes") || "0");
-  let comments = JSON.parse(
-    localStorage.getItem(keyBase + "_comments") || "[]"
+  post.querySelector(
+    ".comment-box"
+  ).addEventListener(
+    "click",
+    e=>{
+      e.stopPropagation();
+    }
   );
 
-  function renderLike(){
-    likeBtn.innerHTML = liked
-      ? `👍 Liked <span class="action-count like-count">${likes}</span>`
-      : `👍 Like <span class="action-count like-count">${likes}</span>`;
-    likeBtn.classList.toggle("liked", liked);
-  }
 
-  function renderComments(){
-    commentsList.innerHTML = comments.map(text =>
-      `<div class="comment-item">💬 ${escapeHTML(text)}</div>`
-    ).join("");
-  }
+  post.querySelector(
+    ".comments-list"
+  ).addEventListener(
+    "click",
+    e=>{
+      e.stopPropagation();
+    }
+  );
 
-  likeBtn.addEventListener("click", ()=>{
-    liked = !liked;
-    likes += liked ? 1 : -1;
-    if(likes < 0) likes = 0;
-    localStorage.setItem(keyBase + "_liked", liked ? "1" : "0");
-    localStorage.setItem(keyBase + "_likes", String(likes));
-    renderLike();
-  });
 
-  commentBtn.addEventListener("click", ()=>{
-    commentBox.style.display =
-      commentBox.style.display === "flex" ? "none" : "flex";
-    if(commentBox.style.display === "flex") commentInput.focus();
-  });
+  post.querySelectorAll(
+    "video,iframe"
+  ).forEach(
+    media=>{
 
-  function addComment(){
-    const text = commentInput.value.trim();
-    if(!text) return;
-    comments.push(text);
-    localStorage.setItem(
-      keyBase + "_comments",
-      JSON.stringify(comments)
+      media.addEventListener(
+        "click",
+        e=>{
+          e.stopPropagation();
+        }
+      );
+
+    }
+  );
+
+
+  const statsRef =
+    doc(
+      db,
+      "postStats",
+      postId
     );
-    commentInput.value = "";
-    renderComments();
-  }
 
-  commentSubmit.addEventListener("click", addComment);
 
-  commentInput.addEventListener("keydown", e=>{
-    if(e.key === "Enter") addComment();
-  });
+  const keyBase =
+    "beshno_" + postId;
 
-  shareBtn.addEventListener("click", async ()=>{
-    const shareData = {
-      title: data.title || "Beshno Blog",
-      text: data.text || "Beshno Blog-এর একটি পোস্ট",
-      url: window.location.href
-    };
+
+  const likeBtn =
+    post.querySelector(
+      ".like-btn"
+    );
+
+
+  const commentBtn =
+    post.querySelector(
+      ".comment-btn"
+    );
+
+
+  const shareBtn =
+    post.querySelector(
+      ".share-btn"
+    );
+
+
+  const commentBox =
+    post.querySelector(
+      ".comment-box"
+    );
+
+
+  const commentInput =
+    post.querySelector(
+      ".comment-input"
+    );
+
+
+  const commentSubmit =
+    post.querySelector(
+      ".comment-submit"
+    );
+
+
+  const commentsList =
+    post.querySelector(
+      ".comments-list"
+    );
+
+
+  const likeCount =
+    post.querySelector(
+      ".like-count"
+    );
+
+
+  const commentCount =
+    post.querySelector(
+      ".comment-count"
+    );
+
+
+  const shareCount =
+    post.querySelector(
+      ".share-count"
+    );
+
+
+  let liked =
+    localStorage.getItem(
+      keyBase + "_liked"
+    ) === "1";
+
+
+  /* LOAD STATS */
+
+  async function loadStats(){
 
     try{
-      if(navigator.share){
-        await navigator.share(shareData);
+
+      const snap =
+        await getDoc(
+          statsRef
+        );
+
+
+      if(snap.exists()){
+
+        const stats =
+          snap.data();
+
+
+        likeCount.textContent =
+          Number(
+            stats.likes || 0
+          );
+
+
+        commentCount.textContent =
+          Number(
+            stats.comments || 0
+          );
+
+
+        shareCount.textContent =
+          Number(
+            stats.shares || 0
+          );
+
       }else{
-        await navigator.clipboard.writeText(window.location.href);
-        shareBtn.textContent = "✅ Link Copied";
-        setTimeout(()=>{
-          shareBtn.textContent = "↗️ Share";
-        },1800);
+
+        await setDoc(
+          statsRef,
+          {
+            likes:0,
+            comments:0,
+            shares:0
+          },
+          {
+            merge:true
+          }
+        );
+
       }
+
     }catch(error){
-      console.log("Share cancelled");
+
+      console.error(
+        "Post stats error:",
+        error
+      );
+
     }
-  });
 
-  renderLike();
-  renderComments();
-}
-
-
-
-/* FOLLOW BUTTON */
-const followBtn = document.getElementById("followBtn");
-
-function updateFollowButton(){
-  const following =
-    localStorage.getItem("beshno_following") === "1";
-
-  followBtn.textContent =
-    following ? "✓ Following" : "➕ Follow";
-
-  followBtn.classList.toggle("following", following);
-}
-
-followBtn.addEventListener("click", ()=>{
-  const following =
-    localStorage.getItem("beshno_following") === "1";
-
-  if(following){
-    localStorage.removeItem("beshno_following");
-  }else{
-    localStorage.setItem("beshno_following","1");
   }
 
-  updateFollowButton();
-});
 
-updateFollowButton();
+  /* LIKE */
 
-/* LOAD FIREBASE POSTS */
+  likeBtn.addEventListener(
+    "click",
+    async ()=>{
+
+      likeBtn.disabled = true;
+
+
+      try{
+
+        await runTransaction(
+          db,
+          async(transaction)=>{
+
+            const snap =
+              await transaction.get(
+                statsRef
+              );
+
+
+            let likes =
+              snap.exists()
+                ? Number(
+                    snap.data().likes || 0
+                  )
+                : 0;
+
+
+            if(liked){
+
+              likes =
+                Math.max(
+                  0,
+                  likes - 1
+                );
+
+            }else{
+
+              likes += 1;
+
+            }
+
+
+            transaction.set(
+              statsRef,
+              {
+                likes:likes
+              },
+              {
+                merge:true
+              }
+            );
+
+          }
+        );
+
+
+        liked = !liked;
+
+
+        if(liked){
+
+          localStorage.setItem(
+            keyBase + "_liked",
+            "1"
+          );
+
+        }else{
+
+          localStorage.removeItem(
+            keyBase + "_liked"
+          );
+
+        }
+
+
+        renderLike();
+
+        await loadStats();
+
+
+      }catch(error){
+
+        console.error(
+          "Like error:",
+          error
+        );
+
+      }
+
+
+      likeBtn.disabled = false;
+
+    }
+  );
+
+
+  function renderLike(){
+
+    likeBtn.textContent =
+      liked
+        ? "👍 Liked"
+        : "👍 Like";
+
+
+    likeBtn.classList.toggle(
+      "liked",
+      liked
+    );
+
+  }
+
+
+  /* COMMENT */
+
+  commentBtn.addEventListener(
+    "click",
+    ()=>{
+
+      commentBox.style.display =
+        commentBox.style.display === "flex"
+          ? "none"
+          : "flex";
+
+
+      if(
+        commentBox.style.display === "flex"
+      ){
+
+        commentInput.focus();
+
+      }
+
+    }
+  );
+
+
+  function addComment(){
+
+    const text =
+      commentInput.value.trim();
+
+
+    if(!text){
+      return;
+    }
+
+
+    commentInput.value = "";
+
+
+    const item =
+      document.createElement(
+        "div"
+      );
+
+
+    item.className =
+      "comment-item";
+
+
+    item.innerHTML =
+      "💬 " + escapeHTML(text);
+
+
+    commentsList.appendChild(
+      item
+    );
+
+
+    runTransaction(
+      db,
+      async(transaction)=>{
+
+        const snap =
+          await transaction.get(
+            statsRef
+          );
+
+
+        let comments =
+          snap.exists()
+            ? Number(
+                snap.data().comments || 0
+              )
+            : 0;
+
+
+        comments += 1;
+
+
+        transaction.set(
+          statsRef,
+          {
+            comments:comments
+          },
+          {
+            merge:true
+          }
+        );
+
+      }
+    )
+    .then(
+      loadStats
+    )
+    .catch(
+      error=>{
+        console.error(
+          "Comment error:",
+          error
+        );
+      }
+    );
+
+  }
+
+
+  commentSubmit.addEventListener(
+    "click",
+    addComment
+  );
+
+
+  commentInput.addEventListener(
+    "keydown",
+    e=>{
+
+      if(e.key === "Enter"){
+
+        addComment();
+
+      }
+
+    }
+  );
+
+
+  /* SHARE */
+
+  shareBtn.addEventListener(
+    "click",
+    async ()=>{
+
+      const shareData = {
+
+        title:
+          data.title ||
+          "Beshno Blog",
+
+        text:
+          data.text ||
+          "Beshno Blog-এর একটি পোস্ট",
+
+        url:
+          window.location.href
+
+      };
+
+
+      try{
+
+        if(navigator.share){
+
+          await navigator.share(
+            shareData
+          );
+
+        }else{
+
+          await navigator.clipboard.writeText(
+            window.location.href
+          );
+
+          shareBtn.textContent =
+            "✅ Link Copied";
+
+          setTimeout(
+            ()=>{
+              shareBtn.textContent =
+                "↗️ Share";
+            },
+            1800
+          );
+
+        }
+
+
+        await runTransaction(
+          db,
+          async(transaction)=>{
+
+            const snap =
+              await transaction.get(
+                statsRef
+              );
+
+
+            let shares =
+              snap.exists()
+                ? Number(
+                    snap.data().shares || 0
+                  )
+                : 0;
+
+
+            shares += 1;
+
+
+            transaction.set(
+              statsRef,
+              {
+                shares:shares
+              },
+              {
+                merge:true
+              }
+            );
+
+          }
+        );
+
+
+        await loadStats();
+
+
+      }catch(error){
+
+        console.log(
+          "Share cancelled"
+        );
+
+      }
+
+    }
+  );
+
+
+  renderLike();
+
+  loadStats();
+
+}
+
+
+/* ========================= */
+/* FULL POST */
+/* ========================= */
+
+function openFullPost(post){
+
+  const modal =
+    document.getElementById(
+      "postModal"
+    );
+
+
+  const content =
+    document.getElementById(
+      "postModalContent"
+    );
+
+
+  if(!modal || !content){
+    return;
+  }
+
+
+  content.innerHTML =
+    post.innerHTML;
+
+
+  modal.classList.add(
+    "show"
+  );
+
+}
+
+
+/* CLOSE MODAL */
+
+const postModal =
+  document.getElementById(
+    "postModal"
+  );
+
+
+const postModalClose =
+  document.getElementById(
+    "postModalClose"
+  );
+
+
+postModalClose.addEventListener(
+  "click",
+  ()=>{
+    postModal.classList.remove(
+      "show"
+    );
+  }
+);
+
+
+postModal.addEventListener(
+  "click",
+  e=>{
+
+    if(
+      e.target === postModal
+    ){
+
+      postModal.classList.remove(
+        "show"
+      );
+
+    }
+
+  }
+);
+
+
+/* ========================= */
+/* LOAD POSTS */
+/* ========================= */
 
 async function loadPosts(){
 
   try{
 
     const postsQuery =
-    query(
-      collection(db,"posts"),
-      orderBy("createdAt","desc")
-    );
+      query(
+        collection(
+          db,
+          "posts"
+        ),
+        orderBy(
+          "createdAt",
+          "desc"
+        )
+      );
+
 
     const snapshot =
-    await getDocs(postsQuery);
+      await getDocs(
+        postsQuery
+      );
 
 
     postsBox.innerHTML = "";
@@ -988,11 +1880,16 @@ async function loadPosts(){
     }
 
 
-    snapshot.forEach((doc)=>{
+    snapshot.forEach(
+      firebaseDoc=>{
 
-      showPost(doc.data());
+        showPost(
+          firebaseDoc.data(),
+          firebaseDoc.id
+        );
 
-    });
+      }
+    );
 
 
   }catch(error){
@@ -1030,3 +1927,4 @@ loadPosts();
 
 </body>
 </html>
+```

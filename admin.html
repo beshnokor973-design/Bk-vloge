@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
@@ -7,7 +7,6 @@
 <title>Beshno Blog | Admin</title>
 
 <style>
-
 *{
   box-sizing:border-box;
 }
@@ -42,7 +41,7 @@ body{
   box-shadow:0 2px 8px rgba(0,0,0,.12);
 }
 
-h1,h2{
+h2{
   margin-top:0;
 }
 
@@ -74,8 +73,8 @@ button{
   cursor:pointer;
 }
 
-button:hover{
-  opacity:.9;
+button:disabled{
+  opacity:.6;
 }
 
 .logout{
@@ -150,7 +149,6 @@ button:hover{
   font-size:14px;
   line-height:1.6;
 }
-
 </style>
 </head>
 
@@ -160,9 +158,7 @@ button:hover{
   🔐 Beshno Blog Admin
 </div>
 
-
 <div class="container">
-
 
 <!-- LOGIN -->
 
@@ -184,7 +180,6 @@ Admin Email
   placeholder="Admin Email"
 >
 
-
 <label class="label">
 Password
 </label>
@@ -195,7 +190,6 @@ Password
   placeholder="Password"
 >
 
-
 <button id="loginBtn">
 Login
 </button>
@@ -203,7 +197,6 @@ Login
 <div id="loginMessage" class="message"></div>
 
 </section>
-
 
 
 <!-- ADMIN PANEL -->
@@ -222,7 +215,6 @@ Login
   placeholder="যেমন: আজকের নতুন খবর"
 >
 
-
 <label class="label">
 পোস্টের লেখা
 </label>
@@ -233,6 +225,7 @@ Login
 ></textarea>
 
 
+<!-- IMAGE -->
 
 <label class="label">
 🖼️ ছবি Upload
@@ -251,6 +244,7 @@ Login
 >
 
 
+<!-- VIDEO -->
 
 <label class="label">
 🎬 ভিডিও Upload
@@ -269,6 +263,7 @@ Login
 ></video>
 
 
+<!-- YOUTUBE -->
 
 <label class="label">
 ▶️ YouTube Video URL
@@ -280,17 +275,23 @@ Login
   placeholder="https://www.youtube.com/watch?v=..."
 >
 
-
 <p class="note">
 একটি পোস্টে ছবি, ভিডিও অথবা YouTube ভিডিও দিতে পারো।
 শুধু লেখা পোস্টও করা যাবে।
 </p>
 
 
+<!-- PROGRESS -->
+
 <div class="progress" id="progress">
-  <div class="progress-bar" id="progressBar"></div>
+  <div
+    class="progress-bar"
+    id="progressBar">
+  </div>
 </div>
 
+
+<!-- PUBLISH -->
 
 <button
   class="publish"
@@ -298,12 +299,13 @@ Login
 🚀 Publish Post
 </button>
 
-
 <div
   id="postMessage"
   class="message">
 </div>
 
+
+<!-- LOGOUT -->
 
 <button
   class="logout"
@@ -316,8 +318,11 @@ Logout
 </div>
 
 
-
 <script type="module">
+
+/* =========================
+   FIREBASE IMPORT
+========================= */
 
 import {
   initializeApp
@@ -337,48 +342,64 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
-
-
-/* FIREBASE */
+/* =========================
+   FIREBASE CONFIG
+========================= */
 
 const firebaseConfig = {
 
-  apiKey:"AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
+  apiKey:
+    "AIzaSyBVOlLubebOhWgYOHwSt7bNkUbqTS_QFu4",
 
-  authDomain:"beshno-blog.firebaseapp.com",
+  authDomain:
+    "beshno-blog.firebaseapp.com",
 
-  projectId:"beshno-blog",
+  projectId:
+    "beshno-blog",
 
-  storageBucket:"beshno-blog.firebasestorage.app",
+  storageBucket:
+    "beshno-blog.firebasestorage.app",
 
-  messagingSenderId:"1070244747427",
+  messagingSenderId:
+    "1070244747427",
 
-  appId:"1:1070244747427:web:0acbf8b3b60cb9121a8716",
+  appId:
+    "1:1070244747427:web:0acbf8b3b60cb9121a8716",
 
-  measurementId:"G-VWZZ6YXSPP"
-
+  measurementId:
+    "G-VWZZ6YXSPP"
 };
 
 
+/* =========================
+   INITIALIZE FIREBASE
+========================= */
 
-const app = initializeApp(firebaseConfig);
+const app =
+  initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const auth =
+  getAuth(app);
 
-const db = getFirestore(app);
-
-const storage = getStorage(app);
-
+const db =
+  getFirestore(app);
 
 
-/* ELEMENTS */
+/* =========================
+   CLOUDINARY
+========================= */
+
+const CLOUDINARY_CLOUD_NAME =
+  "jikzu2ve";
+
+const CLOUDINARY_UPLOAD_PRESET =
+  "beshno_blog_upload";
+
+
+/* =========================
+   ELEMENTS
+========================= */
 
 const loginBox =
   document.getElementById("loginBox");
@@ -420,8 +441,9 @@ const progressBar =
   document.getElementById("progressBar");
 
 
-
-/* LOGIN */
+/* =========================
+   LOGIN
+========================= */
 
 loginBtn.addEventListener(
   "click",
@@ -429,7 +451,8 @@ loginBtn.addEventListener(
 
     const email =
       document.getElementById("email")
-      .value.trim();
+      .value
+      .trim();
 
     const password =
       document.getElementById("password")
@@ -445,7 +468,6 @@ loginBtn.addEventListener(
       );
 
       return;
-
     }
 
 
@@ -463,6 +485,11 @@ loginBtn.addEventListener(
         password
       );
 
+      showMessage(
+        loginMessage,
+        "✅ Login সফল হয়েছে।",
+        "success"
+      );
 
     }catch(error){
 
@@ -487,8 +514,9 @@ loginBtn.addEventListener(
 );
 
 
-
-/* AUTH CHECK */
+/* =========================
+   AUTH CHECK
+========================= */
 
 onAuthStateChanged(
   auth,
@@ -516,8 +544,9 @@ onAuthStateChanged(
 );
 
 
-
-/* LOGOUT */
+/* =========================
+   LOGOUT
+========================= */
 
 logoutBtn.addEventListener(
   "click",
@@ -529,8 +558,9 @@ logoutBtn.addEventListener(
 );
 
 
-
-/* IMAGE PREVIEW */
+/* =========================
+   IMAGE PREVIEW
+========================= */
 
 imageFile.addEventListener(
   "change",
@@ -544,8 +574,9 @@ imageFile.addEventListener(
       imagePreview.style.display =
         "none";
 
-      return;
+      imagePreview.src = "";
 
+      return;
     }
 
 
@@ -559,8 +590,9 @@ imageFile.addEventListener(
 );
 
 
-
-/* VIDEO PREVIEW */
+/* =========================
+   VIDEO PREVIEW
+========================= */
 
 videoFile.addEventListener(
   "change",
@@ -574,8 +606,9 @@ videoFile.addEventListener(
       videoPreview.style.display =
         "none";
 
-      return;
+      videoPreview.src = "";
 
+      return;
     }
 
 
@@ -589,82 +622,135 @@ videoFile.addEventListener(
 );
 
 
+/* =========================
+   CLOUDINARY UPLOAD
+========================= */
 
-/* UPLOAD FILE */
-
-function uploadFile(file,path){
+function uploadToCloudinary(file){
 
   return new Promise(
-    (resolve,reject) => {
+    (resolve, reject) => {
 
-      const fileName =
-        Date.now() +
-        "_" +
-        Math.random()
-          .toString(36)
-          .substring(2) +
-        "_" +
-        file.name;
+      const url =
+        "https://api.cloudinary.com/v1_1/" +
+        CLOUDINARY_CLOUD_NAME +
+        "/auto/upload";
 
 
-      const storageRef =
-        ref(
-          storage,
-          path + "/" + fileName
-        );
+      const formData =
+        new FormData();
+
+      formData.append(
+        "file",
+        file
+      );
+
+      formData.append(
+        "upload_preset",
+        CLOUDINARY_UPLOAD_PRESET
+      );
 
 
-      const uploadTask =
-        uploadBytesResumable(
-          storageRef,
-          file
-        );
+      const xhr =
+        new XMLHttpRequest();
 
 
-      uploadTask.on(
-
-        "state_changed",
-
-        snapshot => {
-
-          const percent =
-            (
-              snapshot.bytesTransferred /
-              snapshot.totalBytes
-            ) * 100;
+      xhr.open(
+        "POST",
+        url
+      );
 
 
-          progressBar.style.width =
-            percent + "%";
+      xhr.upload.addEventListener(
+        "progress",
+        event => {
 
-        },
+          if(event.lengthComputable){
 
-        error => {
-
-          reject(error);
-
-        },
-
-        async () => {
-
-          try{
-
-            const url =
-              await getDownloadURL(
-                uploadTask.snapshot.ref
+            const percent =
+              Math.round(
+                (
+                  event.loaded /
+                  event.total
+                ) * 100
               );
 
-            resolve(url);
-
-          }catch(error){
-
-            reject(error);
+            progressBar.style.width =
+              percent + "%";
 
           }
 
         }
-
       );
+
+
+      xhr.onload =
+        () => {
+
+          if(
+            xhr.status >= 200 &&
+            xhr.status < 300
+          ){
+
+            try{
+
+              const result =
+                JSON.parse(xhr.responseText);
+
+              resolve(
+                result.secure_url
+              );
+
+            }catch(error){
+
+              reject(error);
+
+            }
+
+          }else{
+
+            try{
+
+              const errorResult =
+                JSON.parse(
+                  xhr.responseText
+                );
+
+              reject(
+                new Error(
+                  errorResult.error?.message ||
+                  "Cloudinary upload failed"
+                )
+              );
+
+            }catch(error){
+
+              reject(
+                new Error(
+                  "Cloudinary upload failed"
+                )
+              );
+
+            }
+
+          }
+
+        };
+
+
+      xhr.onerror =
+        () => {
+
+          reject(
+            new Error(
+              "Network error during upload"
+            )
+          );
+
+        };
+
+
+      xhr.send(formData);
 
     }
   );
@@ -672,8 +758,9 @@ function uploadFile(file,path){
 }
 
 
-
-/* PUBLISH */
+/* =========================
+   PUBLISH POST
+========================= */
 
 publishBtn.addEventListener(
   "click",
@@ -681,15 +768,18 @@ publishBtn.addEventListener(
 
     const title =
       document.getElementById("title")
-      .value.trim();
+      .value
+      .trim();
 
     const text =
       document.getElementById("text")
-      .value.trim();
+      .value
+      .trim();
 
     const youtubeUrl =
       document.getElementById("youtubeUrl")
-      .value.trim();
+      .value
+      .trim();
 
     const image =
       imageFile.files[0];
@@ -723,7 +813,6 @@ publishBtn.addEventListener(
     publishBtn.textContent =
       "পোস্ট তৈরি হচ্ছে...";
 
-
     progress.style.display =
       "block";
 
@@ -733,12 +822,16 @@ publishBtn.addEventListener(
 
     try{
 
-      let imageUrl = null;
+      let imageUrl =
+        null;
 
-      let videoUrl = null;
+      let videoUrl =
+        null;
 
 
-      /* IMAGE */
+      /* =================
+         IMAGE UPLOAD
+      ================= */
 
       if(image){
 
@@ -746,51 +839,62 @@ publishBtn.addEventListener(
           "10%";
 
         imageUrl =
-          await uploadFile(
-            image,
-            "posts/images"
+          await uploadToCloudinary(
+            image
           );
 
       }
 
 
-      /* VIDEO */
+      /* =================
+         VIDEO UPLOAD
+      ================= */
 
       if(video){
 
         progressBar.style.width =
-          "40%";
+          "50%";
 
         videoUrl =
-          await uploadFile(
-            video,
-            "posts/videos"
+          await uploadToCloudinary(
+            video
           );
 
       }
 
 
+      /* =================
+         FIRESTORE
+      ================= */
+
       progressBar.style.width =
-        "80%";
+        "85%";
 
-
-      /* FIRESTORE */
 
       await addDoc(
-        collection(db,"posts"),
+        collection(
+          db,
+          "posts"
+        ),
         {
 
-          title:title,
+          title:
+            title,
 
-          text:text,
+          text:
+            text,
 
-          imageUrl:imageUrl,
+          imageUrl:
+            imageUrl,
 
-          videoUrl:videoUrl,
+          videoUrl:
+            videoUrl,
 
-          youtubeUrl:youtubeUrl,
+          youtubeUrl:
+            youtubeUrl,
 
-          author:"Beshno Blog",
+          author:
+            "Beshno Blog",
 
           createdAt:
             serverTimestamp()
@@ -810,24 +914,34 @@ publishBtn.addEventListener(
       );
 
 
-      /* CLEAR */
+      /* =================
+         CLEAR FORM
+      ================= */
 
-      document.getElementById("title")
-        .value = "";
+      document.getElementById(
+        "title"
+      ).value = "";
 
-      document.getElementById("text")
-        .value = "";
+      document.getElementById(
+        "text"
+      ).value = "";
 
-      document.getElementById("youtubeUrl")
-        .value = "";
+      document.getElementById(
+        "youtubeUrl"
+      ).value = "";
+
 
       imageFile.value = "";
 
       videoFile.value = "";
 
-      imagePreview.src = "";
 
-      videoPreview.src = "";
+      imagePreview.src =
+        "";
+
+      videoPreview.src =
+        "";
+
 
       imagePreview.style.display =
         "none";
@@ -860,8 +974,9 @@ publishBtn.addEventListener(
 );
 
 
-
-/* MESSAGE */
+/* =========================
+   MESSAGE
+========================= */
 
 function showMessage(
   element,

@@ -1,947 +1,334 @@
-```html
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+from pathlib import Path
+import re
 
-<title>Beshno Blog | Official</title>
+src = Path("/mnt/data/index (2)(3).html")
+html = src.read_text(encoding="utf-8")
 
-<style>
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  font-family:Arial,"Noto Sans Bengali",sans-serif;
-  background:#f0f2f5;
-  color:#1c1e21;
-}
-
-.header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  height:64px;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 18px;
-  box-shadow:0 1px 5px rgba(0,0,0,.15);
-}
-
-.logo{
-  color:#1877f2;
-  font-size:24px;
-  font-weight:bold;
-}
-
-.menu{
-  font-size:25px;
-  color:#1877f2;
-}
-
-.container{
-  max-width:700px;
-  margin:18px auto;
-  padding:0 10px;
-}
-
-/* PROFILE */
-
-.profile-card{
-  background:#fff;
-  border-radius:14px;
-  padding:22px;
-  margin-bottom:18px;
-  text-align:center;
-  box-shadow:0 1px 4px rgba(0,0,0,.12);
-}
-
-.profile-pic{
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  object-fit:cover;
-  border:4px solid #1877f2;
-}
-
-.profile-name{
-  font-size:24px;
-  font-weight:bold;
-  margin:12px 0 5px;
-}
-
-.profile-text{
-  color:#65676b;
-  margin-bottom:15px;
-}
-
-/* SOCIAL */
-
-.social-links{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:15px;
-}
-
-.social-btn{
-  text-decoration:none;
-  padding:9px 15px;
-  border-radius:8px;
-  font-weight:bold;
-}
-
-.facebook{
-  background:#1877f2;
-  color:white;
-}
-
-.youtube{
-  background:#ff0000;
-  color:white;
-}
-
-/* FOLLOW */
-
-.follow-box{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:12px;
-}
-
+# Add styles for Follow + post action buttons
+css_add = r'''
+/* FOLLOW + POST ACTIONS */
 .follow-btn{
+  display:inline-block;
+  margin-top:16px;
   border:0;
   background:#1877f2;
-  color:white;
-  padding:10px 24px;
+  color:#fff;
+  padding:11px 28px;
+  border-radius:25px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.follow-btn.following{
+  background:#e4e6eb;
+  color:#1c1e21;
+}
+.post-actions{
+  display:flex;
+  gap:6px;
+  margin-top:16px;
+  padding-top:10px;
+  border-top:1px solid #ddd;
+}
+.post-action{
+  flex:1;
+  border:0;
+  background:transparent;
+  color:#65676b;
+  padding:10px 5px;
   border-radius:8px;
   font-size:16px;
   font-weight:bold;
   cursor:pointer;
 }
-
-.follow-btn.following{
-  background:#e4e6eb;
-  color:#050505;
+.post-action:hover{background:#f0f2f5}
+.post-action.liked{color:#1877f2}
+.comment-box{
+  display:none;
+  margin-top:10px;
+  gap:7px;
 }
-
-#followerCount{
-  color:#65676b;
-  font-size:14px;
-}
-
-/* POST */
-
-.post{
-  background:#fff;
-  border-radius:14px;
-  margin-bottom:18px;
-  overflow:hidden;
-  box-shadow:0 1px 4px rgba(0,0,0,.12);
-}
-
-.post-top{
-  display:flex;
-  align-items:center;
-  padding:15px 17px 8px;
-}
-
-.post-avatar{
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  object-fit:cover;
-  margin-right:10px;
-}
-
-.post-user{
-  font-weight:bold;
-}
-
-.post-date{
-  color:#65676b;
-  font-size:13px;
-  margin-top:3px;
-}
-
-.post-title{
-  padding:5px 17px 8px;
-  font-size:20px;
-  font-weight:bold;
-}
-
-.post-content{
-  padding:0 17px 15px;
-  line-height:1.7;
-  white-space:pre-wrap;
-}
-
-.post-image{
-  width:100%;
-  display:block;
-  max-height:650px;
-  object-fit:cover;
-}
-
-.post-video{
-  width:100%;
-  display:block;
-  background:#000;
-}
-
-.youtube-box{
-  width:100%;
-  aspect-ratio:16/9;
-}
-
-.youtube-box iframe{
-  width:100%;
-  height:100%;
-  border:0;
-}
-
-/* ACTIONS */
-
-.post-actions{
-  display:flex;
-  border-top:1px solid #ddd;
-}
-
-.post-actions button{
+.comment-box input{
   flex:1;
-  border:0;
-  background:white;
-  padding:13px 5px;
+  min-width:0;
+  border:1px solid #ccd0d5;
+  border-radius:20px;
+  padding:10px 14px;
   font-size:15px;
+  outline:none;
+}
+.comment-box button{
+  border:0;
+  background:#1877f2;
+  color:#fff;
+  border-radius:20px;
+  padding:9px 15px;
   cursor:pointer;
 }
-
-.post-actions button:hover{
+.comments-list{
+  margin-top:8px;
+}
+.comment-item{
   background:#f0f2f5;
+  border-radius:12px;
+  padding:8px 12px;
+  margin-top:6px;
+  font-size:15px;
 }
-
-/* LOADING */
-
-.loading{
-  background:#fff;
-  padding:25px;
-  text-align:center;
-  border-radius:14px;
-  color:#65676b;
+.action-count{
+  font-weight:normal;
+  margin-left:3px;
 }
-
-/* FOOTER */
-
-.footer{
-  text-align:center;
-  padding:25px 10px;
-  color:#65676b;
-  font-size:14px;
-}
-
-.footer a{
-  color:#1877f2;
-  text-decoration:none;
-  margin:0 5px;
-}
-
 @media(max-width:600px){
-
-  .header{
-    height:58px;
-  }
-
-  .logo{
-    font-size:21px;
-  }
-
-  .profile-card,
-  .post{
-    border-radius:10px;
-  }
-
+  .post-action{font-size:14px;padding:9px 2px}
+  .follow-btn{font-size:16px}
 }
-</style>
-</head>
+'''
+html = html.replace('</style>', css_add + '\n</style>', 1)
 
-<body>
-
-<header class="header">
-
-  <div class="logo">
-    Beshno Blog
-  </div>
-
-  <div class="menu">
-    ☰
-  </div>
-
-</header>
-
-
-<main class="container">
-
-<!-- PROFILE -->
-
-<section class="profile-card">
-
-  <!-- এখানে তোমার Profile Picture URL বসাও -->
-  <img
-    class="profile-pic"
-    src="https://via.placeholder.com/200"
-    alt="Beshno Blog"
-  >
-
-  <div class="profile-name">
-    Beshno Blog
-  </div>
-
-  <div class="profile-text">
-    Official Blog &amp; Media
-  </div>
-
-  <div class="social-links">
-
-    <a
-      class="social-btn facebook"
-      href="https://www.facebook.com/profile.php?id=61593040285317"
-      target="_blank"
-      rel="noopener noreferrer">
-      🔵 Facebook
-    </a>
-
-    <a
-      class="social-btn youtube"
-      href="https://www.youtube.com/@beshnobloge"
-      target="_blank"
-      rel="noopener noreferrer">
-      🔴 YouTube
-    </a>
+# Add Follow button below social buttons
+old_profile = '''    </a>
 
   </div>
 
-  <div class="follow-box">
-
-    <button
-      id="followBtn"
-      class="follow-btn"
-      onclick="toggleFollow()">
-      ➕ Follow
-    </button>
-
-    <span id="followerCount">
-      0 followers
-    </span>
+</section>'''
+new_profile = '''    </a>
 
   </div>
 
-</section>
+  <button class="follow-btn" id="followBtn" type="button">
+    ➕ Follow
+  </button>
 
+</section>'''
+html = html.replace(old_profile, new_profile, 1)
 
-<!-- FIREBASE POSTS -->
+# Replace showPost function with version that includes actions
+start = html.index('  function showPost(data){')
+end = html.index('\n\n}\n\n\n[L', start) if '\n\n}\n\n\n[L' in html[start:] else -1
 
-<section id="posts">
+# Since original has no literal [L] markers in actual file, find next LOAD FIREBASE comment
+if end == -1:
+    end = html.index('\n\n  /* LOAD FIREBASE POSTS */', start)
 
-  <div class="loading">
-    ⏳ পোস্ট লোড হচ্ছে...
-  </div>
+new_show = r'''  function showPost(data){
 
-</section>
+    const post = document.createElement("article");
+    post.className = "post";
 
-</main>
+    let html = "";
 
-
-<footer class="footer">
-
-  <a href="about.html">About Us</a>
-  |
-  <a href="contact.html">Contact Us</a>
-  |
-  <a href="privacy.html">Privacy Policy</a>
-  |
-  <a href="terms.html">Terms &amp; Conditions</a>
-
-  <br><br>
-
-  © 2026 Beshno Blog. All rights reserved.
-
-</footer>
-
-
-<!-- FIREBASE -->
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  query,
-  orderBy
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-/*
-========================================
-তোমার Firebase Config এখানে বসাও
-========================================
-*/
-
-const firebaseConfig = {
-
-  apiKey: "YOUR_API_KEY",
-
-  authDomain:
-    "beshno-blog.firebaseapp.com",
-
-  projectId:
-    "beshno-blog",
-
-  storageBucket:
-    "beshno-blog.firebasestorage.app",
-
-  messagingSenderId:
-    "1070244747427",
-
-  appId:
-    "YOUR_APP_ID"
-
-};
-
-
-const app =
-  initializeApp(firebaseConfig);
-
-const db =
-  getFirestore(app);
-
-
-/*
-========================================
-POST LOAD
-========================================
-*/
-
-async function loadPosts(){
-
-  const postsBox =
-    document.getElementById("posts");
-
-  try{
-
-    const postsQuery =
-      query(
-        collection(db,"posts"),
-        orderBy("createdAt","desc")
-      );
-
-    const snapshot =
-      await getDocs(postsQuery);
-
-
-    postsBox.innerHTML = "";
-
-
-    if(snapshot.empty){
-
-      postsBox.innerHTML = `
-        <div class="loading">
-          এখনো কোনো পোস্ট নেই।
-        </div>
-      `;
-
-      return;
-    }
-
-
-    snapshot.forEach((doc)=>{
-
-      const post =
-        doc.data();
-
-      createPost(post);
-
-    });
-
-
-  }catch(error){
-
-    console.error(error);
-
-    postsBox.innerHTML = `
-      <div class="loading">
-        ❌ পোস্ট লোড করা যাচ্ছে না।<br><br>
-        Firebase Firestore Rules এবং Config চেক করো।
-      </div>
-    `;
-
-  }
-
-}
-
-
-/*
-========================================
-CREATE POST
-========================================
-*/
-
-function createPost(post){
-
-  const postsBox =
-    document.getElementById("posts");
-
-
-  const article =
-    document.createElement("article");
-
-  article.className = "post";
-
-
-  /* DATE */
-
-  let dateText = "";
-
-  if(post.createdAt){
-
-    try{
-
-      dateText =
-        post.createdAt.toDate()
-        .toLocaleString("bn-BD");
-
-    }catch(e){
-
-      dateText = "";
-
-    }
-
-  }
-
-
-  let html = `
-
-    <div class="post-top">
-
-      <img
-        class="post-avatar"
-        src="https://via.placeholder.com/100"
-        alt="Beshno Blog">
-
-      <div>
-
-        <div class="post-user">
-          Beshno Blog
-        </div>
-
-        <div class="post-date">
-          ${dateText}
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-
-  /* TITLE */
-
-  if(post.title){
-
-    html += `
-      <div class="post-title">
-        ${escapeHTML(post.title)}
-      </div>
-    `;
-
-  }
-
-
-  /* CONTENT */
-
-  if(post.content){
-
-    html += `
-      <div class="post-content">
-        ${escapeHTML(post.content)}
-      </div>
-    `;
-
-  }
-
-
-  /* IMAGE */
-
-  if(post.imageUrl){
-
-    html += `
-      <img
-        class="post-image"
-        src="${escapeAttribute(post.imageUrl)}"
-        alt="Post Image"
-        loading="lazy">
-    `;
-
-  }
-
-
-  /* VIDEO */
-
-  if(post.videoUrl){
-
-    html += `
-      <video
-        class="post-video"
-        controls
-        preload="metadata">
-
-        <source
-          src="${escapeAttribute(post.videoUrl)}">
-
-        তোমার ব্রাউজার ভিডিও চালাতে পারছে না।
-
-      </video>
-    `;
-
-  }
-
-
-  /* YOUTUBE */
-
-  if(post.youtubeUrl){
-
-    const youtubeID =
-      getYouTubeID(post.youtubeUrl);
-
-
-    if(youtubeID){
-
+    /* TITLE */
+    if(data.title){
       html += `
-
-        <div class="youtube-box">
-
-          <iframe
-            src="https://www.youtube.com/embed/${youtubeID}"
-            title="YouTube video"
-            allowfullscreen>
-          </iframe>
-
-        </div>
-
+        <h2>${escapeHTML(data.title)}</h2>
       `;
-
     }
 
-  }
-
-
-  /* BUTTONS */
-
-  html += `
-
-    <div class="post-actions">
-
-      <button
-        onclick="likePost(this)">
-        👍 Like
-      </button>
-
-      <button
-        onclick="sharePost()">
-        ↗ Share
-      </button>
-
-    </div>
-
-  `;
-
-
-  article.innerHTML =
-    html;
-
-  postsBox.appendChild(article);
-
-}
-
-
-/*
-========================================
-YOUTUBE ID
-========================================
-*/
-
-function getYouTubeID(url){
-
-  try{
-
-    const u =
-      new URL(url);
-
-
-    if(u.hostname.includes("youtu.be")){
-
-      return u.pathname.substring(1);
-
+    /* TEXT */
+    if(data.text){
+      html += `
+        <p>${escapeHTML(data.text)}</p>
+      `;
     }
 
+    /* IMAGE */
+    if(data.imageUrl){
+      html += `
+        <img
+          src="${escapeAttribute(data.imageUrl)}"
+          alt="Beshno Blog"
+          loading="lazy">
+      `;
+    }
 
-    if(u.hostname.includes("youtube.com")){
+    /* VIDEO */
+    if(data.videoUrl){
+      html += `
+        <video controls preload="metadata">
+          <source
+            src="${escapeAttribute(data.videoUrl)}"
+            type="video/mp4">
+          আপনার ব্রাউজার ভিডিওটি চালাতে পারছে না।
+        </video>
+      `;
+    }
 
-      if(u.searchParams.get("v")){
+    /* YOUTUBE */
+    if(data.youtubeUrl){
+      const id = youtubeId(data.youtubeUrl);
 
-        return u.searchParams.get("v");
-
+      if(id){
+        html += `
+          <div class="youtube-video">
+            <iframe
+              src="https://www.youtube.com/embed/${id}"
+              title="Beshno Blog YouTube Video"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+        `;
       }
-
-
-      const parts =
-        u.pathname.split("/");
-
-
-      const index =
-        parts.indexOf("shorts");
-
-
-      if(index !== -1){
-
-        return parts[index + 1];
-
-      }
-
     }
 
-  }catch(e){
+    /* POST ACTIONS */
+    html += `
+      <div class="post-actions">
+        <button class="post-action like-btn" type="button">
+          👍 Like <span class="action-count like-count">0</span>
+        </button>
+        <button class="post-action comment-btn" type="button">
+          💬 Comment
+        </button>
+        <button class="post-action share-btn" type="button">
+          ↗️ Share
+        </button>
+      </div>
 
-    return null;
+      <div class="comment-box">
+        <input type="text" class="comment-input" maxlength="300"
+          placeholder="আপনার মন্তব্য লিখুন...">
+        <button class="comment-submit" type="button">Post</button>
+      </div>
 
-  }
+      <div class="comments-list"></div>
+    `;
 
-  return null;
+    post.innerHTML = html;
+    postsBox.appendChild(post);
 
-}
-
-
-/*
-========================================
-SECURITY
-========================================
-*/
-
-function escapeHTML(text){
-
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-function escapeAttribute(text){
-
-  return String(text)
-    .replace(/"/g,"&quot;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
-
-}
-
-
-/*
-========================================
-FOLLOW
-========================================
-*/
-
-let following =
-  localStorage.getItem(
-    "beshno_following"
-  ) === "true";
-
-
-let followers =
-  parseInt(
-    localStorage.getItem(
-      "beshno_followers"
-    ) || "0"
-  );
-
-
-function updateFollow(){
-
-  const btn =
-    document.getElementById(
-      "followBtn"
+    const keyBase = "beshno_" + (
+      data.id ||
+      data.createdAt?.seconds ||
+      (data.title || "post")
     );
 
-  const count =
-    document.getElementById(
-      "followerCount"
-    );
+    const likeBtn = post.querySelector(".like-btn");
+    const likeCount = post.querySelector(".like-count");
+    const commentBtn = post.querySelector(".comment-btn");
+    const commentBox = post.querySelector(".comment-box");
+    const commentInput = post.querySelector(".comment-input");
+    const commentSubmit = post.querySelector(".comment-submit");
+    const commentsList = post.querySelector(".comments-list");
+    const shareBtn = post.querySelector(".share-btn");
 
+    let liked = localStorage.getItem(keyBase + "_liked") === "1";
+    let likes = Number(localStorage.getItem(keyBase + "_likes") || "0");
+    let comments = JSON.parse(localStorage.getItem(keyBase + "_comments") || "[]");
 
-  if(following){
-
-    btn.innerHTML =
-      "✓ Following";
-
-    btn.classList.add(
-      "following"
-    );
-
-  }else{
-
-    btn.innerHTML =
-      "➕ Follow";
-
-    btn.classList.remove(
-      "following"
-    );
-
-  }
-
-
-  count.innerHTML =
-    followers + " followers";
-
-}
-
-
-window.toggleFollow =
-function(){
-
-  if(!following){
-
-    following = true;
-
-    followers++;
-
-  }else{
-
-    following = false;
-
-    if(followers > 0){
-
-      followers--;
-
+    function renderLike(){
+      likeCount.textContent = likes;
+      likeBtn.classList.toggle("liked", liked);
+      likeBtn.innerHTML = liked
+        ? `👍 Liked <span class="action-count like-count">${likes}</span>`
+        : `👍 Like <span class="action-count like-count">${likes}</span>`;
     }
 
-  }
+    function renderComments(){
+      commentsList.innerHTML = comments.map(text =>
+        `<div class="comment-item">💬 ${escapeHTML(text)}</div>`
+      ).join("");
+    }
 
-
-  localStorage.setItem(
-    "beshno_following",
-    following
-  );
-
-
-  localStorage.setItem(
-    "beshno_followers",
-    followers
-  );
-
-
-  updateFollow();
-
-};
-
-
-updateFollow();
-
-
-/*
-========================================
-LIKE
-========================================
-*/
-
-window.likePost =
-function(button){
-
-  if(
-    button.dataset.liked === "true"
-  ){
-
-    button.dataset.liked =
-      "false";
-
-    button.innerHTML =
-      "👍 Like";
-
-  }else{
-
-    button.dataset.liked =
-      "true";
-
-    button.innerHTML =
-      "👍 Liked";
-
-  }
-
-};
-
-
-/*
-========================================
-SHARE
-========================================
-*/
-
-window.sharePost =
-function(){
-
-  if(navigator.share){
-
-    navigator.share({
-
-      title:
-        "Beshno Blog",
-
-      text:
-        "Beshno Blog-এর পোস্ট দেখুন",
-
-      url:
-        window.location.href
-
+    likeBtn.addEventListener("click", ()=>{
+      liked = !liked;
+      likes += liked ? 1 : -1;
+      if(likes < 0) likes = 0;
+      localStorage.setItem(keyBase + "_liked", liked ? "1" : "0");
+      localStorage.setItem(keyBase + "_likes", String(likes));
+      renderLike();
     });
 
-  }else{
+    commentBtn.addEventListener("click", ()=>{
+      commentBox.style.display =
+        commentBox.style.display === "flex" ? "none" : "flex";
+      if(commentBox.style.display === "flex") commentInput.focus();
+    });
 
-    navigator.clipboard.writeText(
-      window.location.href
-    );
+    function addComment(){
+      const text = commentInput.value.trim();
+      if(!text) return;
+      comments.push(text);
+      localStorage.setItem(keyBase + "_comments", JSON.stringify(comments));
+      commentInput.value = "";
+      renderComments();
+    }
 
-    alert(
-      "Post link copied!"
-    );
+    commentSubmit.addEventListener("click", addComment);
+    commentInput.addEventListener("keydown", e=>{
+      if(e.key === "Enter") addComment();
+    });
 
+    shareBtn.addEventListener("click", async ()=>{
+      const shareData = {
+        title: data.title || "Beshno Blog",
+        text: data.text || "Beshno Blog-এর একটি পোস্ট",
+        url: window.location.href
+      };
+
+      try{
+        if(navigator.share){
+          await navigator.share(shareData);
+        }else{
+          await navigator.clipboard.writeText(window.location.href);
+          shareBtn.textContent = "✅ Link Copied";
+          setTimeout(()=>{
+            shareBtn.textContent = "↗️ Share";
+          }, 1800);
+        }
+      }catch(error){
+        console.log("Share cancelled");
+      }
+    });
+
+    renderLike();
+    renderComments();
+  }'''
+html = html[:start] + new_show + html[end:]
+
+# Add follow logic before loadPosts()
+marker = '\n\n  /* LOAD FIREBASE POSTS */'
+follow_code = r'''
+  /* FOLLOW BUTTON */
+  const followBtn = document.getElementById("followBtn");
+
+  function updateFollowButton(){
+    const following = localStorage.getItem("beshno_following") === "1";
+    followBtn.textContent = following ? "✓ Following" : "➕ Follow";
+    followBtn.classList.toggle("following", following);
   }
 
-};
+  followBtn.addEventListener("click", ()=>{
+    const following = localStorage.getItem("beshno_following") === "1";
 
+    if(following){
+      localStorage.removeItem("beshno_following");
+    }else{
+      localStorage.setItem("beshno_following","1");
+    }
 
-/*
-========================================
-START
-========================================
-*/
+    updateFollowButton();
+  });
 
-loadPosts();
+  updateFollowButton();
+'''
+html = html.replace(marker, follow_code + marker, 1)
 
-</script>
+# Add a small note under the section title explaining local interaction behavior
+note = '''
+  <p style="margin:8px 0 0;color:#65676b;font-size:14px;">
+    👍 Like • 💬 Comment • ↗️ Share • ➕ Follow
+  </p>
+'''
+html = html.replace('''    📰 সর্বশেষ পোস্ট
+  </h2>''', '''    📰 সর্বশেষ পোস্ট
+  </h2>
+''' + note, 1)
 
-</body>
-</html>
-```
+out = Path("/mnt/data/Beshno_Blog_like_follow_comment_share.html")
+out.write_text(html, encoding="utf-8")
+
+print(f"তৈরি হয়েছে: {out}")
+print("যোগ করা হয়েছে: Follow, Like, Comment এবং Share button।")

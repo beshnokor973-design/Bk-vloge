@@ -87,6 +87,12 @@ button:disabled{
   margin-top:10px;
 }
 
+/* শুধু Delete button */
+.delete-post{
+  background:#e41e3f;
+  margin-top:10px;
+}
+
 .preview{
   width:100%;
   max-height:300px;
@@ -148,6 +154,45 @@ button:disabled{
   color:#65676b;
   font-size:14px;
   line-height:1.6;
+}
+
+/* Post list */
+.post-list{
+  margin-top:15px;
+}
+
+.post-item{
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:12px;
+}
+
+.post-title{
+  font-weight:bold;
+  font-size:17px;
+  margin-bottom:7px;
+}
+
+.post-text{
+  color:#555;
+  font-size:14px;
+  line-height:1.5;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+.empty-posts{
+  text-align:center;
+  color:#65676b;
+  padding:15px;
+}
+
+.section-line{
+  border:0;
+  border-top:1px solid #eee;
+  margin:22px 0;
 }
 </style>
 </head>
@@ -284,10 +329,12 @@ Login
 <!-- PROGRESS -->
 
 <div class="progress" id="progress">
+
   <div
     class="progress-bar"
     id="progressBar">
   </div>
+
 </div>
 
 
@@ -302,6 +349,29 @@ Login
 <div
   id="postMessage"
   class="message">
+</div>
+
+
+<!-- =========================
+     POST MANAGEMENT
+========================= -->
+
+<hr class="section-line">
+
+<h2>🗂️ প্রকাশিত পোস্ট</h2>
+
+<p class="note">
+আপনার প্রকাশিত পোস্টগুলো এখানে দেখা যাবে।
+</p>
+
+<div
+  id="postList"
+  class="post-list">
+
+  <div class="empty-posts">
+    পোস্ট লোড হচ্ছে...
+  </div>
+
 </div>
 
 
@@ -339,6 +409,9 @@ import {
   getFirestore,
   collection,
   addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
@@ -369,6 +442,7 @@ const firebaseConfig = {
 
   measurementId:
     "G-VWZZ6YXSPP"
+
 };
 
 
@@ -439,6 +513,9 @@ const progress =
 
 const progressBar =
   document.getElementById("progressBar");
+
+const postList =
+  document.getElementById("postList");
 
 
 /* =========================
@@ -530,6 +607,8 @@ onAuthStateChanged(
       adminPanel.style.display =
         "block";
 
+      loadPosts();
+
     }else{
 
       loginBox.style.display =
@@ -574,11 +653,11 @@ imageFile.addEventListener(
       imagePreview.style.display =
         "none";
 
-      imagePreview.src = "";
+      imagePreview.src =
+        "";
 
       return;
     }
-
 
     imagePreview.src =
       URL.createObjectURL(file);
@@ -606,11 +685,11 @@ videoFile.addEventListener(
       videoPreview.style.display =
         "none";
 
-      videoPreview.src = "";
+      videoPreview.src =
+        "";
 
       return;
     }
-
 
     videoPreview.src =
       URL.createObjectURL(file);
@@ -636,7 +715,6 @@ function uploadToCloudinary(file){
         CLOUDINARY_CLOUD_NAME +
         "/auto/upload";
 
-
       const formData =
         new FormData();
 
@@ -650,16 +728,13 @@ function uploadToCloudinary(file){
         CLOUDINARY_UPLOAD_PRESET
       );
 
-
       const xhr =
         new XMLHttpRequest();
-
 
       xhr.open(
         "POST",
         url
       );
-
 
       xhr.upload.addEventListener(
         "progress",
@@ -683,7 +758,6 @@ function uploadToCloudinary(file){
         }
       );
 
-
       xhr.onload =
         () => {
 
@@ -695,7 +769,9 @@ function uploadToCloudinary(file){
             try{
 
               const result =
-                JSON.parse(xhr.responseText);
+                JSON.parse(
+                  xhr.responseText
+                );
 
               resolve(
                 result.secure_url
@@ -737,7 +813,6 @@ function uploadToCloudinary(file){
 
         };
 
-
       xhr.onerror =
         () => {
 
@@ -748,7 +823,6 @@ function uploadToCloudinary(file){
           );
 
         };
-
 
       xhr.send(formData);
 
@@ -803,7 +877,6 @@ publishBtn.addEventListener(
       );
 
       return;
-
     }
 
 
@@ -829,10 +902,6 @@ publishBtn.addEventListener(
         null;
 
 
-      /* =================
-         IMAGE UPLOAD
-      ================= */
-
       if(image){
 
         progressBar.style.width =
@@ -846,10 +915,6 @@ publishBtn.addEventListener(
       }
 
 
-      /* =================
-         VIDEO UPLOAD
-      ================= */
-
       if(video){
 
         progressBar.style.width =
@@ -862,10 +927,6 @@ publishBtn.addEventListener(
 
       }
 
-
-      /* =================
-         FIRESTORE
-      ================= */
 
       progressBar.style.width =
         "85%";
@@ -914,10 +975,6 @@ publishBtn.addEventListener(
       );
 
 
-      /* =================
-         CLEAR FORM
-      ================= */
-
       document.getElementById(
         "title"
       ).value = "";
@@ -930,11 +987,11 @@ publishBtn.addEventListener(
         "youtubeUrl"
       ).value = "";
 
+      imageFile.value =
+        "";
 
-      imageFile.value = "";
-
-      videoFile.value = "";
-
+      videoFile.value =
+        "";
 
       imagePreview.src =
         "";
@@ -942,12 +999,14 @@ publishBtn.addEventListener(
       videoPreview.src =
         "";
 
-
       imagePreview.style.display =
         "none";
 
       videoPreview.style.display =
         "none";
+
+
+      await loadPosts();
 
 
     }catch(error){
@@ -975,6 +1034,219 @@ publishBtn.addEventListener(
 
 
 /* =========================
+   LOAD POSTS
+========================= */
+
+async function loadPosts(){
+
+  postList.innerHTML =
+    '<div class="empty-posts">পোস্ট লোড হচ্ছে...</div>';
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "posts"
+        )
+      );
+
+
+    if(snapshot.empty){
+
+      postList.innerHTML =
+        '<div class="empty-posts">এখন কোনো পোস্ট নেই।</div>';
+
+      return;
+    }
+
+
+    const posts =
+      snapshot.docs.map(
+        postDoc => ({
+
+          id:
+            postDoc.id,
+
+          ...postDoc.data()
+
+        })
+      );
+
+
+    posts.sort(
+      (a,b) => {
+
+        const aTime =
+          a.createdAt?.seconds || 0;
+
+        const bTime =
+          b.createdAt?.seconds || 0;
+
+        return bTime - aTime;
+
+      }
+    );
+
+
+    postList.innerHTML =
+      "";
+
+
+    posts.forEach(
+      post => {
+
+        const item =
+          document.createElement(
+            "div"
+          );
+
+        item.className =
+          "post-item";
+
+
+        const title =
+          document.createElement(
+            "div"
+          );
+
+        title.className =
+          "post-title";
+
+        title.textContent =
+          post.title ||
+          "শিরোনাম নেই";
+
+
+        const body =
+          document.createElement(
+            "div"
+          );
+
+        body.className =
+          "post-text";
+
+        body.textContent =
+          post.text ||
+          "শুধু ছবি/ভিডিও/YouTube পোস্ট";
+
+
+        const deleteBtn =
+          document.createElement(
+            "button"
+          );
+
+        deleteBtn.className =
+          "delete-post";
+
+        deleteBtn.textContent =
+          "🗑️ এই পোস্ট Delete";
+
+
+        deleteBtn.addEventListener(
+          "click",
+          async () => {
+
+            const confirmed =
+              confirm(
+                "⚠️ এই পোস্টটি স্থায়ীভাবে Delete করতে চান?"
+              );
+
+            if(!confirmed){
+              return;
+            }
+
+
+            deleteBtn.disabled =
+              true;
+
+            deleteBtn.textContent =
+              "Delete হচ্ছে...";
+
+
+            try{
+
+              await deleteDoc(
+                doc(
+                  db,
+                  "posts",
+                  post.id
+                )
+              );
+
+
+              showMessage(
+                postMessage,
+                "✅ পোস্টটি Delete হয়েছে।",
+                "success"
+              );
+
+
+              await loadPosts();
+
+
+            }catch(error){
+
+              console.error(error);
+
+              deleteBtn.disabled =
+                false;
+
+              deleteBtn.textContent =
+                "🗑️ এই পোস্ট Delete";
+
+
+              showMessage(
+                postMessage,
+                "❌ Delete করা যায়নি: " +
+                error.message,
+                "error"
+              );
+
+            }
+
+          }
+        );
+
+
+        item.appendChild(
+          title
+        );
+
+        item.appendChild(
+          body
+        );
+
+        item.appendChild(
+          deleteBtn
+        );
+
+
+        postList.appendChild(
+          item
+        );
+
+      }
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    postList.innerHTML =
+      '<div class="empty-posts">' +
+      'পোস্ট লোড করা যায়নি: ' +
+      error.message +
+      '</div>';
+
+  }
+
+}
+
+
+/* =========================
    MESSAGE
 ========================= */
 
@@ -988,7 +1260,8 @@ function showMessage(
     text;
 
   element.className =
-    "message " + type;
+    "message " +
+    type;
 
 }
 
